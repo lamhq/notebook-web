@@ -1,5 +1,8 @@
 import React from 'react';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../src/theme';
 import '../src/styles.css';
+
 // import { BrowserRouter as Router } from 'react-router-dom';
 // import { IdentityContext } from '../src/common/identity';
 // import { DialogProvider } from '../src/common/dialog';
@@ -38,6 +41,8 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <Story />
+    <ThemeProvider theme={theme}>
+      <Story />
+    </ThemeProvider>
   ),
 ];
