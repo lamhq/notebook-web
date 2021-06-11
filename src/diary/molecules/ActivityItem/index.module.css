@@ -1,0 +1,12 @@
+.content {
+  margin-bottom: 0.5rem;
+}
+
+.tagItem + .tagItem {
+  margin-left: 8px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}

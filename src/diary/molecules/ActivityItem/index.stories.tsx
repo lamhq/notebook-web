@@ -16,7 +16,7 @@ const Template: Story<ActivityItemProps> = (args) => {
 export const Default = Template.bind({});
 const model = {
   time: new Date(),
-  tags: [],
+  tags: ['play', 'gog'],
   income: 0,
   outcome: 0,
   content: 'abc\ndef\nghi',

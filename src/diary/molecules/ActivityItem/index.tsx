@@ -1,4 +1,6 @@
 import React from 'react';
+import { TagItem } from '../../../common/atoms/TagItem';
+import styles from './index.module.css';
 
 export interface Activity {
   content: string;
@@ -14,5 +16,17 @@ export interface ActivityItemProps {
 
 export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
   const html = model.content.replace('\n', '<br/>');
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <div>
+      <div className={styles.content} dangerouslySetInnerHTML={{ __html: html }} />
+      <div className={styles.footer}>
+        <div>12/100</div>
+        <div>
+          {model.tags.map((tag) => (
+            <TagItem label={tag} key={tag} className={styles.tagItem} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
