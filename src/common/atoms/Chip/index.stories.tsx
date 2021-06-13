@@ -1,15 +1,16 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { TagItem, TagItemProps } from '.';
+import { Chip, ChipProps } from '.';
 
 export default {
-  title: 'Atoms/TagItem',
-  component: TagItem,
+  title: 'Atoms/Chip',
+  component: Chip,
 } as Meta;
 
-const Template: Story<TagItemProps> = (args) => {
-  return <TagItem {...args} />;
+const Template: Story<ChipProps> = (args) => {
+  const { label } = args;
+  return <Chip label={label} />;
 };
 
 export const Default = Template.bind({});

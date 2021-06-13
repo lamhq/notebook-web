@@ -17,8 +17,8 @@ export const Default = Template.bind({});
 const model = {
   time: new Date(),
   tags: ['play', 'gog'],
-  income: 0,
-  outcome: 0,
+  income: 100.0,
+  outcome: 230.0,
   content: 'abc\ndef\nghi',
 };
 Default.args = { model };
