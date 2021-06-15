@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 });
 
 export interface TimeLabelProps {
-  time: Date;
+  time: string;
 }
 
 export const TimeLabel: React.VFC<TimeLabelProps> = ({ time }) => {
@@ -28,7 +28,7 @@ export const TimeLabel: React.VFC<TimeLabelProps> = ({ time }) => {
   return (
     <div className={classes.root}>
       <AccessTimeIcon classes={{ root: classes.icon }} />
-      <span className={classes.label}>{format(time, 'h:mm aaa')}</span>
+      <span className={classes.label}>{format(new Date(time), 'h:mm aaa')}</span>
     </div>
   );
 };

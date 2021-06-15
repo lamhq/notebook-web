@@ -1,11 +1,15 @@
 import React from 'react';
 import numeral from 'numeral';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import { Chip } from '../../../common/atoms/Chip';
 import { TimeLabel } from '../../atoms/TimeLabel';
+import { Activity } from '../../types/activity';
+import { ActivityMenu } from '../ActivityMenu';
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    backgroundColor: '#fff',
+  },
   content: () => ({
     margin: '0.5rem 0',
   }),
@@ -15,27 +19,24 @@ const useStyles = makeStyles((theme) => ({
   }),
   itemsContainer: () => ({
     display: 'inline-flex',
+    alignItems: 'center',
     flexWrap: 'wrap',
     gap: '8px',
   }),
+  chip: {
+    backgroundColor: 'transparent',
+    fontSize: '0.75rem',
+  },
   income: () => ({
-    backgroundColor: theme.palette.success.main,
+    color: theme.palette.success.main,
   }),
   outcome: () => ({
-    backgroundColor: theme.palette.error.main,
+    color: theme.palette.error.main,
   }),
   tagItem: () => ({
-    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.main,
   }),
 }));
-
-export interface Activity {
-  content: string;
-  time: Date;
-  tags: string[];
-  income: number;
-  outcome: number;
-}
 
 export interface ActivityItemProps {
   model: Activity;
@@ -48,23 +49,29 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
   const outcome = numeral(model.outcome).format('0,0.[00]');
 
   return (
-    <div>
+    <div className={classes.container}>
       <div className={classes.meta}>
         <TimeLabel time={model.time} />
-        <MoreHorizIcon />
+        <ActivityMenu model={model} />
       </div>
       <div className={classes.content} dangerouslySetInnerHTML={{ __html: html }} />
       <div className={classes.meta}>
         <div className={classes.itemsContainer}>
-          {model.income > 0 && <Chip label={income} className={classes.income} />}
-          {model.outcome > 0 && <Chip label={outcome} className={classes.outcome} />}
+          {model.income > 0 && <span className={clsx(classes.chip, classes.income)}>{income}</span>}
+          {model.outcome > 0 && (
+            <span className={clsx(classes.chip, classes.outcome)}>{outcome}</span>
+          )}
         </div>
         <div className={classes.itemsContainer}>
           {model.tags.map((tag) => (
-            <Chip label={tag} key={tag} className={classes.tagItem} />
+            <span key={tag} className={clsx(classes.chip, classes.tagItem)}>
+              {`#${tag}`}
+            </span>
           ))}
         </div>
       </div>
     </div>
   );
 };
+
+export default ActivityItem;

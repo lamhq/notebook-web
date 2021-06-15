@@ -14,4 +14,4 @@ const Template: Story<TimeLabelProps> = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = { time: new Date() };
+Default.args = { time: '2021-06-15T01:21:03.368Z' };

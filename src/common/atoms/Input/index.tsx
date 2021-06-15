@@ -1,6 +1,6 @@
 import React from 'react';
-import { TextField, TextFieldProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 
 const useStyles = makeStyles({
   label: {
