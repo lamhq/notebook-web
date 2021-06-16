@@ -8,8 +8,9 @@ export default {
   component: Input,
 } as Meta;
 
-const Template: Story<InputProps & { text: string }> = (args) => {
-  return <Input {...args} />;
+const Template: Story<InputProps> = (args) => {
+  const { label, placeholder, onChange } = args;
+  return <Input label={label} placeholder={placeholder} onChange={onChange} />;
 };
 
 export const Default = Template.bind({});

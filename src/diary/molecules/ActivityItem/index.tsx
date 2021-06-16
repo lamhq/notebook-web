@@ -1,10 +1,10 @@
 import React from 'react';
-import numeral from 'numeral';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { TimeLabel } from '../../atoms/TimeLabel';
 import { Activity } from '../../types/activity';
 import { ActivityMenu } from '../ActivityMenu';
+import { formatNumber } from '../../../common/utils';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
   itemsContainer: () => ({
     display: 'inline-flex',
     alignItems: 'center',
-    flexWrap: 'wrap',
     gap: '8px',
+    flexWrap: 'wrap',
   }),
   chip: {
     backgroundColor: 'transparent',
@@ -45,8 +45,8 @@ export interface ActivityItemProps {
 export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
   const classes = useStyles();
   const html = model.content.replace('\n', '<br/>');
-  const income = numeral(model.income).format('0,0.[00]');
-  const outcome = numeral(model.outcome).format('0,0.[00]');
+  const income = formatNumber(model.income);
+  const outcome = formatNumber(model.outcome);
 
   return (
     <div className={classes.container}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import MAppBar from '@material-ui/core/AppBar';
+import MuiAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const AppBar: React.VFC = () => {
   const classes = useStyles();
   return (
-    <MAppBar position="static">
+    <MuiAppBar position="static">
       <Toolbar>
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
@@ -29,6 +29,6 @@ export const AppBar: React.VFC = () => {
           News
         </Typography>
       </Toolbar>
-    </MAppBar>
+    </MuiAppBar>
   );
 };

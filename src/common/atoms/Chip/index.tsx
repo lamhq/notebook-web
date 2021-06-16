@@ -1,5 +1,5 @@
 import React from 'react';
-import MChip, { ChipProps as MChipProps } from '@material-ui/core/Chip';
+import MuiChip, { ChipProps as MuiChipProps } from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -16,12 +16,12 @@ const useStyles = makeStyles({
   },
 });
 
-export type ChipProps = MChipProps;
+export type ChipProps = MuiChipProps;
 
 export const Chip: React.VFC<ChipProps> = (props) => {
   const classes = useStyles();
   return (
-    <MChip
+    <MuiChip
       size="small"
       classes={{
         root: classes.root,
