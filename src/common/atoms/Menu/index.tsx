@@ -3,9 +3,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import MuiMenu, { MenuProps as MuiMenuProps } from '@material-ui/core/Menu';
 import MuiMenuItem from '@material-ui/core/MenuItem';
 import MuiListItemIcon from '@material-ui/core/ListItemIcon';
-import MuiListItemText, {
-  ListItemTextProps as MuiListItemTextProps,
-} from '@material-ui/core/ListItemText';
+import MuiListItemText, { ListItemTextProps } from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles({
   itemTextCont: {
@@ -58,7 +56,7 @@ export const ItemIcon = withStyles({
   },
 })(MuiListItemIcon);
 
-export const ItemText: React.FC<MuiListItemTextProps> = (props) => {
+export const ItemText: React.FC<ListItemTextProps> = (props) => {
   const classes = useStyles();
   return (
     <MuiListItemText

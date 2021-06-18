@@ -1,10 +1,8 @@
-import React from 'react';
-import MuiChip, { ChipProps as MuiChipProps } from '@material-ui/core/Chip';
-import { makeStyles } from '@material-ui/core/styles';
+import MuiChip from '@material-ui/core/Chip';
+import { withStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+export const Chip = withStyles({
   root: {
-    fontSize: '0.6875rem',
     borderRadius: '3px',
     color: '#fff',
   },
@@ -13,22 +11,6 @@ const useStyles = makeStyles({
   },
   sizeSmall: {
     height: 'auto',
+    fontSize: '0.6875rem',
   },
-});
-
-export type ChipProps = MuiChipProps;
-
-export const Chip: React.VFC<ChipProps> = (props) => {
-  const classes = useStyles();
-  return (
-    <MuiChip
-      size="small"
-      classes={{
-        root: classes.root,
-        labelSmall: classes.labelSmall,
-        sizeSmall: classes.sizeSmall,
-      }}
-      {...props}
-    />
-  );
-};
+})(MuiChip);

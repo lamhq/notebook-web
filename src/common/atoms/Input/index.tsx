@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import MuiTextField, { TextFieldProps } from '@material-ui/core/TextField';
 
 const useStyles = makeStyles({
   label: {
@@ -22,16 +22,16 @@ const useStyles = makeStyles({
   },
 });
 
-export type InputProps = TextFieldProps;
-
-export const Input: React.VFC<InputProps> = (props) => {
+export const TextField: React.VFC<TextFieldProps> = (props) => {
   const classes = useStyles();
   return (
-    <TextField
+    <MuiTextField
       fullWidth
       InputLabelProps={{
         shrink: true,
-        className: classes.label,
+        classes: {
+          root: classes.label,
+        },
       }}
       InputProps={{
         classes: {

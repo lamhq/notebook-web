@@ -54,6 +54,7 @@ export const Revenue: React.VFC<RevenueProps> = ({ income, outcome }) => {
         label={label}
         className={income >= outcome ? classes.positive : classes.negative}
         onClick={handleClick}
+        size="small"
       />
       <Popover
         id={id}

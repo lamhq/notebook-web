@@ -6,5 +6,3 @@ export const HorzItems = styled(Box)({
   display: 'flex',
   alignItems: 'center',
 });
-
-export default HorzItems;
