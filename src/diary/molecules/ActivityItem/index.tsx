@@ -1,10 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import { TimeLabel } from '../../atoms/TimeLabel';
 import { Activity } from '../../types/activity';
 import { ActivityMenu } from '../ActivityMenu';
 import { formatNumber } from '../../../common/utils';
+import { HorzItems } from '../../../common/atoms/HorzItems';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -12,16 +14,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: () => ({
     margin: '0.5rem 0',
-  }),
-  meta: () => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-  }),
-  itemsContainer: () => ({
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    flexWrap: 'wrap',
   }),
   chip: {
     backgroundColor: 'transparent',
@@ -50,26 +42,26 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
 
   return (
     <div className={classes.container}>
-      <div className={classes.meta}>
+      <Grid container justify="space-between" spacing={0}>
         <TimeLabel time={model.time} />
         <ActivityMenu model={model} />
-      </div>
+      </Grid>
       <div className={classes.content} dangerouslySetInnerHTML={{ __html: html }} />
-      <div className={classes.meta}>
-        <div className={classes.itemsContainer}>
+      <Grid container justify="space-between" spacing={0}>
+        <HorzItems>
           {model.income > 0 && <span className={clsx(classes.chip, classes.income)}>{income}</span>}
           {model.outcome > 0 && (
             <span className={clsx(classes.chip, classes.outcome)}>{outcome}</span>
           )}
-        </div>
-        <div className={classes.itemsContainer}>
+        </HorzItems>
+        <HorzItems>
           {model.tags.map((tag) => (
             <span key={tag} className={clsx(classes.chip, classes.tagItem)}>
               {`#${tag}`}
             </span>
           ))}
-        </div>
-      </div>
+        </HorzItems>
+      </Grid>
     </div>
   );
 };

@@ -1,25 +1,23 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+// import { createStyles, makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { IconButton } from '../../../common/atoms/Button';
 import { Revenue } from '../../atoms/Revenue';
+import { HorzItems } from '../../../common/atoms/HorzItems';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    toolbar: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    section: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '10px',
-    },
-  }),
-);
+// const useStyles = makeStyles(() =>
+//   createStyles({
+//     section: {
+//       display: 'inline-flex',
+//       alignItems: 'center',
+//       gap: '10px',
+//     },
+//   }),
+// );
 
 const models = [
   {
@@ -75,24 +73,24 @@ const models = [
 ];
 
 const ActivityListPage: React.VFC = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [page, setPage] = React.useState(1);
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
   return (
     <>
-      <div className={classes.toolbar}>
-        <div className={classes.section}>
+      <Grid container justify="space-between" spacing={0}>
+        <HorzItems>
           <IconButton color="primary">
             <AddCircleIcon />
           </IconButton>
           <IconButton color="default">
             <FilterListIcon />
           </IconButton>
-        </div>
+        </HorzItems>
         <Revenue income={400} outcome={120} />
-      </div>
+      </Grid>
       <ActivityList models={models} />
       <Pagination page={page} onChange={handleChange} count={10} />
     </>
