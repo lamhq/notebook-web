@@ -4,6 +4,11 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../src/theme';
 import '../src/styles.css';
 
+import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import enLocale from "date-fns/locale/en-US";
+import viLocale from "date-fns/locale/vi";
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   viewport: {
@@ -15,7 +20,9 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
-      <Story />
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
+        <Story />
+      </MuiPickersUtilsProvider>
     </ThemeProvider>
   ),
 ];
