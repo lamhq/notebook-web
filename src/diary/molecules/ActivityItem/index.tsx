@@ -1,7 +1,7 @@
 import React from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { TimeLabel } from '../../atoms/TimeLabel';
 import { Activity } from '../../types/activity';
 import { ActivityMenu } from '../ActivityMenu';
@@ -13,12 +13,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff',
   },
   content: () => ({
-    margin: '0.5rem 0',
+    marginBottom: '0.5rem',
   }),
-  chip: {
-    backgroundColor: 'transparent',
-    fontSize: '0.75rem',
-  },
   income: () => ({
     color: theme.palette.success.main,
   }),
@@ -46,19 +42,29 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
         <TimeLabel time={model.time} />
         <ActivityMenu model={model} />
       </Grid>
-      <div className={classes.content} dangerouslySetInnerHTML={{ __html: html }} />
+      <Typography
+        dangerouslySetInnerHTML={{ __html: html }}
+        variant="body1"
+        className={classes.content}
+      />
       <Grid container justify="space-between" spacing={0}>
         <HorzItems>
-          {model.income > 0 && <span className={clsx(classes.chip, classes.income)}>{income}</span>}
+          {model.income > 0 && (
+            <Typography variant="body2" className={classes.income}>
+              {income}
+            </Typography>
+          )}
           {model.outcome > 0 && (
-            <span className={clsx(classes.chip, classes.outcome)}>{outcome}</span>
+            <Typography variant="body2" className={classes.outcome}>
+              {outcome}
+            </Typography>
           )}
         </HorzItems>
         <HorzItems>
           {model.tags.map((tag) => (
-            <span key={tag} className={clsx(classes.chip, classes.tagItem)}>
+            <Typography key={tag} variant="body2" className={classes.tagItem}>
               {`#${tag}`}
-            </span>
+            </Typography>
           ))}
         </HorzItems>
       </Grid>

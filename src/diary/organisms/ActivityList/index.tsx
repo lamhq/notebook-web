@@ -2,9 +2,9 @@ import React from 'react';
 import { format } from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 import { Activity } from '../../types/activity';
 import { ActivityItem } from '../../molecules/ActivityItem';
-import { Title } from '../../../common/atoms/Title';
 
 const useStyles = makeStyles({
   section: {
@@ -40,7 +40,9 @@ export const ActivityList: React.VFC<ActivityListProps> = ({ models }) => {
     <>
       {Object.entries(dates).map(([date, activities]) => (
         <div key={date} className={classes.section}>
-          <Title level="h4">{date}</Title>
+          <Typography component="h4" variant="h4" gutterBottom>
+            {date}
+          </Typography>
           {activities.map((model, index) => (
             <React.Fragment key={model.id}>
               {index > 0 && <Divider variant="middle" classes={{ root: classes.divider }} />}

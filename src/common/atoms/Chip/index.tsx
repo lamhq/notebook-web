@@ -1,4 +1,5 @@
-import MuiChip from '@material-ui/core/Chip';
+import React from 'react';
+import MuiChip, { ChipProps } from '@material-ui/core/Chip';
 import { withStyles } from '@material-ui/core/styles';
 
 export const Chip = withStyles({
@@ -13,4 +14,4 @@ export const Chip = withStyles({
     height: 'auto',
     fontSize: '0.6875rem',
   },
-})(MuiChip);
+})((props: ChipProps) => <MuiChip size="small" {...props} />);

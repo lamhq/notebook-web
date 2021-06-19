@@ -1,14 +1,17 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
 import { FormGroup } from '../../atoms/FormGroup';
-import { TextField } from '../../atoms/Input';
-import { Title } from '../../atoms/Title';
+import { TextField } from '../../atoms/TextField';
+// import { Title } from '../../atoms/Title';
 import { Form } from '../../atoms/Form';
 import { Button } from '../../atoms/Button';
 
 const LoginPage: React.VFC = () => {
   return (
     <>
-      <Title>SIGN IN</Title>
+      <Typography component="h1" variant="h1">
+        SIGN IN
+      </Typography>
       <Form>
         <FormGroup>
           <TextField label="Email" placeholder="Enter your email" />

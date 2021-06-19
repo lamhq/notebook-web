@@ -1,19 +1,9 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import MuiMenu, { MenuProps as MuiMenuProps } from '@material-ui/core/Menu';
 import MuiMenuItem from '@material-ui/core/MenuItem';
 import MuiListItemIcon from '@material-ui/core/ListItemIcon';
-import MuiListItemText, { ListItemTextProps } from '@material-ui/core/ListItemText';
-
-const useStyles = makeStyles({
-  itemTextCont: {
-    margin: 0,
-  },
-  itemText: {
-    fontSize: '0.9375rem',
-    lineHeight: 'normal',
-  },
-});
+import MuiListItemText from '@material-ui/core/ListItemText';
 
 export const Menu = withStyles({
   paper: {
@@ -56,13 +46,12 @@ export const ItemIcon = withStyles({
   },
 })(MuiListItemIcon);
 
-export const ItemText: React.FC<ListItemTextProps> = (props) => {
-  const classes = useStyles();
-  return (
-    <MuiListItemText
-      classes={{ root: classes.itemTextCont }}
-      primaryTypographyProps={{ classes: { root: classes.itemText } }}
-      {...props}
-    />
-  );
-};
+export const ItemText = withStyles({
+  root: {
+    margin: 0,
+    '& .MuiListItemText-primary': {
+      fontSize: '0.9375rem',
+      lineHeight: 'normal',
+    },
+  },
+})(MuiListItemText);
