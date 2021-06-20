@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import { Activity } from '../../types/activity';
+import { Activity } from '../../types';
 import { ActivityItem } from '../../molecules/ActivityItem';
 
 const useStyles = makeStyles({

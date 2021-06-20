@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { TimeLabel } from '../../atoms/TimeLabel';
-import { Activity } from '../../types/activity';
+import { Activity } from '../../types';
 import { ActivityMenu } from '../ActivityMenu';
 import { formatNumber } from '../../../common/utils';
 import { HorzItems } from '../../../common/atoms/HorzItems';

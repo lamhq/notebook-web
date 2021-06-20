@@ -6,3 +6,10 @@ export interface Activity {
   income: number;
   outcome: number;
 }
+
+export enum TimeRange {
+  ThisMonth = 'this-month',
+  LastMonth = 'last-month',
+  ThisYear = 'this-year',
+  Custom = 'custom',
+}
