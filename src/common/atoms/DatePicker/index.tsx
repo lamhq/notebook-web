@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   DatePicker as MuiDatePicker,
   DateTimePicker as MuiDateTimePicker,
@@ -6,9 +7,33 @@ import {
   DateTimePickerProps,
 } from '@material-ui/pickers';
 
-export const DatePicker: React.VFC<DatePickerProps> = (props) => (
-  <MuiDatePicker format="EEE, d LLL, yyyy" fullWidth {...props} />
-);
-export const DateTimePicker: React.VFC<DateTimePickerProps> = (props) => (
-  <MuiDateTimePicker format="EEE, d LLL, yyyy h:mm aaa" fullWidth {...props} />
-);
+const useStyles = makeStyles({
+  root: {
+    marginBottom: '1.4375rem',
+    '& .MuiInput-underline': {
+      '&:before': {
+        borderColor: '#BFBFBF',
+      },
+      '&:after': {
+        borderColor: '#BFBFBF',
+      },
+    },
+  },
+});
+
+export const DatePicker: React.VFC<DatePickerProps> = (props) => {
+  const classes = useStyles();
+  return <MuiDatePicker format="dd/MM/yyyy" className={classes.root} fullWidth {...props} />;
+};
+
+export const DateTimePicker: React.VFC<DateTimePickerProps> = (props) => {
+  const classes = useStyles();
+  return (
+    <MuiDateTimePicker
+      format="EEE, d LLL, yyyy h:mm aaa"
+      className={classes.root}
+      fullWidth
+      {...props}
+    />
+  );
+};

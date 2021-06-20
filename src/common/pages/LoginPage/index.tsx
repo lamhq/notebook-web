@@ -1,10 +1,9 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { FormGroup } from '../../atoms/FormGroup';
 import { TextField } from '../../atoms/TextField';
-// import { Title } from '../../atoms/Title';
 import { Form } from '../../atoms/Form';
 import { Button } from '../../atoms/Button';
+import { FormControl } from '../../atoms/FormControl';
 
 const LoginPage: React.VFC = () => {
   return (
@@ -13,17 +12,13 @@ const LoginPage: React.VFC = () => {
         SIGN IN
       </Typography>
       <Form>
-        <FormGroup>
-          <TextField label="Email" placeholder="Enter your email" />
-        </FormGroup>
-        <FormGroup>
-          <TextField label="Password" placeholder="Enter your password" />
-        </FormGroup>
-        <FormGroup>
-          <Button variant="contained" color="primary" fullWidth>
+        <TextField label="Email" placeholder="Enter your email" />
+        <TextField label="Password" placeholder="Enter your password" />
+        <FormControl>
+          <Button variant="contained" color="primary" size="large" fullWidth>
             SIGN IN
           </Button>
-        </FormGroup>
+        </FormControl>
       </Form>
     </>
   );

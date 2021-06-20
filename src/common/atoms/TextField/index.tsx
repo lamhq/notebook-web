@@ -4,15 +4,7 @@ import MuiTextField, { TextFieldProps } from '@material-ui/core/TextField';
 
 export const TextField = withStyles({
   root: {
-    '& .MuiFormLabel-root': {
-      fontSize: '1.0625rem',
-    },
-    '& .MuiInputBase-input': {
-      fontSize: '1.25rem',
-      '&::placeholder': {
-        fontSize: '1.25rem',
-      },
-    },
+    marginBottom: '1.4375rem',
     '& .MuiInput-underline': {
       '&:before': {
         borderColor: '#BFBFBF',

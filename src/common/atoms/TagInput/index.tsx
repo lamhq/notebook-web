@@ -1,6 +1,13 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { TextField } from '../TextField';
+
+const useStyles = makeStyles({
+  tag: {
+    height: '25px',
+  },
+});
 
 const filter = createFilterOptions<string>();
 
@@ -17,13 +24,16 @@ export const TagInput: React.VFC<TagInputProps> = ({
   options,
   creatable = false,
 }) => {
+  const classes = useStyles();
   return (
     <Autocomplete
+      fullWidth
       multiple
       freeSolo={creatable}
       clearOnBlur
       value={value}
       onChange={(event, newValue) => {
+        // Remove mark text from newly created item
         const modifiedValue = newValue.map((val) => val.replace(/^Add "/, '').replace(/"$/, ''));
         onChange(modifiedValue);
       }}
@@ -37,6 +47,7 @@ export const TagInput: React.VFC<TagInputProps> = ({
         return filtered;
       }}
       renderInput={(params) => <TextField {...params} label="Tags" />}
+      classes={{ tag: classes.tag }}
     />
   );
 };

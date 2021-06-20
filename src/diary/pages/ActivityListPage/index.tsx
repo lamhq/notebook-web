@@ -2,12 +2,12 @@ import React from 'react';
 // import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { IconButton } from '../../../common/atoms/Button';
 import { Revenue } from '../../atoms/Revenue';
 import { HorzItems } from '../../../common/atoms/HorzItems';
+import { ActivitySearchDialog } from '../../organisms/ActivitySearchDialog';
 
 // const useStyles = makeStyles(() =>
 //   createStyles({
@@ -85,9 +85,7 @@ const ActivityListPage: React.VFC = () => {
           <IconButton color="primary">
             <AddCircleIcon />
           </IconButton>
-          <IconButton color="default">
-            <FilterListIcon />
-          </IconButton>
+          <ActivitySearchDialog />
         </HorzItems>
         <Revenue income={400} outcome={120} />
       </Grid>
