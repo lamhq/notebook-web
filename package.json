@@ -34,16 +34,11 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/pickers": "^3.3.10",
-    "axios": "^0.19.2",
-    "clsx": "^1.1.1",
     "date-fns": "^2.22.1",
-    "history": "^4.9.0",
     "numeral": "^2.0.6",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-hook-form": "^7.9.0",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0"
+    "react-hook-form": "^6.15.8"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

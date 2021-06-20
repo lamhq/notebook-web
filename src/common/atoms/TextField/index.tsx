@@ -16,10 +16,10 @@ export const TextField = withStyles({
   },
 })((props: TextFieldProps) => (
   <MuiTextField
+    {...props}
     fullWidth
     InputLabelProps={{
       shrink: true,
     }}
-    {...props}
   />
 ));

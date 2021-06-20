@@ -29,15 +29,16 @@ export const TagInput: React.VFC<TagInputProps> = ({
     <Autocomplete
       fullWidth
       multiple
-      freeSolo={creatable}
       clearOnBlur
+      freeSolo={creatable}
+      options={options}
+      classes={{ tag: classes.tag }}
       value={value}
       onChange={(event, newValue) => {
         // Remove mark text from newly created item
         const modifiedValue = newValue.map((val) => val.replace(/^Add "/, '').replace(/"$/, ''));
         onChange(modifiedValue);
       }}
-      options={options}
       filterOptions={(opts, params) => {
         const filtered = filter(opts, params);
         // Suggest the creation of a new value
@@ -47,7 +48,6 @@ export const TagInput: React.VFC<TagInputProps> = ({
         return filtered;
       }}
       renderInput={(params) => <TextField {...params} label="Tags" />}
-      classes={{ tag: classes.tag }}
     />
   );
 };
