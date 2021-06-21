@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
-import { TextField } from '../../../common/atoms/TextField';
+import TextField from '@material-ui/core/TextField';
 import { TagInput } from '../../../common/atoms/TagInput';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import { TimeRangeSelect } from '../../atoms/TimeRangeSelect';

@@ -2,11 +2,11 @@ import React from 'react';
 import Select, { SelectProps } from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import { FormControl } from '../../../common/atoms/FormControl';
+import FormControl from '@material-ui/core/FormControl';
 
 export const TimeRangeSelect: React.FC<SelectProps> = (props) => {
   return (
-    <FormControl fullWidth>
+    <FormControl>
       <InputLabel shrink>Time range</InputLabel>
       <Select {...props}>
         <MenuItem value="this-month">This month</MenuItem>

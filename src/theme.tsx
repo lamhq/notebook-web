@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import * as type from '@material-ui/lab/themeAugmentation';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 export const theme = createMuiTheme({
@@ -42,6 +44,44 @@ export const theme = createMuiTheme({
     },
     body2: {
       fontSize: '0.75rem',
+    },
+  },
+  overrides: {
+    MuiFormControl: {
+      root: {
+        marginBottom: '1.4375rem',
+      },
+    },
+    MuiInput: {
+      underline: {
+        '&::before': {
+          borderColor: '#BFBFBF',
+        },
+        '&::after': {
+          borderColor: '#BFBFBF',
+        },
+      },
+    },
+    MuiIconButton: {
+      sizeSmall: {
+        padding: 0,
+      },
+    },
+    MuiAutocomplete: {
+      tag: {
+        height: '25px',
+      },
+    },
+  },
+  props: {
+    MuiInputLabel: {
+      shrink: true,
+    },
+    MuiTextField: {
+      fullWidth: true,
+    },
+    MuiFormControl: {
+      fullWidth: true,
     },
   },
 });

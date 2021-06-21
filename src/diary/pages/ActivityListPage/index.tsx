@@ -2,9 +2,9 @@ import React from 'react';
 // import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import IconButton from '@material-ui/core/IconButton';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
-import { IconButton } from '../../../common/atoms/Button';
 import { Revenue } from '../../atoms/Revenue';
 import { HorzItems } from '../../../common/atoms/HorzItems';
 import { ActivitySearchDialog } from '../../organisms/ActivitySearchDialog';
@@ -82,7 +82,7 @@ const ActivityListPage: React.VFC = () => {
     <>
       <Grid container justify="space-between" spacing={0}>
         <HorzItems>
-          <IconButton color="primary">
+          <IconButton color="primary" size="small">
             <AddCircleIcon />
           </IconButton>
           <ActivitySearchDialog />

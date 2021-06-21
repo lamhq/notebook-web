@@ -4,7 +4,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Button, IconButton } from '../../../common/atoms/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import { ActivitySearchForm } from '../ActivitySearchForm';
 
 export const ActivitySearchDialog: React.VFC = () => {
@@ -19,7 +20,7 @@ export const ActivitySearchDialog: React.VFC = () => {
 
   return (
     <>
-      <IconButton color="default" onClick={handleClickOpen}>
+      <IconButton color="default" size="small" onClick={handleClickOpen}>
         <FilterListIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose}>

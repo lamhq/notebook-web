@@ -2,9 +2,9 @@ import React from 'react';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
+import IconButton from '@material-ui/core/IconButton';
 import { Activity } from '../../types';
 import { ItemIcon, ItemText, Menu, MenuItem } from '../../../common/atoms/Menu';
-import { IconButton } from '../../../common/atoms/Button';
 
 export interface ActivityMenuProps {
   model: Activity;
