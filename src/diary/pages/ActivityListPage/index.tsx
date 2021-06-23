@@ -1,23 +1,14 @@
 import React from 'react';
-// import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
+import Container from '@material-ui/core/Container';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { Revenue } from '../../atoms/Revenue';
-import { HorzItems } from '../../../common/atoms/HorzItems';
+import { InlineItems } from '../../../common/atoms/InlineItems';
 import { ActivitySearchDialog } from '../../organisms/ActivitySearchDialog';
-
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     section: {
-//       display: 'inline-flex',
-//       alignItems: 'center',
-//       gap: '10px',
-//     },
-//   }),
-// );
+import { MainLayout } from '../../../common/templates/MainLayout';
 
 const models = [
   {
@@ -73,25 +64,26 @@ const models = [
 ];
 
 const ActivityListPage: React.VFC = () => {
-  // const classes = useStyles();
   const [page, setPage] = React.useState(1);
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
   return (
-    <>
-      <Grid container justify="space-between" spacing={0}>
-        <HorzItems>
-          <IconButton color="primary" size="small">
-            <AddCircleIcon />
-          </IconButton>
-          <ActivitySearchDialog />
-        </HorzItems>
-        <Revenue income={400} outcome={120} />
-      </Grid>
-      <ActivityList models={models} />
-      <Pagination page={page} onChange={handleChange} count={10} />
-    </>
+    <MainLayout title="Activities">
+      <Container>
+        <Grid container justify="space-between" spacing={0}>
+          <InlineItems>
+            <IconButton color="primary" size="small">
+              <AddCircleIcon />
+            </IconButton>
+            <ActivitySearchDialog />
+          </InlineItems>
+          <Revenue income={400} outcome={120} />
+        </Grid>
+        <ActivityList models={models} />
+        <Pagination page={page} onChange={handleChange} count={10} />
+      </Container>
+    </MainLayout>
   );
 };
 

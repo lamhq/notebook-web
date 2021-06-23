@@ -6,7 +6,7 @@ import { TimeLabel } from '../../atoms/TimeLabel';
 import { Activity } from '../../types';
 import { ActivityMenu } from '../ActivityMenu';
 import { formatNumber } from '../../../common/utils';
-import { HorzItems } from '../../../common/atoms/HorzItems';
+import { InlineItems } from '../../../common/atoms/InlineItems';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -48,7 +48,7 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
         className={classes.content}
       />
       <Grid container justify="space-between" spacing={0}>
-        <HorzItems>
+        <InlineItems>
           {model.income > 0 && (
             <Typography variant="body2" className={classes.income}>
               {income}
@@ -59,14 +59,14 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
               {outcome}
             </Typography>
           )}
-        </HorzItems>
-        <HorzItems>
+        </InlineItems>
+        <InlineItems>
           {model.tags.map((tag) => (
             <Typography key={tag} variant="body2" className={classes.tagItem}>
               {`#${tag}`}
             </Typography>
           ))}
-        </HorzItems>
+        </InlineItems>
       </Grid>
     </div>
   );

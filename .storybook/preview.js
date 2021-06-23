@@ -5,9 +5,11 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../src/theme';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import '../src/styles.css';
 
 export const parameters = {
+  layout: 'fullscreen',
   actions: { argTypesRegex: "^on[A-Z].*" },
   viewport: {
     viewport: MINIMAL_VIEWPORTS,
