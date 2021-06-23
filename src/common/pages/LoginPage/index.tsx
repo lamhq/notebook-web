@@ -1,26 +1,24 @@
 import React from 'react';
-import { FormGroup } from '../../atoms/FormGroup';
-import { Input } from '../../atoms/Input';
-import { Title } from '../../atoms/Title';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
 import { Form } from '../../atoms/Form';
-import { Button } from '../../atoms/Button';
 
 const LoginPage: React.VFC = () => {
   return (
     <>
-      <Title>SIGN IN</Title>
+      <Typography component="h1" variant="h1">
+        SIGN IN
+      </Typography>
       <Form>
-        <FormGroup>
-          <Input label="Email" placeholder="Enter your email" />
-        </FormGroup>
-        <FormGroup>
-          <Input label="Password" placeholder="Enter your password" />
-        </FormGroup>
-        <FormGroup>
-          <Button variant="contained" color="primary" fullWidth>
+        <TextField label="Email" placeholder="Enter your email" />
+        <TextField label="Password" placeholder="Enter your password" />
+        <FormControl>
+          <Button variant="contained" color="primary" size="large" fullWidth>
             SIGN IN
           </Button>
-        </FormGroup>
+        </FormControl>
       </Form>
     </>
   );

@@ -56,7 +56,6 @@ module.exports = {
       // load css file
       {
         test: /\.css$/,
-        exclude: /\.module.css$/,
         use: [
           // extract CSS into separate files
           nodeEnv === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -64,22 +63,6 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-            },
-          },
-        ],
-      },
-      // load css module file
-      {
-        test: /\.module\.css$/,
-        use: [
-          nodeEnv === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              modules: {
-                localIdentName: '[local]-[hash:base64:5]',
-              },
             },
           },
         ],
