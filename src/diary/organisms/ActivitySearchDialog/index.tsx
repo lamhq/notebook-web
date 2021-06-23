@@ -14,7 +14,7 @@ import { DatePicker } from '../../../common/atoms/DatePicker';
 import { TimeRangeSelect } from '../../atoms/TimeRangeSelect';
 import { TimeRange } from '../../types';
 
-interface ActivityFilter {
+interface ActivityFilterModel {
   text: string;
   tags: string[];
   timeRange: TimeRange;
@@ -22,7 +22,7 @@ interface ActivityFilter {
   to: Date;
 }
 
-const defaultValues: ActivityFilter = {
+const defaultValues: ActivityFilterModel = {
   text: '',
   tags: [],
   timeRange: TimeRange.ThisMonth,
@@ -32,7 +32,7 @@ const defaultValues: ActivityFilter = {
 
 export const ActivitySearchDialog: React.VFC = () => {
   const [open, setOpen] = React.useState(false);
-  const { control, handleSubmit, watch, reset } = useForm<ActivityFilter>({
+  const { control, handleSubmit, watch, reset } = useForm<ActivityFilterModel>({
     defaultValues,
   });
   const timeRange = watch('timeRange');
@@ -45,7 +45,7 @@ export const ActivitySearchDialog: React.VFC = () => {
     setOpen(false);
   };
 
-  const handleFormSubmit: SubmitHandler<ActivityFilter> = (data) => {
+  const handleFormSubmit: SubmitHandler<ActivityFilterModel> = (data) => {
     console.log(data);
     setOpen(false);
   };

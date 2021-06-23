@@ -21,6 +21,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Typography from '@material-ui/core/Typography';
 import { ScrollOnClick } from '../../atoms/ScrollOnClick';
 import { HideOnScroll } from '../../atoms/HideOnScroll';
+import { Container } from '../../atoms/Container';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -123,7 +124,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
           </List>
         </List>
       </Drawer>
-      {children}
+      <Container>
+        <>{children}</>
+      </Container>
       <ScrollOnClick anchorSelector="#back-to-top-anchor">
         <Fab color="inherit" size="small" className={classes.topBtn}>
           <KeyboardArrowUpIcon />

@@ -2,7 +2,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
-import Container from '@material-ui/core/Container';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { Revenue } from '../../atoms/Revenue';
@@ -70,19 +69,17 @@ const ActivityListPage: React.VFC = () => {
   };
   return (
     <MainLayout title="Activities">
-      <Container>
-        <Grid container justify="space-between" spacing={0}>
-          <InlineItems>
-            <IconButton color="primary" size="small">
-              <AddCircleIcon />
-            </IconButton>
-            <ActivitySearchDialog />
-          </InlineItems>
-          <Revenue income={400} outcome={120} />
-        </Grid>
-        <ActivityList models={models} />
-        <Pagination page={page} onChange={handleChange} count={10} />
-      </Container>
+      <Grid container justify="space-between" spacing={0}>
+        <InlineItems>
+          <IconButton color="primary" size="small">
+            <AddCircleIcon />
+          </IconButton>
+          <ActivitySearchDialog />
+        </InlineItems>
+        <Revenue income={400} outcome={120} />
+      </Grid>
+      <ActivityList models={models} />
+      <Pagination page={page} onChange={handleChange} count={10} />
     </MainLayout>
   );
 };

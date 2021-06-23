@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
+import { Container } from '../../atoms/Container';
 
 export interface SubLayoutProps {
   title: string;
@@ -29,7 +30,9 @@ export const SubLayout: React.FC<SubLayoutProps> = ({ title, children }) => {
           </Grid>
         </Toolbar>
       </AppBar>
-      {children}
+      <Container>
+        <>{children}</>
+      </Container>
     </>
   );
 };
