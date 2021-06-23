@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { SelectProps } from '@material-ui/core/Select';
-import { SelectInputProps } from '@material-ui/core/Select/SelectInput';
+import { TextFieldProps } from '@material-ui/core/TextField';
 import { TimeRangeSelect } from '.';
 
 export default {
@@ -9,9 +8,9 @@ export default {
   component: TimeRangeSelect,
 } as Meta;
 
-const Template: Story<SelectProps> = () => {
+const Template: Story<TextFieldProps> = () => {
   const [value, setValue] = React.useState('');
-  const handleChange: SelectInputProps['onChange'] = (event) => {
+  const handleChange: TextFieldProps['onChange'] = (event) => {
     setValue(event.target.value as string);
   };
   return <TimeRangeSelect value={value} onChange={handleChange} />;
