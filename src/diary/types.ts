@@ -7,6 +7,14 @@ export interface Activity {
   outcome: number;
 }
 
+export interface ActivityFormModel {
+  content: string;
+  time: Date;
+  tags: string[];
+  income: number;
+  outcome: number;
+}
+
 export enum TimeRange {
   ThisMonth = 'this-month',
   LastMonth = 'last-month',
