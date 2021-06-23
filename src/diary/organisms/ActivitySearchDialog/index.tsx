@@ -66,13 +66,7 @@ export const ActivitySearchDialog: React.VFC = () => {
           <form id="activitySearchForm" onSubmit={handleSubmit(handleFormSubmit)}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <Controller
-                  name="text"
-                  control={control}
-                  render={({ onChange, value }) => (
-                    <TextField value={value} onChange={onChange} label="Text" />
-                  )}
-                />
+                <Controller name="text" control={control} as={TextField} label="Text" />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
@@ -88,7 +82,7 @@ export const ActivitySearchDialog: React.VFC = () => {
                   name="timeRange"
                   control={control}
                   render={({ onChange, value }) => (
-                    <TimeRangeSelect value={value} onChange={onChange} />
+                    <TimeRangeSelect value={value} onChange={onChange} label="Time range" />
                   )}
                 />
               </Grid>

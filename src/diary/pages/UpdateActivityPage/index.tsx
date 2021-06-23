@@ -12,16 +12,16 @@ const defaultValues: ActivityFormModel = {
   outcome: 0,
 };
 
-const AddActivityPage: React.VFC = () => {
+const UpdateActivityPage: React.VFC = () => {
   const handleSubmit: SubmitHandler<ActivityFormModel> = (data) => {
     console.log(data);
   };
 
   return (
-    <SubLayout title="Add Activity">
+    <SubLayout title="Update Activity">
       <ActivityForm defaultValues={defaultValues} onSubmit={handleSubmit} />
     </SubLayout>
   );
 };
 
-export default AddActivityPage;
+export default UpdateActivityPage;

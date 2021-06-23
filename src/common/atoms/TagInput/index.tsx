@@ -25,13 +25,13 @@ export const TagInput: React.VFC<TagInputProps> = ({
       options={options}
       value={value}
       onChange={(event, newValue) => {
-        // Remove mark text from newly created item
+        // remove mark text from newly created item
         const modifiedValue = newValue.map((val) => val.replace(/^Add "/, '').replace(/"$/, ''));
         onChange(modifiedValue);
       }}
       filterOptions={(opts, params) => {
         const filtered = filter(opts, params);
-        // Suggest the creation of a new value
+        // suggest the creation of a new value
         if (creatable && params.inputValue !== '' && !opts.includes(params.inputValue)) {
           filtered.unshift(`Add "${params.inputValue}"`);
         }
