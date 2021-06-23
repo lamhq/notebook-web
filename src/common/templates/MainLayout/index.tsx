@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -20,7 +21,6 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Typography from '@material-ui/core/Typography';
 import { ScrollOnClick } from '../../atoms/ScrollOnClick';
 import { HideOnScroll } from '../../atoms/HideOnScroll';
-import { InlineItems } from '../../atoms/InlineItems';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,9 +30,12 @@ const useStyles = makeStyles((theme: Theme) =>
     nestedList: {
       paddingLeft: theme.spacing(4),
     },
-    toolbarTop: {
+    drawerToolbar: {
       display: 'flex',
       justifyContent: 'flex-end',
+    },
+    topBtn: {
+      backgroundColor: 'transparent',
     },
   }),
 );
@@ -58,12 +61,18 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
       <HideOnScroll>
         <AppBar>
           <Toolbar variant="dense">
-            <InlineItems>
-              <IconButton edge="start" color="inherit" size="small" onClick={handleDrawerToggle}>
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6">{title}</Typography>
-            </InlineItems>
+            <Grid container alignItems="center" spacing={0}>
+              <Grid item xs={2}>
+                <IconButton edge="start" color="inherit" size="small" onClick={handleDrawerToggle}>
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography variant="h6" align="center" component="h1">
+                  {title}
+                </Typography>
+              </Grid>
+            </Grid>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
@@ -81,7 +90,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
           keepMounted: true,
         }}
       >
-        <Toolbar variant="dense" className={classes.toolbarTop}>
+        <Toolbar variant="dense" className={classes.drawerToolbar}>
           <IconButton size="small" onClick={handleDrawerToggle}>
             <ChevronLeftIcon />
           </IconButton>
@@ -116,7 +125,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
       </Drawer>
       {children}
       <ScrollOnClick anchorSelector="#back-to-top-anchor">
-        <Fab color="secondary" size="small" aria-label="scroll back to top">
+        <Fab color="inherit" size="small" className={classes.topBtn}>
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollOnClick>
