@@ -62,6 +62,11 @@ export const theme = createMuiTheme({
         },
       },
     },
+    MuiButton: {
+      root: {
+        padding: '6px 24px',
+      },
+    },
     MuiIconButton: {
       sizeSmall: {
         padding: 0,

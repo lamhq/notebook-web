@@ -1,11 +1,13 @@
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
 import { TagInput } from '../../../common/atoms/TagInput';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
@@ -34,7 +36,7 @@ const AddActivityPage: React.VFC = () => {
             <FormControl>
               <InputLabel shrink>Content</InputLabel>
               <Controller
-                name="text"
+                name="content"
                 control={control}
                 render={({ onChange, value }) => (
                   <Input value={value} onChange={onChange} inputComponent={TextareaAutosize} />
@@ -84,6 +86,14 @@ const AddActivityPage: React.VFC = () => {
             />
           </Grid>
         </Grid>
+        <Box display="flex" justifyContent="center" gridColumnGap={16}>
+          <Button variant="contained" color="default">
+            Cancel
+          </Button>
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
+        </Box>
       </form>
     </SubLayout>
   );

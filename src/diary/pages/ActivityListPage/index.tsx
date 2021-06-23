@@ -2,10 +2,10 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { Revenue } from '../../atoms/Revenue';
-import { InlineItems } from '../../../common/atoms/InlineItems';
 import { ActivitySearchDialog } from '../../organisms/ActivitySearchDialog';
 import { MainLayout } from '../../../common/templates/MainLayout';
 
@@ -70,12 +70,12 @@ const ActivityListPage: React.VFC = () => {
   return (
     <MainLayout title="Activities">
       <Grid container justify="space-between" spacing={0}>
-        <InlineItems>
+        <Box display="flex" gridColumnGap={16}>
           <IconButton color="primary" size="small">
             <AddCircleIcon />
           </IconButton>
           <ActivitySearchDialog />
-        </InlineItems>
+        </Box>
         <Revenue income={400} outcome={120} />
       </Grid>
       <ActivityList models={models} />

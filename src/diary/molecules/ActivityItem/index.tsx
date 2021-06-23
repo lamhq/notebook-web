@@ -2,11 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { TimeLabel } from '../../atoms/TimeLabel';
 import { Activity } from '../../types';
 import { ActivityMenu } from '../ActivityMenu';
 import { formatNumber } from '../../../common/utils';
-import { InlineItems } from '../../../common/atoms/InlineItems';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -48,7 +48,7 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
         className={classes.content}
       />
       <Grid container justify="space-between" spacing={0}>
-        <InlineItems>
+        <Box display="flex" gridColumnGap={8}>
           {model.income > 0 && (
             <Typography variant="body2" className={classes.income}>
               {income}
@@ -59,14 +59,14 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
               {outcome}
             </Typography>
           )}
-        </InlineItems>
-        <InlineItems>
+        </Box>
+        <Box display="flex" gridColumnGap={8}>
           {model.tags.map((tag) => (
             <Typography key={tag} variant="body2" className={classes.tagItem}>
               {`#${tag}`}
             </Typography>
           ))}
-        </InlineItems>
+        </Box>
       </Grid>
     </div>
   );

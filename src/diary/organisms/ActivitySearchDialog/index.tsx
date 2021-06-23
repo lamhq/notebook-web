@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -117,19 +118,21 @@ export const ActivitySearchDialog: React.VFC = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button
-            type="submit"
-            form="activitySearchForm"
-            size="small"
-            variant="contained"
-            onClick={handleCloseDialog}
-            color="primary"
-          >
-            Search
-          </Button>
-          <Button size="small" variant="contained" onClick={handleReset} color="default">
-            Reset
-          </Button>
+          <Box display="flex" gridColumnGap={16}>
+            <Button size="small" variant="contained" onClick={handleReset} color="default">
+              Reset
+            </Button>
+            <Button
+              type="submit"
+              form="activitySearchForm"
+              size="small"
+              variant="contained"
+              onClick={handleCloseDialog}
+              color="primary"
+            >
+              Search
+            </Button>
+          </Box>
         </DialogActions>
       </Dialog>
     </>
