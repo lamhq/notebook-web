@@ -4,10 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { Form } from '../../atoms/Form';
+import { Container } from '../../atoms/Container';
 
 const LoginPage: React.VFC = () => {
   return (
-    <>
+    <Container>
       <Typography component="h1" variant="h1">
         SIGN IN
       </Typography>
@@ -20,7 +21,7 @@ const LoginPage: React.VFC = () => {
           </Button>
         </FormControl>
       </Form>
-    </>
+    </Container>
   );
 };
 

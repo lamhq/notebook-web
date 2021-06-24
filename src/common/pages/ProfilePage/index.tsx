@@ -1,11 +1,12 @@
 import React from 'react';
 import { SubmitHandler } from 'react-hook-form';
+import { MainLayout } from '../../templates/MainLayout';
+import { ProfileForm } from '../../organisms/ProfileForm';
 import { ProfileFormModel } from '../../types';
-import { MainLayout } from '../../../common/templates/MainLayout';
-import { ProfileForm } from '../../../common/organisms/ProfileForm';
 
 const defaultValues: ProfileFormModel = {
   displayName: 'John Doe',
+  email: 'john@example.com',
 };
 
 const ProfilePage: React.VFC = () => {
