@@ -23,7 +23,7 @@ export const SubLayout: React.FC<SubLayoutProps> = ({ title, children }) => {
               </IconButton>
             </Grid>
             <Grid item xs={8}>
-              <Typography variant="h6" align="center" component="h1">
+              <Typography variant="h1" align="center" component="h1">
                 {title}
               </Typography>
             </Grid>
