@@ -26,14 +26,14 @@ export const theme = createMuiTheme({
       'sans-serif',
     ].join(','),
     h1: {
-      fontSize: '1.875rem',
+      fontSize: '1.5rem',
       fontWeight: 'bold',
     },
     h2: {
-      fontSize: '1.8rem',
+      fontSize: '1.375rem',
     },
     h3: {
-      fontSize: '1.75rem',
+      fontSize: '1.25rem',
     },
     h4: {
       fontSize: '1.0625rem',
