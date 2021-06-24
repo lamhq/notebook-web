@@ -21,7 +21,3 @@ export enum TimeRange {
   ThisYear = 'this-year',
   Custom = 'custom',
 }
-
-export interface ProfileFormModel {
-  displayName: string;
-}

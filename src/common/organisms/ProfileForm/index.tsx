@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import { ProfileFormModel } from '../../../diary/types';
+import { ProfileFormModel } from '../../types';
 
 export interface ProfileFormProps {
   defaultValues: ProfileFormModel;
@@ -24,6 +24,9 @@ export const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubm
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Controller name="displayName" control={control} as={TextField} label="Name" />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller name="email" control={control} as={TextField} label="Email" disabled />
         </Grid>
         <Grid item xs={12}>
           <TextField
