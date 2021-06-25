@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -14,6 +13,7 @@ import { TagInput } from '../../../common/atoms/TagInput';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import { TimeRangeSelect } from '../../atoms/TimeRangeSelect';
 import { TimeRange } from '../../types';
+import { Actions } from '../../../common/atoms/Actions';
 
 interface ActivityFilterModel {
   text: string;
@@ -112,7 +112,7 @@ export const ActivitySearchDialog: React.VFC = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Box display="flex" gridColumnGap={16}>
+          <Actions>
             <Button size="small" variant="contained" onClick={handleReset} color="default">
               Reset
             </Button>
@@ -126,7 +126,7 @@ export const ActivitySearchDialog: React.VFC = () => {
             >
               Search
             </Button>
-          </Box>
+          </Actions>
         </DialogActions>
       </Dialog>
     </>
