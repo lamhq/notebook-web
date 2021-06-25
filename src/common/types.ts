@@ -8,3 +8,12 @@ export interface ChangePwdFormModel {
   newPassword: string;
   confirmPassword: string;
 }
+
+export interface ForgotPwdFormModel {
+  email: string;
+}
+
+export interface ResetPwdFormModel {
+  newPassword: string;
+  confirmPassword: string;
+}

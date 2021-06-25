@@ -1,13 +1,13 @@
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { ProfileFormModel } from '../../types';
+import { Actions } from '../../atoms/Actions';
 
 export interface ProfileFormProps {
   defaultValues: ProfileFormModel;
@@ -20,7 +20,7 @@ export const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubm
   });
 
   return (
-    <form id="profileForm" onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Controller name="displayName" control={control} as={TextField} label="Name" />
@@ -46,14 +46,14 @@ export const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubm
           />
         </Grid>
       </Grid>
-      <Box display="flex" justifyContent="center" gridColumnGap={16}>
+      <Actions>
         <Button variant="contained" color="default">
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
-      </Box>
+      </Actions>
     </form>
   );
 };

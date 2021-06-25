@@ -3,17 +3,16 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { ChangePwdFormModel } from '../../types';
+import { ResetPwdFormModel } from '../../types';
 import { Actions } from '../../atoms/Actions';
 
-export interface ChangePwdFormProps {
-  onSubmit: SubmitHandler<ChangePwdFormModel>;
+export interface ResetPwdFormProps {
+  onSubmit: SubmitHandler<ResetPwdFormModel>;
 }
 
-export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
-  const { control, handleSubmit } = useForm<ChangePwdFormModel>({
+export const ResetPwdForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
+  const { control, handleSubmit } = useForm<ResetPwdFormModel>({
     defaultValues: {
-      currentPassword: '',
       newPassword: '',
       confirmPassword: '',
     },
@@ -22,15 +21,6 @@ export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={1}>
-        <Grid item xs={12}>
-          <Controller
-            name="currentPassword"
-            control={control}
-            as={TextField}
-            label="Password"
-            type="password"
-          />
-        </Grid>
         <Grid item xs={12}>
           <Controller
             name="password"
@@ -51,9 +41,6 @@ export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
         </Grid>
       </Grid>
       <Actions>
-        <Button variant="contained" color="default">
-          Cancel
-        </Button>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
