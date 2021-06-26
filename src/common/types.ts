@@ -1,3 +1,8 @@
+export interface LoginFormModel {
+  email: string;
+  password: string;
+}
+
 export interface ProfileFormModel {
   email: string;
   displayName: string;

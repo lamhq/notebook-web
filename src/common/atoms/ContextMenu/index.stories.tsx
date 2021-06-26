@@ -1,39 +1,37 @@
 import React from 'react';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { Story, Meta } from '@storybook/react/types-6-0';
+import { MenuProps } from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
-import IconButton from '@material-ui/core/IconButton';
-import { Activity } from '../../types';
-import { ItemIcon, ItemText, Menu, MenuItem } from '../../../common/atoms/ContextMenu';
+import { ItemIcon, ItemText, Menu, MenuItem } from '.';
 
-export interface ActivityMenuProps {
-  model: Activity;
-}
+export default {
+  title: 'Atoms/ContextMenu',
+  component: Menu,
+} as Meta;
 
-export const ActivityMenu: React.VFC<ActivityMenuProps> = () => {
+const Template: Story<MenuProps> = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <>
-      <IconButton size="small" onClick={handleClick}>
-        <MoreHorizIcon />
-      </IconButton>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>
+      <Button color="primary" variant="contained" onClick={handleClick}>
+        Open Menu
+      </Button>
+      <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+        <MenuItem>
           <ItemIcon>
             <BorderColorIcon fontSize="small" />
           </ItemIcon>
           <ItemText primary="Update" />
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem>
           <ItemIcon>
             <DeleteIcon fontSize="small" />
           </ItemIcon>
@@ -43,3 +41,5 @@ export const ActivityMenu: React.VFC<ActivityMenuProps> = () => {
     </>
   );
 };
+
+export const Default = Template.bind({});
