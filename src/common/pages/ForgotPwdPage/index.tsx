@@ -11,7 +11,7 @@ const ForgotPwdPage: React.VFC = () => {
   };
 
   return (
-    <SubLayout title="Forgot password">
+    <SubLayout title="Forgot password" backUrl="/login">
       <Typography align="center" paragraph>
         Please enter your registered email so you can reset your password.
       </Typography>

@@ -6,19 +6,22 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
 import { Container } from '../../atoms/Container';
+import { useNavigator } from '../../hooks';
 
 export interface SubLayoutProps {
   title: string;
+  backUrl?: string;
 }
 
-export const SubLayout: React.FC<SubLayoutProps> = ({ title, children }) => {
+export const SubLayout: React.FC<SubLayoutProps> = ({ title, backUrl, children }) => {
+  const { getLinkProps } = useNavigator();
   return (
     <>
       <AppBar position="static">
         <Toolbar variant="dense">
           <Grid container alignItems="center" spacing={0}>
             <Grid item xs={2}>
-              <IconButton edge="start" color="inherit" size="small">
+              <IconButton edge="start" color="inherit" size="small" {...getLinkProps(backUrl)}>
                 <ChevronLeftIcon />
               </IconButton>
             </Grid>

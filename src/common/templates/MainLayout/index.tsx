@@ -19,6 +19,7 @@ import BookIcon from '@material-ui/icons/Book';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Typography from '@material-ui/core/Typography';
+import { Link as RouterLink } from 'react-router-dom';
 import { ScrollOnClick } from '../../atoms/ScrollOnClick';
 import { HideOnScroll } from '../../atoms/HideOnScroll';
 import { Container } from '../../atoms/Container';
@@ -98,7 +99,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
         </Toolbar>
         <Divider />
         <List>
-          <ListItem button>
+          <ListItem button component={RouterLink} to="/profile">
             <ListItemIcon>
               <AccountCircleIcon />
             </ListItemIcon>
@@ -115,7 +116,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
             <ExpandLess />
           </ListItem>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nestedList}>
+            <ListItem button className={classes.nestedList} component={RouterLink} to="/">
               <ListItemIcon>
                 <TimelineIcon />
               </ListItemIcon>

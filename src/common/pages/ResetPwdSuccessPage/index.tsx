@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Button from '@material-ui/core/Button';
+import { Link as RouterLink } from 'react-router-dom';
 import { SubLayout } from '../../templates/SubLayout';
 import { Actions } from '../../atoms/Actions';
 
@@ -15,7 +16,7 @@ const ResetPwdSuccessPage: React.VFC = () => {
         Your password has been updated. Click the button below to continue.
       </Typography>
       <Actions>
-        <Button color="primary" variant="contained">
+        <Button color="primary" variant="contained" component={RouterLink} to="/login">
           Continue
         </Button>
       </Actions>

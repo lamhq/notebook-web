@@ -5,7 +5,7 @@ import { SubLayout } from '../../templates/SubLayout';
 
 const ForgotPwdSuccessPage: React.VFC = () => {
   return (
-    <SubLayout title="Done!">
+    <SubLayout title="Done!" backUrl="/login">
       <Typography align="center" paragraph>
         <CheckCircleOutlineIcon style={{ fontSize: '5rem' }} />
       </Typography>
