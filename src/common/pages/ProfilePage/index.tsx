@@ -3,6 +3,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { MainLayout } from '../../templates/MainLayout';
 import { ProfileForm } from '../../organisms/ProfileForm';
 import { ProfileFormModel } from '../../types';
+import { withAuth } from '../../../identity';
 
 const defaultValues: ProfileFormModel = {
   displayName: 'John Doe',
@@ -21,4 +22,4 @@ const ProfilePage: React.VFC = () => {
   );
 };
 
-export default ProfilePage;
+export default withAuth()(ProfilePage);

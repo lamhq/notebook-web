@@ -9,6 +9,7 @@ import { Revenue } from '../../atoms/Revenue';
 import { ActivitySearchDialog } from '../../organisms/ActivitySearchDialog';
 import { MainLayout } from '../../../common/templates/MainLayout';
 import { Actions } from '../../../common/atoms/Actions';
+import { withAuth } from '../../../identity';
 
 const models = [
   {
@@ -85,4 +86,4 @@ const ActivityListPage: React.VFC = () => {
   );
 };
 
-export default ActivityListPage;
+export default withAuth()(ActivityListPage);
