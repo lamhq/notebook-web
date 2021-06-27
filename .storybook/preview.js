@@ -5,6 +5,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
 import { theme } from '../src/theme';
 import '../src/styles.css';
@@ -22,9 +23,11 @@ export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
-        <Router>
-          <Story />
-        </Router>
+        <RecoilRoot>
+          <Router>
+            <Story />
+          </Router>
+        </RecoilRoot>
       </MuiPickersUtilsProvider>
     </ThemeProvider>
   ),

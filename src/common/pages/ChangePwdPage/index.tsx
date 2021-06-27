@@ -3,6 +3,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { ChangePwdForm } from '../../organisms/ChangePwdForm';
 import { SubLayout } from '../../templates/SubLayout';
 import { ChangePwdFormModel } from '../../types';
+import { withAuth } from '../../../identity';
 
 const ChangePwdPage: React.VFC = () => {
   const handleSubmit: SubmitHandler<ChangePwdFormModel> = (data) => {
@@ -16,4 +17,4 @@ const ChangePwdPage: React.VFC = () => {
   );
 };
 
-export default ChangePwdPage;
+export default withAuth()(ChangePwdPage);
