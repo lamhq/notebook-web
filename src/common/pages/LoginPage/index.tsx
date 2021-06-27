@@ -1,23 +1,20 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
+import { SubmitHandler } from 'react-hook-form';
 import { Container } from '../../atoms/Container';
+import { LoginFormModel } from '../../types';
+import { LoginForm } from '../../organisms/LoginForm';
 
 const LoginPage: React.VFC = () => {
+  const handleSubmit: SubmitHandler<LoginFormModel> = (data) => {
+    console.log(data);
+  };
   return (
     <Container>
       <Typography component="h1" variant="h2">
         Sign In
       </Typography>
-      <TextField label="Email" placeholder="Enter your email" />
-      <TextField label="Password" placeholder="Enter your password" />
-      <FormControl>
-        <Button variant="contained" color="primary" size="large" fullWidth>
-          SIGN IN
-        </Button>
-      </FormControl>
+      <LoginForm onSubmit={handleSubmit} />
     </Container>
   );
 };

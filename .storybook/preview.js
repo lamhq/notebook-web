@@ -4,8 +4,9 @@ import viLocale from "date-fns/locale/vi";
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import { theme } from '../src/theme';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import '../src/styles.css';
 
 export const parameters = {
@@ -21,7 +22,9 @@ export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
-        <Story />
+        <Router>
+          <Story />
+        </Router>
       </MuiPickersUtilsProvider>
     </ThemeProvider>
   ),

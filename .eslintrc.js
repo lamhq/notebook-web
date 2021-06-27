@@ -247,5 +247,6 @@ module.exports = {
     'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
 
     'react-hooks/exhaustive-deps': 'off',
+    "react/jsx-wrap-multilines": ["error", {"declaration": false, "assignment": false}],
   },
 };

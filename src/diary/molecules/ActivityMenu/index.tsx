@@ -4,13 +4,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import IconButton from '@material-ui/core/IconButton';
 import { Activity } from '../../types';
-import { ItemIcon, ItemText, Menu, MenuItem } from '../../../common/atoms/Menu';
+import { ItemIcon, ItemText, Menu, MenuItem } from '../../../common/atoms/ContextMenu';
+import { useNavigator } from '../../../common/hooks';
 
 export interface ActivityMenuProps {
   model: Activity;
 }
 
 export const ActivityMenu: React.VFC<ActivityMenuProps> = () => {
+  const { getLinkProps } = useNavigator();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,7 +29,7 @@ export const ActivityMenu: React.VFC<ActivityMenuProps> = () => {
         <MoreHorizIcon />
       </IconButton>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>
+        <MenuItem {...getLinkProps('/activities/edit/6')}>
           <ItemIcon>
             <BorderColorIcon fontSize="small" />
           </ItemIcon>

@@ -8,6 +8,7 @@ import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
 import { Textarea } from '../../../common/atoms/Textarea';
 import { Actions } from '../../../common/atoms/Actions';
+import { useNavigator } from '../../../common/hooks';
 
 export interface ActivityFormProps {
   defaultValues: ActivityFormModel;
@@ -15,6 +16,7 @@ export interface ActivityFormProps {
 }
 
 export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit }) => {
+  const { getLinkProps } = useNavigator();
   const { control, handleSubmit } = useForm<ActivityFormModel>({
     defaultValues,
   });
@@ -69,7 +71,7 @@ export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSu
         </Grid>
       </Grid>
       <Actions>
-        <Button variant="contained" color="default">
+        <Button variant="contained" color="default" {...getLinkProps()}>
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">

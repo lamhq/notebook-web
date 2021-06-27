@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import { Link as RouterLink } from 'react-router-dom';
 import { ProfileFormModel } from '../../types';
 import { Actions } from '../../atoms/Actions';
 
@@ -37,7 +38,7 @@ export const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubm
               readOnly: true,
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton size="small">
+                  <IconButton size="small" component={RouterLink} to="/profile/change-pwd">
                     <EditIcon fontSize="small" />
                   </IconButton>
                 </InputAdornment>
@@ -47,7 +48,7 @@ export const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubm
         </Grid>
       </Grid>
       <Actions>
-        <Button variant="contained" color="default">
+        <Button variant="contained" color="default" component={RouterLink} to="/">
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">

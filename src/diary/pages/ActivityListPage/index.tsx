@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
+import { Link as RouterLink } from 'react-router-dom';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { Revenue } from '../../atoms/Revenue';
@@ -71,7 +72,7 @@ const ActivityListPage: React.VFC = () => {
     <MainLayout title="Activities">
       <Grid container justify="space-between" spacing={0}>
         <Actions>
-          <IconButton color="primary" size="small">
+          <IconButton color="primary" size="small" component={RouterLink} to="/activities/new">
             <AddCircleIcon />
           </IconButton>
           <ActivitySearchDialog />
