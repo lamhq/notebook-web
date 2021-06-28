@@ -1,5 +1,5 @@
 import { Profile } from '../common/types';
-import { Activity } from '../diary/types';
+// import { Activity } from '../diary/types';
 import { Identity } from '../identity';
 
 export interface ApiClient {
@@ -8,13 +8,13 @@ export interface ApiClient {
   getProfile: () => Promise<Profile>;
   updateProfile: (data: UpdateProfileDto) => Promise<Profile>;
   changePassword: (data: ChangePasswordDto) => Promise<void>;
-  // forgotPwd: (data: ForgotPwdDto) => Promise<void>;
-  // resetPwd: (data: ResetPwdDto) => Promise<void>;
+  forgotPassword: (data: ForgotPasswordDto) => Promise<void>;
+  resetPassword: (data: ResetPasswordDto) => Promise<void>;
 
-  searchActivities: (filter: ActivityFilterDto) => Promise<Activity[]>;
-  addActivity: (data: ActivityDto) => Promise<Activity>;
-  updateActivity: (id: string, data: ActivityDto) => Promise<Activity>;
-  deleteActivity: (id: string) => Promise<void>;
+  // searchActivities: (filter: ActivityFilterDto) => Promise<Activity[]>;
+  // addActivity: (data: ActivityDto) => Promise<Activity>;
+  // updateActivity: (id: string, data: ActivityDto) => Promise<Activity>;
+  // deleteActivity: (id: string) => Promise<void>;
 }
 
 export interface LoginDto {
@@ -30,6 +30,15 @@ export interface UpdateProfileDto {
 export interface ChangePasswordDto {
   currentPassword: string;
   newPassword: string;
+}
+
+export interface ForgotPasswordDto {
+  email: string;
+}
+
+export interface ResetPasswordDto {
+  password: string;
+  token: string;
 }
 
 export interface ActivityFilterDto {
