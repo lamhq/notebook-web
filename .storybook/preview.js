@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
+import { initializeState } from '../src/identity';
 import { theme } from '../src/theme';
 import '../src/styles.css';
 
@@ -23,7 +24,7 @@ export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
-        <RecoilRoot>
+        <RecoilRoot initializeState={initializeState}>
           <Router>
             <Story />
           </Router>
