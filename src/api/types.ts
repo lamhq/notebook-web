@@ -1,0 +1,48 @@
+import { Profile } from '../common/types';
+import { Activity } from '../diary/types';
+import { Identity } from '../identity';
+
+export interface ApiClient {
+  login: (data: LoginDto) => Promise<Identity>;
+  logout: () => Promise<void>;
+  getProfile: () => Promise<Profile>;
+  updateProfile: (data: UpdateProfileDto) => Promise<Profile>;
+  changePassword: (data: ChangePasswordDto) => Promise<void>;
+  // forgotPwd: (data: ForgotPwdDto) => Promise<void>;
+  // resetPwd: (data: ResetPwdDto) => Promise<void>;
+
+  searchActivities: (filter: ActivityFilterDto) => Promise<Activity[]>;
+  addActivity: (data: ActivityDto) => Promise<Activity>;
+  updateActivity: (id: string, data: ActivityDto) => Promise<Activity>;
+  deleteActivity: (id: string) => Promise<void>;
+}
+
+export interface LoginDto {
+  email: string;
+  password: string;
+}
+
+export interface UpdateProfileDto {
+  displayName: string;
+  avatar: string;
+}
+
+export interface ChangePasswordDto {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export interface ActivityFilterDto {
+  text: string;
+  tags: string[];
+  from: Date;
+  to: Date;
+}
+
+export interface ActivityDto {
+  content: string;
+  time: Date;
+  tags: string[];
+  income: number;
+  outcome: number;
+}

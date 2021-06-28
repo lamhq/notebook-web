@@ -6,40 +6,44 @@ import viLocale from 'date-fns/locale/vi';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
+import '../../../styles.css';
 import { theme } from '../../../theme';
 import routes from '../../../routes';
-import '../../../styles.css';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { LoadingContent } from '../../atoms/LoadingContent';
 import NotFoundPage from '../../pages/NotFoundPage';
+import { ApiProvider } from '../../../api';
+import { API_BASE_URL } from '../../../config';
 
 export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
         <RecoilRoot>
-          <Router key={Math.random()}>
-            <Suspense fallback={<LoadingContent />}>
-              <Switch>
-                {routes.map((r) => (
-                  // Added property`key` to Router to fix warning
-                  // when hot reloading Route component
-                  <ProtectedRoute
-                    key={r.path}
-                    path={r.path}
-                    component={r.component}
-                    permissions={r.permissions}
-                    exact
-                  />
-                ))}
+          <ApiProvider baseUrl={API_BASE_URL}>
+            <Router key={Math.random()}>
+              <Suspense fallback={<LoadingContent />}>
+                <Switch>
+                  {routes.map((r) => (
+                    // Added property`key` to Router to fix warning
+                    // when hot reloading Route component
+                    <ProtectedRoute
+                      key={r.path}
+                      path={r.path}
+                      component={r.component}
+                      permissions={r.permissions}
+                      exact
+                    />
+                  ))}
 
-                {/* 404 homepage */}
-                <Route>
-                  <NotFoundPage />
-                </Route>
-              </Switch>
-            </Suspense>
-          </Router>
+                  {/* 404 homepage */}
+                  <Route>
+                    <NotFoundPage />
+                  </Route>
+                </Switch>
+              </Suspense>
+            </Router>
+          </ApiProvider>
         </RecoilRoot>
       </MuiPickersUtilsProvider>
     </ThemeProvider>

@@ -3,9 +3,16 @@ export interface LoginFormModel {
   password: string;
 }
 
-export interface ProfileFormModel {
+export interface Profile {
   email: string;
   displayName: string;
+  avatar?: string;
+}
+
+export interface ProfileFormModel {
+  displayName: string;
+  avatar?: string;
+  email: string;
 }
 
 export interface ChangePwdFormModel {

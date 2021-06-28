@@ -12,16 +12,8 @@ import TextField from '@material-ui/core/TextField';
 import { TagInput } from '../../../common/atoms/TagInput';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import { TimeRangeSelect } from '../../atoms/TimeRangeSelect';
-import { TimeRange } from '../../types';
+import { TimeRange, ActivityFilterModel } from '../../types';
 import { Actions } from '../../../common/atoms/Actions';
-
-interface ActivityFilterModel {
-  text: string;
-  tags: string[];
-  timeRange: TimeRange;
-  from: Date;
-  to: Date;
-}
 
 const defaultValues: ActivityFilterModel = {
   text: '',
