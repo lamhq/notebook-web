@@ -9,6 +9,7 @@ import { RecoilRoot } from 'recoil';
 
 import '../src/styles.css';
 import { theme } from '../src/theme';
+import { identityState } from '../src/identity';
 import { ApiContext, fakeApiHelper } from '../src/api';
 
 export const parameters = {
@@ -20,16 +21,14 @@ export const parameters = {
   },
 }
 
-const fakeIdenity = {
-  displayName: 'Admin',
-  token: '',
-  expireAt: new Date(),
-  email: '',
-  roles: [],
-};
-
-export const initializeTestState = ({ set }) => {
-  set(identityState, fakeIdenity);
+const initializeTestState = ({ set }) => {
+  set(identityState, {
+    displayName: 'Admin',
+    token: '',
+    expireAt: new Date(),
+    email: '',
+    roles: [],
+  });
 };
 
 export const decorators = [

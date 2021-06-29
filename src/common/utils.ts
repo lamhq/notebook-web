@@ -7,3 +7,7 @@ export function formatNumber(n: number): string {
 export function hasSubArray(master: string[], sub: string[]): boolean {
   return master && sub && sub.every((value, index) => master.indexOf(value, index) + 1 > 0);
 }
+
+export async function sleep(milisecond: number): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, milisecond));
+}

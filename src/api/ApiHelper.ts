@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { Profile } from '../common/types';
+import { sleep } from '../common/utils';
 import { Activity } from '../diary/types';
 import { Identity } from '../identity';
 import {
@@ -91,6 +92,7 @@ export class ApiHelper implements ApiClient {
 
 export const fakeApiHelper: ApiClient = {
   login: async () => {
+    await sleep(2000);
     const fakeIdenity: Identity = {
       displayName: 'Admin',
       token: '',

@@ -1,19 +1,23 @@
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { LoginFormModel } from '../../types';
+import { LoadingButton } from '../../atoms/LoadingButton';
 
 export interface ResetPwdFormProps {
   onSubmit: SubmitHandler<LoginFormModel>;
 }
 
 export const LoginForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
-  const { control, handleSubmit } = useForm<LoginFormModel>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<LoginFormModel>({
     defaultValues: {
       email: '',
       password: '',
@@ -27,7 +31,7 @@ export const LoginForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
         name="password"
         control={control}
         as={TextField}
-        label="Email"
+        label="Password"
         type="password"
         helperText={
           <>
@@ -38,9 +42,16 @@ export const LoginForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
         }
       />
       <FormControl>
-        <Button type="submit" variant="contained" color="primary" size="large" fullWidth>
+        <LoadingButton
+          loading={isSubmitting}
+          type="submit"
+          variant="contained"
+          color="primary"
+          size="large"
+          fullWidth
+        >
           SIGN IN
-        </Button>
+        </LoadingButton>
       </FormControl>
     </form>
   );
