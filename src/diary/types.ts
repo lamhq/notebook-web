@@ -21,3 +21,11 @@ export enum TimeRange {
   ThisYear = 'this-year',
   Custom = 'custom',
 }
+
+export interface ActivityFilterModel {
+  text: string;
+  tags: string[];
+  timeRange: TimeRange;
+  from: Date;
+  to: Date;
+}

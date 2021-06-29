@@ -7,8 +7,9 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import { theme } from '../src/theme';
 import '../src/styles.css';
+import { theme } from '../src/theme';
+import { ApiContext, fakeApiHelper } from '../src/api';
 
 export const parameters = {
   layout: 'fullscreen',
@@ -19,13 +20,27 @@ export const parameters = {
   },
 }
 
+const fakeIdenity = {
+  displayName: 'Admin',
+  token: '',
+  expireAt: new Date(),
+  email: '',
+  roles: [],
+};
+
+export const initializeTestState = ({ set }) => {
+  set(identityState, fakeIdenity);
+};
+
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
-        <RecoilRoot>
+        <RecoilRoot initializeState={initializeTestState}>
           <Router>
-            <Story />
+            <ApiContext.Provider value={fakeApiHelper}>
+              <Story />
+            </ApiContext.Provider>
           </Router>
         </RecoilRoot>
       </MuiPickersUtilsProvider>
