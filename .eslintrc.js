@@ -238,6 +238,9 @@ module.exports = {
           ...baseImportsRules['import/no-extraneous-dependencies'][1]
             .devDependencies.map((glob) => glob.replace('js,jsx', 'js,jsx,ts,tsx')),
           '**/jest.setup.ts',
+          '**/webpack.common.js',
+          '**/webpack.dev.js',
+          '**/webpack.prod.js',
         ],
       },
     ],

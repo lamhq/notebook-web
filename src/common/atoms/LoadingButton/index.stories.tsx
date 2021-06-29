@@ -9,7 +9,7 @@ export default {
 } as Meta;
 
 const Template: Story<LoadingButtonProps> = (args) => {
-  const { loading } = args;
+  const { loading = false } = args;
   const [isLoading, setIsLoading] = React.useState<boolean>(loading);
   const handleClick: React.MouseEventHandler = async () => {
     setIsLoading(true);
