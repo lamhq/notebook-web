@@ -25,7 +25,7 @@ const defaultValues: ActivityFilterModel = {
 
 export const ActivitySearchDialog: React.VFC = () => {
   const [open, setOpen] = React.useState(false);
-  const { control, handleSubmit, watch, reset } = useForm<ActivityFilterModel>({
+  const { register, control, handleSubmit, watch, reset } = useForm<ActivityFilterModel>({
     defaultValues,
   });
   const timeRange = watch('timeRange');
@@ -58,25 +58,13 @@ export const ActivitySearchDialog: React.VFC = () => {
           <form id="activitySearchForm" onSubmit={handleSubmit(handleFormSubmit)}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <Controller name="text" control={control} as={TextField} label="Text" />
+                <TextField {...register('text')} label="Text" />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Controller
-                  name="tags"
-                  control={control}
-                  render={({ onChange, value }) => (
-                    <TagInput value={value} onChange={onChange} options={['abc', 'def', 'ghi']} />
-                  )}
-                />
+                <TagInput {...register('tags')} options={['abc', 'def', 'ghi']} />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Controller
-                  name="timeRange"
-                  control={control}
-                  render={({ onChange, value }) => (
-                    <TimeRangeSelect value={value} onChange={onChange} label="Time range" />
-                  )}
-                />
+                <TimeRangeSelect {...register('timeRange')} label="Time range" />
               </Grid>
               {timeRange === TimeRange.Custom && (
                 <>
@@ -84,18 +72,14 @@ export const ActivitySearchDialog: React.VFC = () => {
                     <Controller
                       name="from"
                       control={control}
-                      render={({ onChange, value }) => (
-                        <DatePicker value={value} onChange={onChange} label="From" />
-                      )}
+                      render={({ field }) => <DatePicker label="From" {...field} />}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Controller
                       name="to"
                       control={control}
-                      render={({ onChange, value }) => (
-                        <DatePicker value={value} onChange={onChange} label="To" />
-                      )}
+                      render={({ field }) => <DatePicker label="To" {...field} />}
                     />
                   </Grid>
                 </>

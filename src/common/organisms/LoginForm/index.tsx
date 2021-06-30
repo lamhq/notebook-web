@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Link from '@material-ui/core/Link';
@@ -14,7 +14,7 @@ export interface ResetPwdFormProps {
 
 export const LoginForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
   const {
-    control,
+    register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<LoginFormModel>({
@@ -26,13 +26,11 @@ export const LoginForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller name="email" control={control} as={TextField} label="Email" type="email" />
-      <Controller
-        name="password"
-        control={control}
-        as={TextField}
+      <TextField label="Email" type="email" {...register('email')} />
+      <TextField
         label="Password"
         type="password"
+        {...register('password')}
         helperText={
           <>
             <Link to="/forgot-pwd" variant="body2" component={RouterLink}>

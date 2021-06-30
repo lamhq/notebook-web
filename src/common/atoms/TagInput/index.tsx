@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 const filter = createFilterOptions<string>();
 
 export interface TagInputProps {
-  value: string[];
+  value?: string[];
   onChange: (value: string[]) => void;
   options: string[];
   creatable?: boolean;
