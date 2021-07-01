@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -16,7 +16,7 @@ export interface ProfileFormProps {
 }
 
 export const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubmit }) => {
-  const { control, handleSubmit } = useForm<ProfileFormModel>({
+  const { register, handleSubmit } = useForm<ProfileFormModel>({
     defaultValues,
   });
 
@@ -24,15 +24,15 @@ export const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubm
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <Controller name="displayName" control={control} as={TextField} label="Name" />
+          <TextField label="Name" {...register('displayName')} />
         </Grid>
         <Grid item xs={12}>
-          <Controller name="email" control={control} as={TextField} label="Email" disabled />
+          <TextField label="Email" type="email" {...register('email')} disabled />
         </Grid>
         <Grid item xs={12}>
           <TextField
             label="Password"
-            value="123456"
+            value="******"
             type="password"
             InputProps={{
               readOnly: true,

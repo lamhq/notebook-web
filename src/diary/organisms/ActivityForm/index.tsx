@@ -17,17 +17,15 @@ export interface ActivityFormProps {
 
 export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit }) => {
   const { getLinkProps } = useNavigator();
-  const { control, handleSubmit } = useForm<ActivityFormModel>({
+  const { register, control, handleSubmit } = useForm<ActivityFormModel>({
     defaultValues,
   });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <Controller
-            name="content"
-            control={control}
-            as={TextField}
+          <TextField
+            {...register('content')}
             label="Content"
             InputProps={{
               inputComponent: Textarea,
@@ -35,39 +33,20 @@ export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSu
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Controller
-            name="tags"
-            control={control}
-            render={({ onChange, value }) => (
-              <TagInput
-                value={value}
-                onChange={onChange}
-                options={['abc', 'def', 'ghi']}
-                creatable
-              />
-            )}
-          />
+          <TagInput {...register('tags')} options={['abc', 'def', 'ghi']} creatable />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controller
             name="time"
             control={control}
-            render={({ onChange, value }) => (
-              <DateTimePicker value={value} onChange={onChange} label="Time" />
-            )}
+            render={({ field }) => <DateTimePicker label="Time" {...field} />}
           />
         </Grid>
         <Grid item xs={6}>
-          <Controller name="income" control={control} label="Income" as={TextField} type="number" />
+          <TextField {...register('income')} type="number" label="Income" />
         </Grid>
         <Grid item xs={6}>
-          <Controller
-            name="outcome"
-            control={control}
-            label="Outcome"
-            as={TextField}
-            type="number"
-          />
+          <TextField {...register('outcome')} type="number" label="Outcome" />
         </Grid>
       </Grid>
       <Actions>

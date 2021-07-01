@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -11,7 +11,7 @@ export interface ForgotPwdFormProps {
 }
 
 export const ForgotPwdForm: React.VFC<ForgotPwdFormProps> = ({ onSubmit }) => {
-  const { control, handleSubmit } = useForm<ForgotPwdFormModel>({
+  const { register, handleSubmit } = useForm<ForgotPwdFormModel>({
     defaultValues: {
       email: '',
     },
@@ -21,7 +21,7 @@ export const ForgotPwdForm: React.VFC<ForgotPwdFormProps> = ({ onSubmit }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <Controller name="email" control={control} as={TextField} label="Email" type="email" />
+          <TextField label="Email" type="email" {...register('email')} />
         </Grid>
       </Grid>
       <Actions>

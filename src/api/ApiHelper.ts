@@ -1,5 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../common/types';
+import { sleep } from '../common/utils';
 import { Activity } from '../diary/types';
 import { Identity } from '../identity';
 import {
@@ -20,8 +21,17 @@ export class ApiHelper implements ApiClient {
     this.client = axios.create({ baseURL: endpoint });
   }
 
+  request<T, R = AxiosResponse<T>>(config: AxiosRequestConfig): Promise<R> {
+    return this.client.request(config);
+  }
+
   async login(data: LoginDto): Promise<Identity> {
-    const resp = await this.client.post<Identity>('/api/v1/auth/admin/tokens', data);
+    const resp = await this.request<Identity>({
+      url: '/auth/admin/tokens',
+      method: 'POST',
+      data,
+    });
+    // const resp = await this.client.post<Identity>('/auth/admin/tokens', data);
     const identity: Identity = {
       displayName: resp.data.displayName,
       expireAt: new Date(resp.data.expireAt),
@@ -35,7 +45,11 @@ export class ApiHelper implements ApiClient {
   }
 
   async logout(): Promise<void> {
-    return this.client.delete('/auth/tokens/mine');
+    // return this.client.delete('/auth/tokens/mine');
+    return this.request({
+      url: '/auth/tokens/mine',
+      method: 'DELETE',
+    });
   }
 
   async getProfile(): Promise<Profile> {
@@ -91,6 +105,7 @@ export class ApiHelper implements ApiClient {
 
 export const fakeApiHelper: ApiClient = {
   login: async () => {
+    await sleep(2000);
     const fakeIdenity: Identity = {
       displayName: 'Admin',
       token: '',

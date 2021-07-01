@@ -5,6 +5,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import viLocale from 'date-fns/locale/vi';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { SnackbarProvider } from 'notistack';
 
 import '../../../styles.css';
 import { theme } from '../../../theme';
@@ -21,28 +22,35 @@ export const App: React.FC = () => {
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
         <RecoilRoot>
           <ApiProvider baseUrl={API_BASE_URL}>
-            <Router key={Math.random()}>
-              <Suspense fallback={<LoadingContent />}>
-                <Switch>
-                  {routes.map((r) => (
-                    // Added property`key` to Router to fix warning
-                    // when hot reloading Route component
-                    <ProtectedRoute
-                      key={r.path}
-                      path={r.path}
-                      component={r.component}
-                      permissions={r.permissions}
-                      exact
-                    />
-                  ))}
+            <SnackbarProvider
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+            >
+              <Router key={Math.random()}>
+                <Suspense fallback={<LoadingContent />}>
+                  <Switch>
+                    {routes.map((r) => (
+                      // Added property`key` to Router to fix warning
+                      // when hot reloading Route component
+                      <ProtectedRoute
+                        key={r.path}
+                        path={r.path}
+                        component={r.component}
+                        permissions={r.permissions}
+                        exact
+                      />
+                    ))}
 
-                  {/* 404 homepage */}
-                  <Route>
-                    <NotFoundPage />
-                  </Route>
-                </Switch>
-              </Suspense>
-            </Router>
+                    {/* 404 homepage */}
+                    <Route>
+                      <NotFoundPage />
+                    </Route>
+                  </Switch>
+                </Suspense>
+              </Router>
+            </SnackbarProvider>
           </ApiProvider>
         </RecoilRoot>
       </MuiPickersUtilsProvider>

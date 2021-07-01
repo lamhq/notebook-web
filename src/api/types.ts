@@ -2,6 +2,18 @@ import { Profile } from '../common/types';
 import { Activity } from '../diary/types';
 import { Identity } from '../identity';
 
+type ErrorDetails = string | [InputErrors];
+
+export interface InputErrors {
+  [x: string]: ErrorDetails;
+}
+
+export interface ApiError {
+  statusCode: number;
+  message: string;
+  details?: InputErrors;
+}
+
 export interface ApiClient {
   login: (data: LoginDto) => Promise<Identity>;
   logout: () => Promise<void>;

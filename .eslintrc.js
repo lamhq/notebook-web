@@ -216,6 +216,11 @@ module.exports = {
     'space-before-function-paren': 'off',
     '@typescript-eslint/space-before-function-paren': baseStyleRules['space-before-function-paren'],
 
+    // Replace Airbnb 'no-shadow' rule with '@typescript-eslint' version
+    // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-shadow.md
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+
     // Append 'ts' and 'tsx' to Airbnb 'import/extensions' rule
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
     'import/extensions': [
@@ -238,6 +243,9 @@ module.exports = {
           ...baseImportsRules['import/no-extraneous-dependencies'][1]
             .devDependencies.map((glob) => glob.replace('js,jsx', 'js,jsx,ts,tsx')),
           '**/jest.setup.ts',
+          '**/webpack.common.js',
+          '**/webpack.dev.js',
+          '**/webpack.prod.js',
         ],
       },
     ],

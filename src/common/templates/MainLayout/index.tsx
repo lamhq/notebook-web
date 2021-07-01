@@ -1,36 +1,25 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import MuiListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLess from '@material-ui/icons/ExpandLess';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import TimelineIcon from '@material-ui/icons/Timeline';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import BookIcon from '@material-ui/icons/Book';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Typography from '@material-ui/core/Typography';
-import { Link as RouterLink } from 'react-router-dom';
 import { ScrollOnClick } from '../../atoms/ScrollOnClick';
 import { HideOnScroll } from '../../atoms/HideOnScroll';
 import { Container } from '../../atoms/Container';
+import { Sidebar } from '../../organisms/Sidebar';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     drawerPaper: {
       width: 200,
-    },
-    nestedList: {
-      paddingLeft: theme.spacing(4),
     },
     drawerToolbar: {
       display: 'flex',
@@ -41,12 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-export const ListItemIcon = withStyles({
-  root: {
-    minWidth: 40,
-  },
-})(MuiListItemIcon);
 
 export interface MainLayoutProps {
   title: string;
@@ -98,32 +81,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
           </IconButton>
         </Toolbar>
         <Divider />
-        <List>
-          <ListItem button component={RouterLink} to="/profile">
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <BookIcon />
-            </ListItemIcon>
-            <ListItemText primary="Diary" />
-            <ExpandLess />
-          </ListItem>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nestedList} component={RouterLink} to="/">
-              <ListItemIcon>
-                <TimelineIcon />
-              </ListItemIcon>
-              <ListItemText primary="Activities" />
-            </ListItem>
-          </List>
-        </List>
+        <Sidebar />
       </Drawer>
       <Container>
         <>{children}</>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -12,7 +12,7 @@ export interface ChangePwdFormProps {
 }
 
 export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
-  const { control, handleSubmit } = useForm<ChangePwdFormModel>({
+  const { register, handleSubmit } = useForm<ChangePwdFormModel>({
     defaultValues: {
       currentPassword: '',
       newPassword: '',
@@ -25,31 +25,13 @@ export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <Controller
-            name="currentPassword"
-            control={control}
-            as={TextField}
-            label="Password"
-            type="password"
-          />
+          <TextField label="Current Password" type="password" {...register('currentPassword')} />
         </Grid>
         <Grid item xs={12}>
-          <Controller
-            name="newPassword"
-            control={control}
-            as={TextField}
-            label="New Password"
-            type="password"
-          />
+          <TextField label="New Password" type="password" {...register('newPassword')} />
         </Grid>
         <Grid item xs={12}>
-          <Controller
-            name="confirmPassword"
-            control={control}
-            as={TextField}
-            label="Repeat Password"
-            type="password"
-          />
+          <TextField label="Repeat Password" type="password" {...register('confirmPassword')} />
         </Grid>
       </Grid>
       <Actions>
