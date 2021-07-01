@@ -1,43 +1,69 @@
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import { LoginFormModel } from '../../types';
 import { LoadingButton } from '../../atoms/LoadingButton';
 
-export interface ResetPwdFormProps {
+const schema = yup.object().shape({
+  email: yup.string().email('This field must be an email').required('This field is required'),
+  password: yup
+    .string()
+    .min(3, 'A minimum of 3 characters is required')
+    .required('This field is required'),
+});
+
+export interface LoginFormProps {
   onSubmit: SubmitHandler<LoginFormModel>;
 }
 
-export const LoginForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
+export const LoginForm: React.VFC<LoginFormProps> = ({ onSubmit }) => {
   const {
-    register,
+    control,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm<LoginFormModel>({
     defaultValues: {
       email: '',
       password: '',
     },
+    resolver: yupResolver(schema),
   });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField label="Email" type="email" {...register('email')} />
-      <TextField
-        label="Password"
-        type="password"
-        {...register('password')}
-        helperText={
-          <>
-            <Link to="/forgot-pwd" variant="body2" component={RouterLink}>
-              Forgot password?
-            </Link>
-          </>
-        }
+      <Controller
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            label="Email"
+            type="email"
+            required
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <TextField
+            label="Password"
+            type="password"
+            required
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            {...field}
+          />
+        )}
       />
       <FormControl>
         <LoadingButton
@@ -51,6 +77,9 @@ export const LoginForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
           SIGN IN
         </LoadingButton>
       </FormControl>
+      <Link to="/forgot-pwd" variant="body2" display="block" align="center" component={RouterLink}>
+        Forgot your password?
+      </Link>
     </form>
   );
 };

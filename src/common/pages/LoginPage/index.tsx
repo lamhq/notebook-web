@@ -1,6 +1,7 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import { SubmitHandler } from 'react-hook-form';
+import { useSnackbar } from 'notistack';
+import Typography from '@material-ui/core/Typography';
 import { Container } from '../../atoms/Container';
 import { LoginFormModel } from '../../types';
 import { LoginForm } from '../../organisms/LoginForm';
@@ -12,10 +13,15 @@ const LoginPage: React.VFC = () => {
   const api = useApi();
   const setIdentity = useSetIdentity();
   const { redirect } = useNavigator();
+  const { enqueueSnackbar } = useSnackbar();
   const handleSubmit: SubmitHandler<LoginFormModel> = async (data) => {
-    const identity = await api.login(data);
-    setIdentity(identity);
-    redirect('/');
+    try {
+      const identity = await api.login(data);
+      setIdentity(identity);
+      redirect('/');
+    } catch (error) {
+      enqueueSnackbar('Wrong email or password.', { variant: 'error' });
+    }
   };
   return (
     <Container>
