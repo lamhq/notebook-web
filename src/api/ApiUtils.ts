@@ -1,12 +1,13 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../common/types';
 import { sleep } from '../common/utils';
 import { Activity } from '../diary/types';
 import { Identity } from '../identity';
 import {
+  ApiClient,
+  ApiError,
   ActivityDto,
   ActivityFilterDto,
-  ApiClient,
   ChangePasswordDto,
   ForgotPasswordDto,
   LoginDto,
@@ -14,7 +15,7 @@ import {
   UpdateProfileDto,
 } from './types';
 
-export class ApiHelper implements ApiClient {
+export class ApiUtils implements ApiClient {
   private client: AxiosInstance;
 
   constructor(endpoint: string) {
@@ -22,7 +23,21 @@ export class ApiHelper implements ApiClient {
   }
 
   request<T, R = AxiosResponse<T>>(config: AxiosRequestConfig): Promise<R> {
-    return this.client.request(config);
+    const result = this.client.request<T, R>(config);
+    result.catch((error: AxiosError<ApiError>) => {
+      const apiErr = new ApiError(error.message);
+      apiErr.stack = error.stack;
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        apiErr.statusCode = error.response.status;
+        apiErr.message = error.response.data.message;
+        apiErr.details = error.response.data.details;
+      }
+      throw apiErr;
+    });
+
+    return result;
   }
 
   async login(data: LoginDto): Promise<Identity> {
@@ -103,8 +118,11 @@ export class ApiHelper implements ApiClient {
   }
 }
 
-export const fakeApiHelper: ApiClient = {
+export const fakeApiUtils: ApiClient = {
   login: async () => {
+    // const error = new ApiError('Network Error');
+    // error.statusCode = 400;
+    // throw error;
     await sleep(2000);
     const fakeIdenity: Identity = {
       displayName: 'Admin',

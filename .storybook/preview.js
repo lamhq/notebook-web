@@ -6,11 +6,12 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { SnackbarProvider } from 'notistack';
 
 import '../src/styles.css';
 import { theme } from '../src/theme';
 import { identityState } from '../src/identity';
-import { ApiContext, fakeApiHelper } from '../src/api';
+import { ApiContext, fakeApiUtils } from '../src/api';
 
 export const parameters = {
   layout: 'fullscreen',
@@ -36,11 +37,13 @@ export const decorators = [
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
         <RecoilRoot initializeState={initializeTestState}>
-          <Router>
-            <ApiContext.Provider value={fakeApiHelper}>
-              <Story />
-            </ApiContext.Provider>
-          </Router>
+          <SnackbarProvider>
+            <Router>
+              <ApiContext.Provider value={fakeApiUtils}>
+                <Story />
+              </ApiContext.Provider>
+            </Router>
+          </SnackbarProvider>
         </RecoilRoot>
       </MuiPickersUtilsProvider>
     </ThemeProvider>

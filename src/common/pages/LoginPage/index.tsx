@@ -5,22 +5,33 @@ import Typography from '@material-ui/core/Typography';
 import { Container } from '../../atoms/Container';
 import { LoginFormModel } from '../../types';
 import { LoginForm } from '../../organisms/LoginForm';
-import { useApi } from '../../../api';
+import { ApiErrorCode, ApiErrorHandler, useApi, useApiErrorHandler } from '../../../api';
 import { useSetIdentity } from '../../../identity';
-import { useNavigator } from '../../hooks';
+import { useNavUtils } from '../../hooks';
 
 const LoginPage: React.VFC = () => {
   const api = useApi();
   const setIdentity = useSetIdentity();
-  const { redirect } = useNavigator();
+  const { redirect } = useNavUtils();
   const { enqueueSnackbar } = useSnackbar();
+  const loginErrorHandler: ApiErrorHandler = React.useCallback(
+    async (error) => {
+      if (error.statusCode === ApiErrorCode.BadRequest) {
+        enqueueSnackbar('Wrong email or password.', { variant: 'error' });
+        return true;
+      }
+      return false;
+    },
+    [enqueueSnackbar],
+  );
+  const handleApiError = useApiErrorHandler(loginErrorHandler);
   const handleSubmit: SubmitHandler<LoginFormModel> = async (data) => {
     try {
       const identity = await api.login(data);
       setIdentity(identity);
       redirect('/');
     } catch (error) {
-      enqueueSnackbar('Wrong email or password.', { variant: 'error' });
+      handleApiError(error);
     }
   };
   return (

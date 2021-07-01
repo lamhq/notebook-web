@@ -4,14 +4,25 @@ import { Identity } from '../identity';
 
 type ErrorDetails = string | [InputErrors];
 
+export enum ApiErrorCode {
+  NetworkError = 0,
+  BadRequest = 400,
+  Unauthenticated = 401,
+  Unauthorized = 403,
+  Notfound = 404,
+  ServerError = 500,
+}
+
+export type ApiErrorHandler = (error: ApiError) => Promise<boolean>;
+
 export interface InputErrors {
   [x: string]: ErrorDetails;
 }
 
-export interface ApiError {
-  statusCode: number;
-  message: string;
-  details?: InputErrors;
+export class ApiError extends Error {
+  public statusCode?: ApiErrorCode = ApiErrorCode.NetworkError;
+
+  public details?: InputErrors;
 }
 
 export interface ApiClient {
