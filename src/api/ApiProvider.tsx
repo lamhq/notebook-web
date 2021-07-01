@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApiHelper } from './ApiHelper';
+import { ApiUtils } from './ApiUtils';
 import { ApiContext } from './contexts';
 
 interface ApiProviderProps {
@@ -7,6 +7,6 @@ interface ApiProviderProps {
 }
 
 export const ApiProvider: React.FC<ApiProviderProps> = ({ baseUrl, children }) => {
-  const apiClient = new ApiHelper(baseUrl);
+  const apiClient = new ApiUtils(baseUrl);
   return <ApiContext.Provider value={apiClient}>{children}</ApiContext.Provider>;
 };

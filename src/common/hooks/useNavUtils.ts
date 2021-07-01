@@ -1,14 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-interface NavigationHelpers {
+interface NavigationUtils {
   redirect: (link: string) => void;
   goBack: () => void;
   reload: () => void;
   getLinkProps: (url?: string) => { onClick: () => void };
 }
 
-export default function useNavigator(): NavigationHelpers {
+export default function useNavUtils(): NavigationUtils {
   const h = useHistory();
 
   const redirect = React.useCallback(
@@ -31,7 +31,7 @@ export default function useNavigator(): NavigationHelpers {
     h.go(0);
   }, [h]);
 
-  const getLinkProps: NavigationHelpers['getLinkProps'] = (url) => ({
+  const getLinkProps: NavigationUtils['getLinkProps'] = (url) => ({
     // go to specified url or go back
     onClick: url ? () => redirect(url) : goBack,
   });

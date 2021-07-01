@@ -1,2 +1,2 @@
 export { default as useLoadingState } from './useLoadingState';
-export { default as useNavigator } from './useNavigator';
+export { default as useNavUtils } from './useNavUtils';

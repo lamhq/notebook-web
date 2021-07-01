@@ -5,14 +5,14 @@ import BorderColorIcon from '@material-ui/icons/BorderColor';
 import IconButton from '@material-ui/core/IconButton';
 import { Activity } from '../../types';
 import { ItemIcon, ItemText, Menu, MenuItem } from '../../../common/atoms/ContextMenu';
-import { useNavigator } from '../../../common/hooks';
+import { useNavUtils } from '../../../common/hooks';
 
 export interface ActivityMenuProps {
   model: Activity;
 }
 
 export const ActivityMenu: React.VFC<ActivityMenuProps> = () => {
-  const { getLinkProps } = useNavigator();
+  const { getLinkProps } = useNavUtils();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

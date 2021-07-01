@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
 import { Container } from '../../atoms/Container';
-import { useNavigator } from '../../hooks';
+import { useNavUtils } from '../../hooks';
 
 export interface SubLayoutProps {
   title: string;
@@ -14,7 +14,7 @@ export interface SubLayoutProps {
 }
 
 export const SubLayout: React.FC<SubLayoutProps> = ({ title, backUrl, children }) => {
-  const { getLinkProps } = useNavigator();
+  const { getLinkProps } = useNavUtils();
   return (
     <>
       <AppBar position="static">

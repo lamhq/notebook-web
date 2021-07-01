@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ChangePwdFormModel } from '../../types';
 import { Actions } from '../../atoms/Actions';
-import { useNavigator } from '../../hooks';
+import { useNavUtils } from '../../hooks';
 
 export interface ChangePwdFormProps {
   onSubmit: SubmitHandler<ChangePwdFormModel>;
@@ -19,7 +19,7 @@ export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
       confirmPassword: '',
     },
   });
-  const { getLinkProps } = useNavigator();
+  const { getLinkProps } = useNavUtils();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
