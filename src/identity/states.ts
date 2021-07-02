@@ -18,7 +18,7 @@ const localStorageEffect: AtomEffect<Identity | undefined> = ({ setSelf, onSet }
 };
 
 export const identityState = atom<Identity | undefined>({
-  key: 'identityState', // unique ID (with respect to other atoms/selectors)
+  key: 'common/identity', // unique ID (with respect to other atoms/selectors)
   default: undefined, // default value (aka initial value)
   effects_UNSTABLE: [localStorageEffect],
 });

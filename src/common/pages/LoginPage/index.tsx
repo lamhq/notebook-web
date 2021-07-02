@@ -14,7 +14,7 @@ const LoginPage: React.VFC = () => {
   const setIdentity = useSetIdentity();
   const { redirect } = useNavUtils();
   const { enqueueSnackbar } = useSnackbar();
-  const loginErrorHandler: ApiErrorHandler = React.useCallback(
+  const handleLoginErr: ApiErrorHandler = React.useCallback(
     async (error) => {
       if (error.statusCode === ApiErrorCode.BadRequest) {
         enqueueSnackbar('Wrong email or password.', { variant: 'error' });
@@ -24,7 +24,7 @@ const LoginPage: React.VFC = () => {
     },
     [enqueueSnackbar],
   );
-  const handleApiError = useApiErrorHandler(loginErrorHandler);
+  const handleApiError = useApiErrorHandler(handleLoginErr);
   const handleSubmit: SubmitHandler<LoginFormModel> = async (data) => {
     try {
       const identity = await api.login(data);
@@ -34,6 +34,7 @@ const LoginPage: React.VFC = () => {
       handleApiError(error);
     }
   };
+
   return (
     <Container>
       <Typography component="h1" variant="h2">

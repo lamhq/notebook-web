@@ -22,7 +22,8 @@ module.exports = {
     '@typescript-eslint',
     'react',
     'jest',
-    'prettier'
+    'prettier',
+    'react-hooks',
   ],
   env: {
     browser: true,
@@ -256,5 +257,12 @@ module.exports = {
 
     'react-hooks/exhaustive-deps': 'off',
     "react/jsx-wrap-multilines": ["error", {"declaration": false, "assignment": false}],
+
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "warn", {
+        "additionalHooks": "useRecoilCallback"
+      }
+    ]
   },
 };

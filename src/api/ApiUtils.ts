@@ -46,7 +46,6 @@ export class ApiUtils implements ApiClient {
       method: 'POST',
       data,
     });
-    // const resp = await this.client.post<Identity>('/auth/admin/tokens', data);
     const identity: Identity = {
       displayName: resp.data.displayName,
       expireAt: new Date(resp.data.expireAt),
@@ -60,7 +59,6 @@ export class ApiUtils implements ApiClient {
   }
 
   async logout(): Promise<void> {
-    // return this.client.delete('/auth/tokens/mine');
     return this.request({
       url: '/auth/tokens/mine',
       method: 'DELETE',
@@ -90,7 +88,9 @@ export class ApiUtils implements ApiClient {
   }
 
   async searchActivities(filter: ActivityFilterDto): Promise<Activity[]> {
-    const resp = await this.client.get<Activity[]>('/diary/activities', {
+    const resp = await this.request<Activity[]>({
+      url: '/diary/activities',
+      method: 'GET',
       params: {
         text: filter.text,
         from: filter.from.toISOString(),
@@ -157,6 +157,7 @@ export const fakeApiUtils: ApiClient = {
   resetPassword: async () => undefined,
 
   searchActivities: async () => {
+    await sleep(2000);
     const models = [
       {
         id: '1',

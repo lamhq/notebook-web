@@ -56,7 +56,7 @@ export function useApiErrorHandler(customHandler?: ApiErrorHandler): ApiErrorHan
       }
       return true;
     },
-    [enqueueSnackbar, redirect],
+    [customHandler, enqueueSnackbar, redirect],
   );
   return errorHandler;
 }

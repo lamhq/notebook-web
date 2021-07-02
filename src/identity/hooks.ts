@@ -1,5 +1,5 @@
 import { SetterOrUpdater, useRecoilValue, useSetRecoilState } from 'recoil';
-import { identityState } from './atoms';
+import { identityState } from './states';
 import { Identity } from './types';
 
 export function useIdentity(): Identity | undefined {
