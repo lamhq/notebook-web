@@ -8,9 +8,17 @@ export default {
   argTypes: { onChange: { action: 'onChange' } },
 } as Meta;
 
-const Template: Story<TagInputProps> = ({ options, creatable }) => {
+const Template: Story<TagInputProps> = ({ options, creatable, loading }) => {
   const [value, setValue] = React.useState<string[]>([]);
-  return <TagInput value={value} onChange={setValue} options={options} creatable={creatable} />;
+  return (
+    <TagInput
+      value={value}
+      onChange={setValue}
+      options={options}
+      creatable={creatable}
+      loading={loading}
+    />
+  );
 };
 
 export const Default = Template.bind({});
@@ -23,4 +31,10 @@ export const Creatable = Template.bind({});
 Creatable.args = {
   options: ['abc', 'def', 'ghi'],
   creatable: true,
+};
+
+export const Loadable = Template.bind({});
+Loadable.args = {
+  options: [],
+  loading: true,
 };

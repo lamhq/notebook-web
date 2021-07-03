@@ -1,5 +1,5 @@
 import { Profile } from '../common/types';
-import { Activity, ActivityFilterModel } from '../diary/types';
+import { Activity, ActivityFilterModel, ActivityTag } from '../diary/types';
 import { Identity } from '../identity';
 
 type ErrorDetails = string | [InputErrors];
@@ -38,6 +38,8 @@ export interface ApiClient {
   addActivity: (data: ActivityDto) => Promise<Activity>;
   updateActivity: (id: string, data: ActivityDto) => Promise<Activity>;
   deleteActivity: (id: string) => Promise<void>;
+
+  getTags: () => Promise<ActivityTag[]>;
 }
 
 export interface LoginDto {

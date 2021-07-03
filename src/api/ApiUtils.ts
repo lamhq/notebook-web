@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../common/types';
 import { sleep } from '../common/utils';
-import { Activity, ActivityFilterModel } from '../diary/types';
+import { Activity, ActivityFilterModel, ActivityTag } from '../diary/types';
 import { Identity } from '../identity';
 import {
   ApiClient,
@@ -116,6 +116,11 @@ export class ApiUtils implements ApiClient {
   async deleteActivity(id: string): Promise<void> {
     await this.client.delete<void>(`/diary/activities/${id}`);
   }
+
+  async getTags(): Promise<ActivityTag[]> {
+    const resp = await this.client.get<ActivityTag[]>('/diary/tags');
+    return resp.data;
+  }
 }
 
 export const fakeApiUtils: ApiClient = {
@@ -225,4 +230,14 @@ export const fakeApiUtils: ApiClient = {
   },
 
   deleteActivity: async () => undefined,
+
+  getTags: async () => {
+    await sleep(2000);
+    const tags = [
+      { id: '123', name: 'abc' },
+      { id: '456', name: 'def' },
+      { id: '789', name: 'ghi' },
+    ];
+    return tags;
+  },
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const filter = createFilterOptions<string>();
 
@@ -9,6 +10,7 @@ export interface TagInputProps {
   onChange: (value: string[]) => void;
   options: string[];
   creatable?: boolean;
+  loading?: boolean;
 }
 
 export const TagInput: React.VFC<TagInputProps> = ({
@@ -16,11 +18,13 @@ export const TagInput: React.VFC<TagInputProps> = ({
   onChange,
   options,
   creatable = false,
+  loading = false,
 }) => {
   return (
     <Autocomplete
       multiple
       clearOnBlur
+      loading={loading}
       freeSolo={creatable}
       options={options}
       value={value}
@@ -37,7 +41,21 @@ export const TagInput: React.VFC<TagInputProps> = ({
         }
         return filtered;
       }}
-      renderInput={(params) => <TextField {...params} label="Tags" />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Tags"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
+        />
+      )}
     />
   );
 };

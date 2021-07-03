@@ -7,6 +7,11 @@ export interface Activity {
   outcome: number;
 }
 
+export interface ActivityTag {
+  id: string;
+  name: string;
+}
+
 export interface ActivityFormModel {
   content: string;
   time: Date;
