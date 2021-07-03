@@ -5,15 +5,17 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import Typography from '@material-ui/core/Typography';
 import { styled } from '@material-ui/core/styles';
+import { SubmitHandler } from 'react-hook-form';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { Revenue } from '../../atoms/Revenue';
-// import { ActivitySearchDialog } from '../../organisms/ActivitySearchDialog';
+import { ActivitySearchDialog } from '../../organisms/ActivitySearchDialog';
 import { MainLayout } from '../../../common/templates/MainLayout';
 import { ActionButtons } from '../../../common/atoms/ActionButtons';
 import { withAuth } from '../../../identity';
 import { activityFilterState, filteredActivitiesState } from './states';
 import { LoadingContent } from '../../../common/atoms/LoadingContent';
+import { ActivityFilterModel } from '../../types';
 
 const ToolBar = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(2),
@@ -45,6 +47,13 @@ const LoadableActivityList: React.VFC = () => {
 };
 
 const ActivityListPage: React.VFC = () => {
+  const [filter, setFilter] = useRecoilState(activityFilterState);
+  const handleSearch: SubmitHandler<ActivityFilterModel> = React.useCallback(
+    (data) => {
+      setFilter(data);
+    },
+    [setFilter],
+  );
   return (
     <MainLayout title="Activities">
       <ToolBar>
@@ -52,7 +61,7 @@ const ActivityListPage: React.VFC = () => {
           <IconButton color="primary" size="small" component={RouterLink} to="/activities/new">
             <AddCircleIcon />
           </IconButton>
-          {/* <ActivitySearchDialog /> */}
+          <ActivitySearchDialog values={filter} onSubmit={handleSearch} />
         </ActionButtons>
         <Revenue income={400} outcome={120} />
       </ToolBar>
