@@ -7,7 +7,7 @@ import { TagInput } from '../../../common/atoms/TagInput';
 import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
 import { Textarea } from '../../../common/atoms/Textarea';
-import { Actions } from '../../../common/atoms/Actions';
+import { Buttons } from '../../../common/atoms/Buttons';
 import { useNavUtils } from '../../../common/hooks';
 
 export interface ActivityFormProps {
@@ -49,14 +49,14 @@ export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSu
           <TextField {...register('outcome')} type="number" label="Outcome" />
         </Grid>
       </Grid>
-      <Actions>
+      <Buttons>
         <Button variant="contained" color="default" {...getLinkProps()}>
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
-      </Actions>
+      </Buttons>
     </form>
   );
 };

@@ -157,7 +157,7 @@ export const fakeApiUtils: ApiClient = {
   resetPassword: async () => undefined,
 
   searchActivities: async () => {
-    await sleep(2000);
+    await sleep(1500);
     const models = [
       {
         id: '1',

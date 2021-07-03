@@ -3,8 +3,7 @@
 import { ApiErrorHandler as InnerApiErrorHandler } from './types';
 
 export type ApiErrorHandler = InnerApiErrorHandler;
-export { ApiProvider } from './ApiProvider';
+export { ApiProvider, FakeApiProvider } from './ApiProvider';
 export { useApi, useApiErrorHandler } from './hooks';
-export { ApiContext } from './contexts';
 export { ApiErrorCode } from './types';
-export { fakeApiUtils } from './ApiUtils';
+export { getApiClient } from './utils';

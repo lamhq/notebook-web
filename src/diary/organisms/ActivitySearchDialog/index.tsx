@@ -13,7 +13,7 @@ import { TagInput } from '../../../common/atoms/TagInput';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import { TimeRangeSelect } from '../../atoms/TimeRangeSelect';
 import { TimeRange, ActivityFilterModel } from '../../types';
-import { Actions } from '../../../common/atoms/Actions';
+import { Buttons } from '../../../common/atoms/Buttons';
 
 const defaultValues: ActivityFilterModel = {
   text: '',
@@ -88,7 +88,7 @@ export const ActivitySearchDialog: React.VFC = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Actions>
+          <Buttons>
             <Button size="small" variant="contained" onClick={handleReset} color="default">
               Reset
             </Button>
@@ -102,7 +102,7 @@ export const ActivitySearchDialog: React.VFC = () => {
             >
               Search
             </Button>
-          </Actions>
+          </Buttons>
         </DialogActions>
       </Dialog>
     </>

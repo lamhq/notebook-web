@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ChangePwdFormModel } from '../../types';
-import { Actions } from '../../atoms/Actions';
+import { Buttons } from '../../atoms/Buttons';
 import { useNavUtils } from '../../hooks';
 
 export interface ChangePwdFormProps {
@@ -34,14 +34,14 @@ export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
           <TextField label="Repeat Password" type="password" {...register('confirmPassword')} />
         </Grid>
       </Grid>
-      <Actions>
+      <Buttons>
         <Button variant="contained" color="default" {...getLinkProps()}>
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
-      </Actions>
+      </Buttons>
     </form>
   );
 };
