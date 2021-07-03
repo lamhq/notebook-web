@@ -8,33 +8,39 @@ export default {
   argTypes: { onChange: { action: 'onChange' } },
 } as Meta;
 
-const Template: Story<TagInputProps> = ({ options, creatable, loading }) => {
-  const [value, setValue] = React.useState<string[]>([]);
+const Template: Story<TagInputProps> = ({ options, loading, value, freeSolo, label }) => {
+  const [selected, setSelected] = React.useState<string[] | undefined>(value);
   return (
     <TagInput
-      value={value}
-      onChange={setValue}
+      value={selected}
+      onChange={(event, newValue) => {
+        setSelected(newValue);
+      }}
       options={options}
-      creatable={creatable}
+      label={label}
       loading={loading}
+      freeSolo={freeSolo}
     />
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
+  label: 'Tags',
+  value: ['abc', 'def'],
   options: ['abc', 'def', 'ghi'],
-  creatable: false,
 };
 
 export const Creatable = Template.bind({});
 Creatable.args = {
+  value: ['abc', 'def'],
   options: ['abc', 'def', 'ghi'],
-  creatable: true,
+  freeSolo: true,
 };
 
 export const Loadable = Template.bind({});
 Loadable.args = {
+  value: ['abc', 'def'],
   options: [],
   loading: true,
 };

@@ -1,50 +1,47 @@
 import React from 'react';
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import Autocomplete, {
+  AutocompleteProps,
+  createFilterOptions,
+} from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const filter = createFilterOptions<string>();
 
-export interface TagInputProps {
-  value?: string[];
-  onChange: (value: string[]) => void;
-  options: string[];
-  creatable?: boolean;
-  loading?: boolean;
+export interface TagInputProps
+  extends Omit<AutocompleteProps<string, true, false, true>, 'renderInput'> {
+  label?: React.ReactNode;
 }
 
-export const TagInput: React.VFC<TagInputProps> = ({
-  value,
-  onChange,
-  options,
-  creatable = false,
-  loading = false,
-}) => {
+export const TagInput = React.forwardRef<unknown, TagInputProps>(function TagInputRef(props, ref) {
+  const { loading, freeSolo, onChange, label, ...rest } = props;
   return (
-    <Autocomplete
+    <Autocomplete<string, true, false, true>
+      {...rest}
+      ref={ref}
       multiple
       clearOnBlur
       loading={loading}
-      freeSolo={creatable}
-      options={options}
-      value={value}
-      onChange={(event, newValue) => {
-        // remove mark text from newly created item
-        const modifiedValue = newValue.map((val) => val.replace(/^Add "/, '').replace(/"$/, ''));
-        onChange(modifiedValue);
-      }}
+      freeSolo={freeSolo}
       filterOptions={(opts, params) => {
         const filtered = filter(opts, params);
         // suggest the creation of a new value
-        if (creatable && params.inputValue !== '' && !opts.includes(params.inputValue)) {
+        if (freeSolo && params.inputValue !== '' && !opts.includes(params.inputValue)) {
           filtered.unshift(`Add "${params.inputValue}"`);
         }
         return filtered;
       }}
+      onChange={(event, newValue, reason, details) => {
+        if (onChange) {
+          // remove mark text from newly created item
+          const modifiedValue = newValue.map((val) => val.replace(/^Add "/, '').replace(/"$/, ''));
+          onChange(event, modifiedValue, reason, details);
+        }
+      }}
       renderInput={(params) => (
         <TextField
+          label={label}
           {...params}
-          label="Tags"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
@@ -58,4 +55,4 @@ export const TagInput: React.VFC<TagInputProps> = ({
       )}
     />
   );
-};
+});

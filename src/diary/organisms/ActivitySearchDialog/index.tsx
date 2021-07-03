@@ -9,26 +9,24 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { TagInput } from '../../../common/atoms/TagInput';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import { TimeRangeSelect } from '../../atoms/TimeRangeSelect';
 import { TimeRange, ActivityFilterModel } from '../../types';
 import { ActionButtons } from '../../../common/atoms/ActionButtons';
+import { ActivityTagSelect } from '../../atoms/ActivityTagSelect';
 
-const defaultValues: ActivityFilterModel = {
-  text: '',
-  tags: [],
-  timeRange: TimeRange.ThisMonth,
-  from: new Date(),
-  to: new Date(),
-  pageSize: 10,
-  page: 1,
-};
+export interface ActivitySearchDialogProps {
+  values: ActivityFilterModel;
+  onSubmit: SubmitHandler<ActivityFilterModel>;
+}
 
-export const ActivitySearchDialog: React.VFC = () => {
+export const ActivitySearchDialog: React.VFC<ActivitySearchDialogProps> = ({
+  values,
+  onSubmit,
+}) => {
   const [open, setOpen] = React.useState(false);
-  const { register, control, handleSubmit, watch, reset } = useForm<ActivityFilterModel>({
-    defaultValues,
+  const { control, handleSubmit, watch, reset } = useForm<ActivityFilterModel>({
+    defaultValues: values,
   });
   const timeRange = watch('timeRange');
 
@@ -41,7 +39,7 @@ export const ActivitySearchDialog: React.VFC = () => {
   };
 
   const handleFormSubmit: SubmitHandler<ActivityFilterModel> = (data) => {
-    console.log(data);
+    onSubmit(data);
     setOpen(false);
   };
 
@@ -60,13 +58,27 @@ export const ActivitySearchDialog: React.VFC = () => {
           <form id="activitySearchForm" onSubmit={handleSubmit(handleFormSubmit)}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <TextField {...register('text')} label="Text" />
+                <Controller
+                  name="text"
+                  control={control}
+                  render={({ field }) => <TextField label="Text" {...field} />}
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TagInput {...register('tags')} options={['abc', 'def', 'ghi']} />
+                <Controller
+                  name="tags"
+                  control={control}
+                  render={({ field: { onChange, ...rest } }) => (
+                    <ActivityTagSelect label="Tags" onChange={(e, v) => onChange(v)} {...rest} />
+                  )}
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TimeRangeSelect {...register('timeRange')} label="Time range" />
+                <Controller
+                  name="timeRange"
+                  control={control}
+                  render={({ field }) => <TimeRangeSelect label="Time range" {...field} />}
+                />
               </Grid>
               {timeRange === TimeRange.Custom && (
                 <>

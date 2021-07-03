@@ -5,16 +5,21 @@ import { tagListState } from '../../states';
 
 export type ActivityTagSelectProps = Omit<TagInputProps, 'options'>;
 
-const LoadableTagSelect: React.VFC<ActivityTagSelectProps> = (props) => {
-  const tags = useRecoilValue(tagListState);
-  return <TagInput {...props} options={tags.map((tag) => tag.name)} />;
-};
+// use React.forwardRef to make it work with react-hook-form
+export const LoadableTagSelect = React.forwardRef<unknown, ActivityTagSelectProps>(
+  function LoadableTagSelectRef(props, ref) {
+    const tags = useRecoilValue(tagListState);
+    return <TagInput {...props} ref={ref} options={tags.map((tag) => tag.name)} />;
+  },
+);
 
-export const ActivityTagSelect: React.VFC<ActivityTagSelectProps> = (props) => {
-  const fallBack = <TagInput {...props} options={[]} loading />;
-  return (
-    <React.Suspense fallback={fallBack}>
-      <LoadableTagSelect {...props} />
-    </React.Suspense>
-  );
-};
+export const ActivityTagSelect = React.forwardRef<unknown, ActivityTagSelectProps>(
+  function ActivityTagSelectRef(props, ref) {
+    const fallBack = <TagInput {...props} options={[]} loading />;
+    return (
+      <React.Suspense fallback={fallBack}>
+        <LoadableTagSelect {...props} ref={ref} />
+      </React.Suspense>
+    );
+  },
+);
