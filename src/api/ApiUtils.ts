@@ -1,13 +1,12 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../common/types';
 import { sleep } from '../common/utils';
-import { Activity } from '../diary/types';
+import { Activity, ActivityFilterModel } from '../diary/types';
 import { Identity } from '../identity';
 import {
   ApiClient,
   ApiError,
   ActivityDto,
-  ActivityFilterDto,
   ChangePasswordDto,
   ForgotPasswordDto,
   LoginDto,
@@ -87,7 +86,7 @@ export class ApiUtils implements ApiClient {
     await this.client.post<void>('/admin/accounts/reset-password', data);
   }
 
-  async searchActivities(filter: ActivityFilterDto): Promise<Activity[]> {
+  async searchActivities(filter: ActivityFilterModel): Promise<[Activity[], number]> {
     const resp = await this.request<Activity[]>({
       url: '/diary/activities',
       method: 'GET',
@@ -96,11 +95,12 @@ export class ApiUtils implements ApiClient {
         from: filter.from.toISOString(),
         to: filter.to.toISOString(),
         tags: filter.tags,
-        offset: filter.offset,
-        limit: filter.limit,
+        limit: filter.pageSize,
+        offset: (filter.page - 1) * filter.pageSize,
       },
     });
-    return resp.data;
+    const total = parseInt(resp.headers['x-total-count'], 10);
+    return [resp.data, Math.ceil(total / filter.pageSize)];
   }
 
   async addActivity(data: ActivityDto): Promise<Activity> {
@@ -212,7 +212,8 @@ export const fakeApiUtils: ApiClient = {
           'At vero eos et accusamus et iusto odio dignissimos\nut aut reiciendis voluptatibus ',
       },
     ];
-    return models;
+    const pageCount = 12;
+    return [models, pageCount];
   },
 
   addActivity: async (data) => {

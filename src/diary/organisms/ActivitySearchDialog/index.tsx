@@ -13,7 +13,7 @@ import { TagInput } from '../../../common/atoms/TagInput';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import { TimeRangeSelect } from '../../atoms/TimeRangeSelect';
 import { TimeRange, ActivityFilterModel } from '../../types';
-import { Buttons } from '../../../common/atoms/Buttons';
+import { ActionButtons } from '../../../common/atoms/ActionButtons';
 
 const defaultValues: ActivityFilterModel = {
   text: '',
@@ -21,6 +21,8 @@ const defaultValues: ActivityFilterModel = {
   timeRange: TimeRange.ThisMonth,
   from: new Date(),
   to: new Date(),
+  pageSize: 10,
+  page: 1,
 };
 
 export const ActivitySearchDialog: React.VFC = () => {
@@ -88,7 +90,7 @@ export const ActivitySearchDialog: React.VFC = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Buttons>
+          <ActionButtons>
             <Button size="small" variant="contained" onClick={handleReset} color="default">
               Reset
             </Button>
@@ -102,7 +104,7 @@ export const ActivitySearchDialog: React.VFC = () => {
             >
               Search
             </Button>
-          </Buttons>
+          </ActionButtons>
         </DialogActions>
       </Dialog>
     </>

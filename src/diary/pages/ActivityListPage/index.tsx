@@ -1,42 +1,63 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 import { Link as RouterLink } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import Typography from '@material-ui/core/Typography';
+import { styled } from '@material-ui/core/styles';
 import { ActivityList } from '../../organisms/ActivityList';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { Revenue } from '../../atoms/Revenue';
 // import { ActivitySearchDialog } from '../../organisms/ActivitySearchDialog';
 import { MainLayout } from '../../../common/templates/MainLayout';
-import { Actions } from '../../../common/atoms/Actions';
+import { ActionButtons } from '../../../common/atoms/ActionButtons';
 import { withAuth } from '../../../identity';
-import { filteredActivitiesState } from './states';
+import { activityFilterState, filteredActivitiesState } from './states';
+import { LoadingContent } from '../../../common/atoms/LoadingContent';
+
+const ToolBar = styled('div')(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  display: 'flex',
+  justifyContent: 'space-between',
+}));
 
 const LoadableActivityList: React.VFC = () => {
-  const filteredActivities = useRecoilValue(filteredActivitiesState);
-  return <ActivityList models={filteredActivities} />;
+  const [activities, pageCount] = useRecoilValue(filteredActivitiesState);
+  const [filter, setFilter] = useRecoilState(activityFilterState);
+  const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {
+    setFilter((curFilter) => ({
+      ...curFilter,
+      page: newPage,
+    }));
+  };
+  return activities.length ? (
+    <>
+      <ActivityList models={activities} />
+      {pageCount > 1 && (
+        <Pagination page={filter.page} onChange={handlePageChange} count={pageCount} />
+      )}
+    </>
+  ) : (
+    <Typography align="center" variant="body1">
+      There&apos;s no items to display.
+    </Typography>
+  );
 };
 
 const ActivityListPage: React.VFC = () => {
-  const [page, setPage] = React.useState(1);
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
   return (
     <MainLayout title="Activities">
-      <Grid container justify="space-between" spacing={0}>
-        <Actions>
+      <ToolBar>
+        <ActionButtons>
           <IconButton color="primary" size="small" component={RouterLink} to="/activities/new">
             <AddCircleIcon />
           </IconButton>
           {/* <ActivitySearchDialog /> */}
-        </Actions>
+        </ActionButtons>
         <Revenue income={400} outcome={120} />
-      </Grid>
-      <React.Suspense fallback={<div>Loading...</div>}>
+      </ToolBar>
+      <React.Suspense fallback={<LoadingContent />}>
         <LoadableActivityList />
-        <Pagination page={page} onChange={handleChange} count={10} />
       </React.Suspense>
     </MainLayout>
   );

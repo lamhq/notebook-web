@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { ProfileFormModel } from '../../types';
-import { Buttons } from '../../atoms/Buttons';
+import { ActionButtons } from '../../atoms/ActionButtons';
 
 export interface ProfileFormProps {
   defaultValues: ProfileFormModel;
@@ -47,14 +47,14 @@ export const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubm
           />
         </Grid>
       </Grid>
-      <Buttons>
+      <ActionButtons>
         <Button variant="contained" color="default" component={RouterLink} to="/">
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
-      </Buttons>
+      </ActionButtons>
     </form>
   );
 };

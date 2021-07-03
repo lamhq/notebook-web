@@ -9,11 +9,8 @@ import { ActivityMenu } from '../ActivityMenu';
 import { formatNumber } from '../../../common/utils';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    backgroundColor: '#fff',
-  },
   content: () => ({
-    marginBottom: '0.5rem',
+    marginBottom: theme.spacing(1),
   }),
   income: () => ({
     color: theme.palette.success.main,
@@ -37,7 +34,7 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
   const outcome = formatNumber(model.outcome);
 
   return (
-    <div className={classes.container}>
+    <>
       <Grid container justify="space-between" spacing={0}>
         <TimeLabel time={model.time} />
         <ActivityMenu model={model} />
@@ -68,7 +65,7 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
           ))}
         </Box>
       </Grid>
-    </div>
+    </>
   );
 };
 

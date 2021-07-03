@@ -1,5 +1,5 @@
 import { Profile } from '../common/types';
-import { Activity } from '../diary/types';
+import { Activity, ActivityFilterModel } from '../diary/types';
 import { Identity } from '../identity';
 
 type ErrorDetails = string | [InputErrors];
@@ -34,7 +34,7 @@ export interface ApiClient {
   forgotPassword: (data: ForgotPasswordDto) => Promise<void>;
   resetPassword: (data: ResetPasswordDto) => Promise<void>;
 
-  searchActivities: (filter: ActivityFilterDto) => Promise<Activity[]>;
+  searchActivities: (filter: ActivityFilterModel) => Promise<[Activity[], number]>;
   addActivity: (data: ActivityDto) => Promise<Activity>;
   updateActivity: (id: string, data: ActivityDto) => Promise<Activity>;
   deleteActivity: (id: string) => Promise<void>;
@@ -62,15 +62,6 @@ export interface ForgotPasswordDto {
 export interface ResetPasswordDto {
   password: string;
   token: string;
-}
-
-export interface ActivityFilterDto {
-  text: string;
-  tags: string[];
-  from: Date;
-  to: Date;
-  limit: number;
-  offset: number;
 }
 
 export interface ActivityDto {

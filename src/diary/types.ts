@@ -28,4 +28,6 @@ export interface ActivityFilterModel {
   timeRange: TimeRange;
   from: Date;
   to: Date;
+  page: number;
+  pageSize: number;
 }

@@ -1,6 +1,5 @@
 import { selector, atom } from 'recoil';
 import { getApiClient } from '../../../api';
-import { ActivityFilterDto } from '../../../api/types';
 import { Activity, ActivityFilterModel, TimeRange } from '../../types';
 
 export const activityFilterState = atom<ActivityFilterModel>({
@@ -9,21 +8,18 @@ export const activityFilterState = atom<ActivityFilterModel>({
     text: '',
     tags: [],
     timeRange: TimeRange.ThisMonth,
-    from: new Date(),
-    to: new Date(),
+    from: new Date('2018-07-03'),
+    to: new Date('2021-07-03'),
+    page: 1,
+    pageSize: 10,
   },
 });
 
-export const filteredActivitiesState = selector<Activity[]>({
+export const filteredActivitiesState = selector<[Activity[], number]>({
   key: 'diary/activities', // unique ID (with respect to other atoms/selectors)
   get: async ({ get }) => {
     const apiClient = await getApiClient();
     const filter = get(activityFilterState);
-    const dto: ActivityFilterDto = {
-      ...filter,
-      limit: 10,
-      offset: 0,
-    };
-    return apiClient.searchActivities(dto);
+    return apiClient.searchActivities(filter);
   },
 });
