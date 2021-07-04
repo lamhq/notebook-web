@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../common/types';
 import { sleep } from '../common/utils';
-import { Activity, ActivityFilterModel, ActivityTag } from '../diary/types';
+import { Activity, ActivityFilterModel } from '../diary/types';
+import { getTimeRangeFromFilter } from '../diary/utils';
 import { Identity } from '../identity';
 import {
   ApiClient,
@@ -87,14 +88,15 @@ export class ApiUtils implements ApiClient {
   }
 
   async searchActivities(filter: ActivityFilterModel): Promise<[Activity[], number]> {
+    const [from, to] = getTimeRangeFromFilter(filter);
     const resp = await this.request<Activity[]>({
       url: '/diary/activities',
       method: 'GET',
       params: {
-        text: filter.text,
-        from: filter.from.toISOString(),
-        to: filter.to.toISOString(),
-        tags: filter.tags,
+        text: filter.text || undefined,
+        tags: filter.tags || undefined,
+        from: from?.toISOString(),
+        to: to?.toISOString(),
         limit: filter.pageSize,
         offset: (filter.page - 1) * filter.pageSize,
       },
@@ -117,8 +119,8 @@ export class ApiUtils implements ApiClient {
     await this.client.delete<void>(`/diary/activities/${id}`);
   }
 
-  async getTags(): Promise<ActivityTag[]> {
-    const resp = await this.client.get<ActivityTag[]>('/diary/tags');
+  async getTags(): Promise<string[]> {
+    const resp = await this.client.get<string[]>('/diary/tags');
     return resp.data;
   }
 }
@@ -233,11 +235,7 @@ export const fakeApiUtils: ApiClient = {
 
   getTags: async () => {
     await sleep(2000);
-    const tags = [
-      { id: '123', name: 'abc' },
-      { id: '456', name: 'def' },
-      { id: '789', name: 'ghi' },
-    ];
+    const tags = ['abc', 'def', 'ghi'];
     return tags;
   },
 };

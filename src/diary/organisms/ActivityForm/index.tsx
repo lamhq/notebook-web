@@ -33,7 +33,7 @@ export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSu
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TagInput {...register('tags')} options={['abc', 'def', 'ghi']} creatable />
+          <TagInput {...register('tags')} options={['abc', 'def', 'ghi']} freeSolo />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controller

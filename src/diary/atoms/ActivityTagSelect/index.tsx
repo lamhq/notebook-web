@@ -9,7 +9,7 @@ export type ActivityTagSelectProps = Omit<TagInputProps, 'options'>;
 export const LoadableTagSelect = React.forwardRef<unknown, ActivityTagSelectProps>(
   function LoadableTagSelectRef(props, ref) {
     const tags = useRecoilValue(tagListState);
-    return <TagInput {...props} ref={ref} options={tags.map((tag) => tag.name)} />;
+    return <TagInput {...props} ref={ref} options={tags} />;
   },
 );
 

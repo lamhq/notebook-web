@@ -10,7 +10,14 @@ export default {
 
 const Template: Story<ActivityTagSelectProps> = () => {
   const [value, setValue] = React.useState<string[]>([]);
-  return <ActivityTagSelect value={value} onChange={setValue} />;
+  return (
+    <ActivityTagSelect
+      value={value}
+      onChange={(e, v) => {
+        setValue(v);
+      }}
+    />
+  );
 };
 
 export const Default = Template.bind({});
