@@ -40,7 +40,7 @@ export interface ApiClient {
   deleteActivity: (id: string) => Promise<void>;
 
   getTags: () => Promise<string[]>;
-  getRevenue: (from?: Date, to?: Date) => Promise<Revenue>;
+  getRevenue: (filter: ActivityFilterModel) => Promise<Revenue>;
 }
 
 export interface LoginDto {

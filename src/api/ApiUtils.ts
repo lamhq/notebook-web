@@ -124,11 +124,14 @@ export class ApiUtils implements ApiClient {
     return resp.data;
   }
 
-  async getRevenue(from?: Date, to?: Date): Promise<Revenue> {
+  async getRevenue(filter: ActivityFilterModel): Promise<Revenue> {
+    const [from, to] = getTimeRangeFromFilter(filter);
     const resp = await this.request<Revenue>({
-      url: '/diary/stats/revenue',
+      url: '/diary/stat/revenue',
       method: 'GET',
       params: {
+        text: filter.text || undefined,
+        tags: filter.tags || undefined,
         from: from?.toISOString(),
         to: to?.toISOString(),
       },

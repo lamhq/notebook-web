@@ -8,6 +8,6 @@ export const revenueState = selector<Revenue>({
   get: async ({ get }) => {
     const filter = get(activityFilterState);
     const apiClient = await getApiClient();
-    return apiClient.getRevenue(filter.from, filter.to);
+    return apiClient.getRevenue(filter);
   },
 });
