@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../common/types';
 import { sleep } from '../common/utils';
-import { Activity, ActivityFilterModel } from '../diary/types';
+import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
 import { getTimeRangeFromFilter } from '../diary/utils';
 import { Identity } from '../identity';
 import {
@@ -123,13 +123,22 @@ export class ApiUtils implements ApiClient {
     const resp = await this.client.get<string[]>('/diary/tags');
     return resp.data;
   }
+
+  async getRevenue(from?: Date, to?: Date): Promise<Revenue> {
+    const resp = await this.request<Revenue>({
+      url: '/diary/stats/revenue',
+      method: 'GET',
+      params: {
+        from: from?.toISOString(),
+        to: to?.toISOString(),
+      },
+    });
+    return resp.data;
+  }
 }
 
 export const fakeApiUtils: ApiClient = {
   login: async () => {
-    // const error = new ApiError('Network Error');
-    // error.statusCode = 400;
-    // throw error;
     await sleep(2000);
     const fakeIdenity: Identity = {
       displayName: 'Admin',
@@ -164,6 +173,11 @@ export const fakeApiUtils: ApiClient = {
   resetPassword: async () => undefined,
 
   searchActivities: async () => {
+    await sleep(1500);
+    const error = new ApiError('Network Error');
+    error.statusCode = 400;
+    throw error;
+
     await sleep(1500);
     const models = [
       {
@@ -237,5 +251,10 @@ export const fakeApiUtils: ApiClient = {
     await sleep(2000);
     const tags = ['abc', 'def', 'ghi'];
     return tags;
+  },
+
+  getRevenue: async () => {
+    await sleep(2000);
+    return { income: 123, outcome: 456 };
   },
 };

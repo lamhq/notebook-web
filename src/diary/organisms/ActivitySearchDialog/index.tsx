@@ -9,18 +9,20 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import { useRecoilState } from 'recoil';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import { TimeRangeSelect } from '../../atoms/TimeRangeSelect';
 import { TimeRange, ActivityFilterModel } from '../../types';
 import { ActionButtons } from '../../../common/atoms/ActionButtons';
 import { ActivityTagSelect } from '../../atoms/ActivityTagSelect';
+import { activityFilterState } from '../../states';
 
-export interface ActivitySearchDialogProps {
+export interface ActivitySearchDialogViewProps {
   values: ActivityFilterModel;
   onSubmit: SubmitHandler<ActivityFilterModel>;
 }
 
-export const ActivitySearchDialog: React.VFC<ActivitySearchDialogProps> = ({
+export const ActivitySearchDialogView: React.VFC<ActivitySearchDialogViewProps> = ({
   values,
   onSubmit,
 }) => {
@@ -122,3 +124,16 @@ export const ActivitySearchDialog: React.VFC<ActivitySearchDialogProps> = ({
     </>
   );
 };
+
+const ActivitySearchDialog: React.VFC = () => {
+  const [filter, setFilter] = useRecoilState(activityFilterState);
+  const handleSearch: SubmitHandler<ActivityFilterModel> = React.useCallback(
+    (data) => {
+      setFilter(data);
+    },
+    [setFilter],
+  );
+  return <ActivitySearchDialogView values={filter} onSubmit={handleSearch} />;
+};
+
+export default ActivitySearchDialog;

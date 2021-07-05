@@ -68,5 +68,3 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
     </>
   );
 };
-
-export default ActivityItem;

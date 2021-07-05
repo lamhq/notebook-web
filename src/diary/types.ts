@@ -7,6 +7,11 @@ export interface Activity {
   outcome: number;
 }
 
+export interface Revenue {
+  income: number;
+  outcome: number;
+}
+
 export interface ActivityFormModel {
   content: string;
   time: Date;
