@@ -176,11 +176,10 @@ export const fakeApiUtils: ApiClient = {
   resetPassword: async () => undefined,
 
   searchActivities: async () => {
-    await sleep(1500);
-    const error = new ApiError('Network Error');
-    error.statusCode = 404;
-    throw error;
-
+    // await sleep(1500);
+    // const error = new ApiError('Network Error');
+    // error.statusCode = 404;
+    // throw error;
     await sleep(1500);
     const models = [
       {
@@ -248,7 +247,9 @@ export const fakeApiUtils: ApiClient = {
     return { ...data, id, time: data.time.toISOString() };
   },
 
-  deleteActivity: async () => undefined,
+  deleteActivity: async () => {
+    await sleep(2000);
+  },
 
   getTags: async () => {
     await sleep(2000);

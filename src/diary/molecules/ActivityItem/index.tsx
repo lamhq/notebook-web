@@ -37,7 +37,7 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
     <>
       <Grid container justify="space-between" spacing={0}>
         <TimeLabel time={model.time} />
-        <ActivityMenu model={model} />
+        <ActivityMenu activity={model} />
       </Grid>
       <Typography
         dangerouslySetInnerHTML={{ __html: html }}

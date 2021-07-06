@@ -8,11 +8,11 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { activityFilterState, filteredActivitiesState } from '../../states';
-import { LoadingContent } from '../../../common/atoms/LoadingContent';
+import { LoadingFallback } from '../../../common/atoms/LoadingContent';
 import { ActivityItem } from '../../molecules/ActivityItem';
 import { Activity } from '../../types';
-import ErrorFallback from '../../../common/organisms/ErrorFallback';
 import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../api';
+import ErrorFallback from '../../../common/organisms/ErrorFallback';
 
 const Panel = styled('div')(({ theme }) => ({
   backgroundColor: '#fff',
@@ -103,7 +103,7 @@ const ActivityList: React.VFC = () => {
       resetKeys={[filter]}
       onError={handleError}
     >
-      <React.Suspense fallback={<LoadingContent />}>
+      <React.Suspense fallback={<LoadingFallback />}>
         <LoadableActivityList />
       </React.Suspense>
     </ErrorBoundary>
