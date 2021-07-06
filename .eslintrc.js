@@ -130,6 +130,7 @@ module.exports = {
     // Fix conflict with prettier
     indent: 'off',
     '@typescript-eslint/indent': 'off',
+    // '@typescript-eslint/indent': baseStyleRules.indent,
 
     // Replace Airbnb 'keyword-spacing' rule with '@typescript-eslint' version
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/keyword-spacing.md

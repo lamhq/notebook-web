@@ -11,7 +11,7 @@ import '../../../styles.css';
 import { theme } from '../../../theme';
 import routes from '../../../routes';
 import { ProtectedRoute } from '../ProtectedRoute';
-import { LoadingFallback } from '../../atoms/LoadingContent';
+import { LoadingFallback } from '../../atoms/LoadingFallback';
 import NotFoundPage from '../../pages/NotFoundPage';
 import { ApiProvider } from '../../../api';
 import { API_BASE_URL } from '../../../config';

@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { activityFilterState, filteredActivitiesState } from '../../states';
-import { LoadingFallback } from '../../../common/atoms/LoadingContent';
+import { LoadingFallback } from '../../../common/atoms/LoadingFallback';
 import { ActivityItem } from '../../molecules/ActivityItem';
 import { Activity } from '../../types';
 import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../api';

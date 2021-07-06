@@ -8,5 +8,4 @@ export default {
   component: LoadingFallback,
 } as Meta;
 
-// Variants
 export const Default: React.FC = () => <LoadingFallback />;
