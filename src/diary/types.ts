@@ -7,6 +7,11 @@ export interface Activity {
   outcome: number;
 }
 
+export interface Revenue {
+  income: number;
+  outcome: number;
+}
+
 export interface ActivityFormModel {
   content: string;
   time: Date;
@@ -16,9 +21,10 @@ export interface ActivityFormModel {
 }
 
 export enum TimeRange {
+  ThisWeek = 'this-week',
   ThisMonth = 'this-month',
-  LastMonth = 'last-month',
   ThisYear = 'this-year',
+  LastMonth = 'last-month',
   Custom = 'custom',
 }
 
@@ -26,6 +32,8 @@ export interface ActivityFilterModel {
   text: string;
   tags: string[];
   timeRange: TimeRange;
-  from: Date;
-  to: Date;
+  page: number;
+  pageSize: number;
+  from?: Date;
+  to?: Date;
 }

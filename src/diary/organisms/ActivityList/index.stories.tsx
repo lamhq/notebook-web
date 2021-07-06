@@ -1,15 +1,15 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { ActivityList, ActivityListProps } from '.';
+import { ActivityListView, ActivityListViewProps } from '.';
 
 export default {
   title: 'Organisms/ActivityList',
-  component: ActivityList,
+  component: ActivityListView,
 } as Meta;
 
-const Template: Story<ActivityListProps> = (args) => {
-  return <ActivityList models={args.models} />;
+const Template: Story<ActivityListViewProps> = (args) => {
+  return <ActivityListView models={args.models} />;
 };
 
 export const Default = Template.bind({});

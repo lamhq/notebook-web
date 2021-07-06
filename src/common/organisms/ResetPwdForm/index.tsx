@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ResetPwdFormModel } from '../../types';
-import { Actions } from '../../atoms/Actions';
+import { ActionButtons } from '../../atoms/ActionButtons';
 
 export interface ResetPwdFormProps {
   onSubmit: SubmitHandler<ResetPwdFormModel>;
@@ -28,11 +28,11 @@ export const ResetPwdForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
           <TextField label="Repeat Password" type="password" {...register('confirmPassword')} />
         </Grid>
       </Grid>
-      <Actions>
+      <ActionButtons>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
-      </Actions>
+      </ActionButtons>
     </form>
   );
 };

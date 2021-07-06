@@ -7,6 +7,9 @@ export const Pagination = withStyles({
     '& .MuiPaginationItem-page': {
       backgroundColor: '#fff',
     },
+    '& .Mui-selected': {
+      backgroundColor: 'rgba(0, 0, 0, 0.08)',
+    },
   },
 })((props: PaginationProps) => (
   <MuiPagination

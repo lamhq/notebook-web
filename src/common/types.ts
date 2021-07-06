@@ -1,3 +1,7 @@
+export interface HOC<T> {
+  (c: React.ComponentType<T>): React.ComponentType<T>;
+}
+
 export interface Profile {
   email: string;
   displayName: string;

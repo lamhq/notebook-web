@@ -1,8 +1,12 @@
 import { Profile } from '../common/types';
-import { Activity } from '../diary/types';
+import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
 import { Identity } from '../identity';
 
 type ErrorDetails = string | [InputErrors];
+
+export interface InputErrors {
+  [x: string]: ErrorDetails;
+}
 
 export enum ApiErrorCode {
   NetworkError = 0,
@@ -13,17 +17,18 @@ export enum ApiErrorCode {
   ServerError = 500,
 }
 
-export type ApiErrorHandler = (error: ApiError) => Promise<boolean>;
-
-export interface InputErrors {
-  [x: string]: ErrorDetails;
-}
-
 export class ApiError extends Error {
-  public statusCode?: ApiErrorCode = ApiErrorCode.NetworkError;
+  public statusCode: ApiErrorCode;
 
   public details?: InputErrors;
+
+  constructor(message: string) {
+    super(message);
+    this.statusCode = ApiErrorCode.NetworkError;
+  }
 }
+
+export type ErrorHandler = (error: Error | ApiError) => Promise<void>;
 
 export interface ApiClient {
   login: (data: LoginDto) => Promise<Identity>;
@@ -34,10 +39,13 @@ export interface ApiClient {
   forgotPassword: (data: ForgotPasswordDto) => Promise<void>;
   resetPassword: (data: ResetPasswordDto) => Promise<void>;
 
-  searchActivities: (filter: ActivityFilterDto) => Promise<Activity[]>;
+  searchActivities: (filter: ActivityFilterModel) => Promise<[Activity[], number]>;
   addActivity: (data: ActivityDto) => Promise<Activity>;
   updateActivity: (id: string, data: ActivityDto) => Promise<Activity>;
   deleteActivity: (id: string) => Promise<void>;
+
+  getTags: () => Promise<string[]>;
+  getRevenue: (filter: ActivityFilterModel) => Promise<Revenue>;
 }
 
 export interface LoginDto {
@@ -62,15 +70,6 @@ export interface ForgotPasswordDto {
 export interface ResetPasswordDto {
   password: string;
   token: string;
-}
-
-export interface ActivityFilterDto {
-  text: string;
-  tags: string[];
-  from: Date;
-  to: Date;
-  limit: number;
-  offset: number;
 }
 
 export interface ActivityDto {

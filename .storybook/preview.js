@@ -11,7 +11,7 @@ import { SnackbarProvider } from 'notistack';
 import '../src/styles.css';
 import { theme } from '../src/theme';
 import { identityState } from '../src/identity';
-import { ApiContext, fakeApiUtils } from '../src/api';
+import { FakeApiProvider } from '../src/api';
 
 export const parameters = {
   layout: 'fullscreen',
@@ -39,9 +39,9 @@ export const decorators = [
         <RecoilRoot initializeState={initializeTestState}>
           <SnackbarProvider>
             <Router>
-              <ApiContext.Provider value={fakeApiUtils}>
+              <FakeApiProvider>
                 <Story />
-              </ApiContext.Provider>
+              </FakeApiProvider>
             </Router>
           </SnackbarProvider>
         </RecoilRoot>

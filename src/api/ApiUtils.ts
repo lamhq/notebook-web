@@ -1,13 +1,13 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../common/types';
 import { sleep } from '../common/utils';
-import { Activity } from '../diary/types';
+import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
+import { getTimeRangeFromFilter } from '../diary/utils';
 import { Identity } from '../identity';
 import {
   ApiClient,
   ApiError,
   ActivityDto,
-  ActivityFilterDto,
   ChangePasswordDto,
   ForgotPasswordDto,
   LoginDto,
@@ -46,7 +46,6 @@ export class ApiUtils implements ApiClient {
       method: 'POST',
       data,
     });
-    // const resp = await this.client.post<Identity>('/auth/admin/tokens', data);
     const identity: Identity = {
       displayName: resp.data.displayName,
       expireAt: new Date(resp.data.expireAt),
@@ -60,7 +59,6 @@ export class ApiUtils implements ApiClient {
   }
 
   async logout(): Promise<void> {
-    // return this.client.delete('/auth/tokens/mine');
     return this.request({
       url: '/auth/tokens/mine',
       method: 'DELETE',
@@ -89,18 +87,22 @@ export class ApiUtils implements ApiClient {
     await this.client.post<void>('/admin/accounts/reset-password', data);
   }
 
-  async searchActivities(filter: ActivityFilterDto): Promise<Activity[]> {
-    const resp = await this.client.get<Activity[]>('/diary/activities', {
+  async searchActivities(filter: ActivityFilterModel): Promise<[Activity[], number]> {
+    const [from, to] = getTimeRangeFromFilter(filter);
+    const resp = await this.request<Activity[]>({
+      url: '/diary/activities',
+      method: 'GET',
       params: {
-        text: filter.text,
-        from: filter.from.toISOString(),
-        to: filter.to.toISOString(),
-        tags: filter.tags,
-        offset: filter.offset,
-        limit: filter.limit,
+        text: filter.text || undefined,
+        tags: filter.tags || undefined,
+        from: from?.toISOString(),
+        to: to?.toISOString(),
+        limit: filter.pageSize,
+        offset: (filter.page - 1) * filter.pageSize,
       },
     });
-    return resp.data;
+    const total = parseInt(resp.headers['x-total-count'], 10);
+    return [resp.data, Math.ceil(total / filter.pageSize)];
   }
 
   async addActivity(data: ActivityDto): Promise<Activity> {
@@ -116,13 +118,30 @@ export class ApiUtils implements ApiClient {
   async deleteActivity(id: string): Promise<void> {
     await this.client.delete<void>(`/diary/activities/${id}`);
   }
+
+  async getTags(): Promise<string[]> {
+    const resp = await this.client.get<string[]>('/diary/tags');
+    return resp.data;
+  }
+
+  async getRevenue(filter: ActivityFilterModel): Promise<Revenue> {
+    const [from, to] = getTimeRangeFromFilter(filter);
+    const resp = await this.request<Revenue>({
+      url: '/diary/stat/revenue',
+      method: 'GET',
+      params: {
+        text: filter.text || undefined,
+        tags: filter.tags || undefined,
+        from: from?.toISOString(),
+        to: to?.toISOString(),
+      },
+    });
+    return resp.data;
+  }
 }
 
 export const fakeApiUtils: ApiClient = {
   login: async () => {
-    // const error = new ApiError('Network Error');
-    // error.statusCode = 400;
-    // throw error;
     await sleep(2000);
     const fakeIdenity: Identity = {
       displayName: 'Admin',
@@ -157,6 +176,12 @@ export const fakeApiUtils: ApiClient = {
   resetPassword: async () => undefined,
 
   searchActivities: async () => {
+    await sleep(1500);
+    const error = new ApiError('Network Error');
+    error.statusCode = 404;
+    throw error;
+
+    await sleep(1500);
     const models = [
       {
         id: '1',
@@ -211,7 +236,8 @@ export const fakeApiUtils: ApiClient = {
           'At vero eos et accusamus et iusto odio dignissimos\nut aut reiciendis voluptatibus ',
       },
     ];
-    return models;
+    const pageCount = 12;
+    return [models, pageCount];
   },
 
   addActivity: async (data) => {
@@ -223,4 +249,15 @@ export const fakeApiUtils: ApiClient = {
   },
 
   deleteActivity: async () => undefined,
+
+  getTags: async () => {
+    await sleep(2000);
+    const tags = ['abc', 'def', 'ghi'];
+    return tags;
+  },
+
+  getRevenue: async () => {
+    await sleep(2000);
+    return { income: 123, outcome: 456 };
+  },
 };

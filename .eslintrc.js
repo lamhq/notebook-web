@@ -22,7 +22,8 @@ module.exports = {
     '@typescript-eslint',
     'react',
     'jest',
-    'prettier'
+    'prettier',
+    'react-hooks',
   ],
   env: {
     browser: true,
@@ -129,7 +130,8 @@ module.exports = {
     // Replace Airbnb 'indent' rule with '@typescript-eslint' version
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/indent.md
     indent: 'off',
-    '@typescript-eslint/indent': baseStyleRules.indent,
+    '@typescript-eslint/indent': 'off',
+    // '@typescript-eslint/indent': baseStyleRules.indent,
 
     // Replace Airbnb 'keyword-spacing' rule with '@typescript-eslint' version
     // https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/keyword-spacing.md
@@ -256,5 +258,12 @@ module.exports = {
 
     'react-hooks/exhaustive-deps': 'off',
     "react/jsx-wrap-multilines": ["error", {"declaration": false, "assignment": false}],
+
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "warn", {
+        "additionalHooks": "useRecoilCallback"
+      }
+    ]
   },
 };

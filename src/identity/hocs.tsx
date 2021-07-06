@@ -1,10 +1,7 @@
 import React from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
+import { HOC } from '../common/types';
 import { useIdentity } from './hooks';
-
-interface HOC<T> {
-  (c: React.ComponentType<T>): React.ComponentType<T>;
-}
 
 export default function withAuth<T>(loginUrl = '/login'): HOC<T> {
   const hoc: HOC<T> = (Component) => {

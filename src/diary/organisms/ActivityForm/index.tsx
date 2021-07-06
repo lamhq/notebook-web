@@ -7,7 +7,7 @@ import { TagInput } from '../../../common/atoms/TagInput';
 import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
 import { Textarea } from '../../../common/atoms/Textarea';
-import { Actions } from '../../../common/atoms/Actions';
+import { ActionButtons } from '../../../common/atoms/ActionButtons';
 import { useNavUtils } from '../../../common/hooks';
 
 export interface ActivityFormProps {
@@ -33,7 +33,7 @@ export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSu
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TagInput {...register('tags')} options={['abc', 'def', 'ghi']} creatable />
+          <TagInput {...register('tags')} options={['abc', 'def', 'ghi']} freeSolo />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controller
@@ -49,14 +49,14 @@ export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSu
           <TextField {...register('outcome')} type="number" label="Outcome" />
         </Grid>
       </Grid>
-      <Actions>
+      <ActionButtons>
         <Button variant="contained" color="default" {...getLinkProps()}>
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
-      </Actions>
+      </ActionButtons>
     </form>
   );
 };
