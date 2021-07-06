@@ -11,47 +11,50 @@ import '../../../styles.css';
 import { theme } from '../../../theme';
 import routes from '../../../routes';
 import { ProtectedRoute } from '../ProtectedRoute';
-import { LoadingContent } from '../../atoms/LoadingContent';
+import { LoadingFallback } from '../../atoms/LoadingFallback';
 import NotFoundPage from '../../pages/NotFoundPage';
 import { ApiProvider } from '../../../api';
 import { API_BASE_URL } from '../../../config';
+import { ConfirmProvider } from '../../../confirm';
 
 export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
         <RecoilRoot>
-          <ApiProvider baseUrl={API_BASE_URL}>
-            <SnackbarProvider
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-            >
-              <Router key={Math.random()}>
-                <Suspense fallback={<LoadingContent />}>
-                  <Switch>
-                    {routes.map((r) => (
-                      // Added property`key` to Router to fix warning
-                      // when hot reloading Route component
-                      <ProtectedRoute
-                        key={r.path}
-                        path={r.path}
-                        component={r.component}
-                        permissions={r.permissions}
-                        exact
-                      />
-                    ))}
+          <SnackbarProvider
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+          >
+            <ApiProvider baseUrl={API_BASE_URL}>
+              <ConfirmProvider>
+                <Router key={Math.random()}>
+                  <Suspense fallback={<LoadingFallback />}>
+                    <Switch>
+                      {routes.map((r) => (
+                        // Added property`key` to Router to fix warning
+                        // when hot reloading Route component
+                        <ProtectedRoute
+                          key={r.path}
+                          path={r.path}
+                          component={r.component}
+                          permissions={r.permissions}
+                          exact
+                        />
+                      ))}
 
-                    {/* 404 homepage */}
-                    <Route>
-                      <NotFoundPage />
-                    </Route>
-                  </Switch>
-                </Suspense>
-              </Router>
-            </SnackbarProvider>
-          </ApiProvider>
+                      {/* 404 homepage */}
+                      <Route>
+                        <NotFoundPage />
+                      </Route>
+                    </Switch>
+                  </Suspense>
+                </Router>
+              </ConfirmProvider>
+            </ApiProvider>
+          </SnackbarProvider>
         </RecoilRoot>
       </MuiPickersUtilsProvider>
     </ThemeProvider>

@@ -28,7 +28,9 @@ export class ApiError extends Error {
   }
 }
 
-export type ErrorHandler = (error: Error | ApiError) => Promise<void>;
+export interface ErrorHandler {
+  (error: Error | ApiError): Promise<void>;
+}
 
 export interface ApiClient {
   login: (data: LoginDto) => Promise<Identity>;

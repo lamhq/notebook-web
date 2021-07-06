@@ -12,6 +12,7 @@ import '../src/styles.css';
 import { theme } from '../src/theme';
 import { identityState } from '../src/identity';
 import { FakeApiProvider } from '../src/api';
+import { ConfirmProvider } from '../src/confirm';
 
 export const parameters = {
   layout: 'fullscreen',
@@ -38,11 +39,13 @@ export const decorators = [
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
         <RecoilRoot initializeState={initializeTestState}>
           <SnackbarProvider>
-            <Router>
-              <FakeApiProvider>
-                <Story />
-              </FakeApiProvider>
-            </Router>
+            <ConfirmProvider>
+              <Router>
+                <FakeApiProvider>
+                  <Story />
+                </FakeApiProvider>
+              </Router>
+            </ConfirmProvider>
           </SnackbarProvider>
         </RecoilRoot>
       </MuiPickersUtilsProvider>

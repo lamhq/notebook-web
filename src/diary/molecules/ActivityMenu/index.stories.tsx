@@ -9,7 +9,7 @@ export default {
 } as Meta;
 
 const Template: Story<ActivityMenuProps> = (args) => {
-  return <ActivityMenu model={args.model} />;
+  return <ActivityMenu activity={args.activity} />;
 };
 
 export const Default = Template.bind({});
@@ -21,4 +21,4 @@ const model = {
   outcome: 230.0,
   content: 'abc\ndef\nghi',
 };
-Default.args = { model };
+Default.args = { activity: model };
