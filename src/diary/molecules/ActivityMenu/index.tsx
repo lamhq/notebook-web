@@ -35,7 +35,7 @@ export const ActivityMenu: React.VFC<ActivityMenuProps> = ({ activity }) => {
           </ItemIcon>
           <ItemText primary="Update" />
         </MenuItem>
-        <DeleteActivityMenuItem activity={activity} onClick={handleClose} />
+        <DeleteActivityMenuItem activity={activity} closeMenu={handleClose} />
       </Menu>
     </>
   );
