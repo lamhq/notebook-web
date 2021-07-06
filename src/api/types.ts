@@ -4,6 +4,10 @@ import { Identity } from '../identity';
 
 type ErrorDetails = string | [InputErrors];
 
+export interface InputErrors {
+  [x: string]: ErrorDetails;
+}
+
 export enum ApiErrorCode {
   NetworkError = 0,
   BadRequest = 400,
@@ -13,17 +17,18 @@ export enum ApiErrorCode {
   ServerError = 500,
 }
 
-export type ApiErrorHandler = (error: ApiError) => Promise<boolean>;
-
-export interface InputErrors {
-  [x: string]: ErrorDetails;
-}
-
 export class ApiError extends Error {
-  public statusCode?: ApiErrorCode = ApiErrorCode.NetworkError;
+  public statusCode: ApiErrorCode;
 
   public details?: InputErrors;
+
+  constructor(message: string) {
+    super(message);
+    this.statusCode = ApiErrorCode.NetworkError;
+  }
 }
+
+export type ErrorHandler = (error: Error | ApiError) => Promise<void>;
 
 export interface ApiClient {
   login: (data: LoginDto) => Promise<Identity>;

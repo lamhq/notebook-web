@@ -1,19 +1,18 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { styled } from '@material-ui/core/styles';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
+import { ErrorBoundary } from 'react-error-boundary';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
-import WarningIcon from '@material-ui/icons/Warning';
-import Button from '@material-ui/core/Button';
 import { Pagination } from '../../../common/molecules/Pagination';
 import { activityFilterState, filteredActivitiesState } from '../../states';
 import { LoadingContent } from '../../../common/atoms/LoadingContent';
-import { ActionButtons } from '../../../common/atoms/ActionButtons';
 import { ActivityItem } from '../../molecules/ActivityItem';
 import { Activity } from '../../types';
+import ErrorFallback from '../../../common/organisms/ErrorFallback';
+import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../api';
 
 const Panel = styled('div')(({ theme }) => ({
   backgroundColor: '#fff',
@@ -85,30 +84,25 @@ const LoadableActivityList: React.VFC = () => {
   );
 };
 
-const ErrorFallback: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
-  return (
-    <div role="alert">
-      <Typography align="center" paragraph>
-        <WarningIcon style={{ fontSize: '5rem' }} />
-      </Typography>
-      <Typography align="center" paragraph component="div">
-        Something went wrong:
-        <pre>{error.message}</pre>
-      </Typography>
-      <ActionButtons>
-        <Button color="primary" variant="contained" onClick={resetErrorBoundary}>
-          Try again
-        </Button>
-      </ActionButtons>
-    </div>
-  );
-};
-
 const ActivityList: React.VFC = () => {
   const [filter, setFilter] = useRecoilState(activityFilterState);
   const retry = React.useCallback(() => setFilter((data) => ({ ...data })), [setFilter]);
+  const defaultHandler = useErrorHandler();
+  const handleError: ErrorHandler = React.useCallback(
+    async (error) => {
+      if (error instanceof ApiError && error.statusCode === ApiErrorCode.Unauthenticated) {
+        defaultHandler(error);
+      }
+    },
+    [defaultHandler],
+  );
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={retry} resetKeys={[filter]}>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={retry}
+      resetKeys={[filter]}
+      onError={handleError}
+    >
       <React.Suspense fallback={<LoadingContent />}>
         <LoadableActivityList />
       </React.Suspense>

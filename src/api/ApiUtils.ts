@@ -178,7 +178,7 @@ export const fakeApiUtils: ApiClient = {
   searchActivities: async () => {
     await sleep(1500);
     const error = new ApiError('Network Error');
-    error.statusCode = 400;
+    error.statusCode = 404;
     throw error;
 
     await sleep(1500);

@@ -2,7 +2,7 @@ import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useNavUtils } from '../common/hooks';
 import { ApiContext } from './contexts';
-import { ApiClient, ApiErrorCode, ApiErrorHandler } from './types';
+import { ApiClient, ApiError, ApiErrorCode, ErrorHandler } from './types';
 
 export function useApi(): ApiClient {
   const contextVal = React.useContext(ApiContext);
@@ -12,14 +12,14 @@ export function useApi(): ApiClient {
   return contextVal;
 }
 
-export function useApiErrorHandler(customHandler?: ApiErrorHandler): ApiErrorHandler {
+export function useErrorHandler(): ErrorHandler {
   const { enqueueSnackbar } = useSnackbar();
   const { redirect } = useNavUtils();
-  const errorHandler: ApiErrorHandler = React.useCallback(
+  const errorHandler: ErrorHandler = React.useCallback(
     async (error) => {
-      if (customHandler) {
-        const processed = await customHandler(error);
-        if (processed) return false;
+      if (!(error instanceof ApiError)) {
+        enqueueSnackbar('An error occurred in the app.', { variant: 'error' });
+        return;
       }
 
       switch (error.statusCode) {
@@ -47,16 +47,15 @@ export function useApiErrorHandler(customHandler?: ApiErrorHandler): ApiErrorHan
 
         case ApiErrorCode.Unauthorized:
           enqueueSnackbar('Your cannot access this section right now.', { variant: 'error' });
-          redirect('/forbidden');
           break;
 
         default:
           enqueueSnackbar('An unknow error occured. Please try again later.', { variant: 'error' });
           break;
       }
-      return true;
     },
-    [customHandler, enqueueSnackbar, redirect],
+    [enqueueSnackbar, redirect],
   );
+
   return errorHandler;
 }
