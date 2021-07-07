@@ -1,18 +1,9 @@
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useNavUtils } from '../common/hooks';
-import ApiContext from './ApiContext';
-import { ApiClient, ApiError, ApiErrorCode, ErrorHandler } from './types';
+import { ApiError, ApiErrorCode, ErrorHandler } from './types';
 
-export function useApi(): ApiClient {
-  const contextVal = React.useContext(ApiContext);
-  if (!contextVal) {
-    throw new Error('This component must be used inside a <ApiProvider> component.');
-  }
-  return contextVal;
-}
-
-export function useErrorHandler(): ErrorHandler {
+export default function useErrorHandler(): ErrorHandler {
   const { enqueueSnackbar } = useSnackbar();
   const { redirect } = useNavUtils();
   const errorHandler: ErrorHandler = React.useCallback(

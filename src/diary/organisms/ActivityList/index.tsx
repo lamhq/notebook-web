@@ -11,8 +11,8 @@ import { activityFilterState, filteredActivitiesState } from '../../states';
 import { LoadingFallback } from '../../../common/atoms/LoadingFallback';
 import { ActivityItem } from '../../molecules/ActivityItem';
 import { Activity } from '../../types';
-import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../api';
-import ErrorFallback from '../../../common/organisms/ErrorFallback';
+import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../error';
+import ErrorFallback from '../../../error/organisms/ErrorFallback';
 
 const Panel = styled('div')(({ theme }) => ({
   backgroundColor: '#fff',

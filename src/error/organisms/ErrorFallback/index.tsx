@@ -5,8 +5,8 @@ import BlockIcon from '@material-ui/icons/Block';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { FallbackProps } from 'react-error-boundary';
-import { ActionButtons } from '../../atoms/ActionButtons';
-import { ApiError, ApiErrorCode } from '../../../api';
+import { ActionButtons } from '../../../common/atoms/ActionButtons';
+import { ApiError, ApiErrorCode } from '../../types';
 
 const ErrorFallback: React.VFC<FallbackProps> = ({ error, resetErrorBoundary }) => {
   let message = 'An error occurred in the app.';

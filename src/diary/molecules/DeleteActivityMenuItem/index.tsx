@@ -2,11 +2,12 @@ import { useSnackbar } from 'notistack';
 import React from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useSetRecoilState } from 'recoil';
-import { useApi, useErrorHandler } from '../../../api';
+import { useApi } from '../../../api';
 import { Activity } from '../../types';
 import { ItemIcon, ItemText, MenuItem } from '../../../common/atoms/ContextMenu';
 import { useConfirm } from '../../../confirm';
 import { activityFilterState } from '../../states';
+import { useErrorHandler } from '../../../error';
 
 interface DeleteActivityMenuItemProps {
   activity: Activity;

@@ -3,10 +3,10 @@ import { Profile } from '../admin/types';
 import { sleep } from '../common/utils';
 import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
 import { getTimeRangeFromFilter } from '../diary/utils';
+import { ApiError } from '../error';
 import { Identity } from '../identity';
 import {
   ApiClient,
-  ApiError,
   ActivityDto,
   ChangePasswordDto,
   ForgotPasswordDto,
