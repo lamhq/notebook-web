@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { ProfileFormModel } from '../../types';
-import { ActionButtons } from '../../atoms/ActionButtons';
+import { ActionButtons } from '../../../common/atoms/ActionButtons';
 
 export interface ProfileFormProps {
   defaultValues: ProfileFormModel;

@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Profile } from '../common/types';
+import { Profile } from '../admin/types';
 import { sleep } from '../common/utils';
 import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
 import { getTimeRangeFromFilter } from '../diary/utils';

@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ChangePwdFormModel } from '../../types';
-import { ActionButtons } from '../../atoms/ActionButtons';
-import { useNavUtils } from '../../hooks';
+import { ActionButtons } from '../../../common/atoms/ActionButtons';
+import { useNavUtils } from '../../../common/hooks';
 
 export interface ChangePwdFormProps {
   onSubmit: SubmitHandler<ChangePwdFormModel>;

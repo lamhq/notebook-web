@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { ScrollOnClick } from '../../atoms/ScrollOnClick';
 import { HideOnScroll } from '../../atoms/HideOnScroll';
 import { Container } from '../../atoms/Container';
-import { Sidebar } from '../../organisms/Sidebar';
+import { Sidebar } from './Sidebar';
 
 const useStyles = makeStyles(() =>
   createStyles({

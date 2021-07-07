@@ -6,9 +6,8 @@ import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
 import { LoginFormModel } from '../../types';
-import { LoadingButton } from '../../atoms/LoadingButton';
+import { LoadingButton } from '../../../common/atoms/LoadingButton';
 
 const schema = yup.object().shape({
   email: yup.string().email('This field must be an email').required('This field is required'),

@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ResetPwdFormModel } from '../../types';
-import { ActionButtons } from '../../atoms/ActionButtons';
+import { ActionButtons } from '../../../common/atoms/ActionButtons';
 
 export interface ResetPwdFormProps {
   onSubmit: SubmitHandler<ResetPwdFormModel>;

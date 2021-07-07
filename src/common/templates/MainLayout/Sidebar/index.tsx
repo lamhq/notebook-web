@@ -11,8 +11,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import BookIcon from '@material-ui/icons/Book';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link as RouterLink } from 'react-router-dom';
-import { useSetIdentity } from '../../../identity';
-import { useApi } from '../../../api';
+import { useSetIdentity } from '../../../../identity';
+import { useApi } from '../../../../api';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

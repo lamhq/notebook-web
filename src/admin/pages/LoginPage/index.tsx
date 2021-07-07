@@ -2,12 +2,12 @@ import React from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import Typography from '@material-ui/core/Typography';
-import { Container } from '../../atoms/Container';
 import { LoginFormModel } from '../../types';
 import { LoginForm } from '../../organisms/LoginForm';
 import { ApiErrorCode, ErrorHandler, useApi, useErrorHandler, ApiError } from '../../../api';
 import { useSetIdentity } from '../../../identity';
-import { useNavUtils } from '../../hooks';
+import { useNavUtils } from '../../../common/hooks';
+import { Container } from '../../../common/atoms/Container';
 
 const LoginPage: React.VFC = () => {
   const api = useApi();

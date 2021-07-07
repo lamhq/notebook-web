@@ -3,8 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Button from '@material-ui/core/Button';
 import { Link as RouterLink } from 'react-router-dom';
-import { SubLayout } from '../../templates/SubLayout';
-import { ActionButtons } from '../../atoms/ActionButtons';
+import { SubLayout } from '../../../common/templates/SubLayout';
+import { ActionButtons } from '../../../common/atoms/ActionButtons';
 
 const ResetPwdSuccessPage: React.VFC = () => {
   return (

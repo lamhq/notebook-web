@@ -1,6 +1,6 @@
-import { Profile } from '../common/types';
-import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
 import { Identity } from '../identity';
+import { Profile } from '../admin/types';
+import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
 
 type ErrorDetails = string | [InputErrors];
 
