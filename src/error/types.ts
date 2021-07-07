@@ -11,6 +11,7 @@ export enum ApiErrorCode {
   Unauthorized = 403,
   Notfound = 404,
   ServerError = 500,
+  GatewayTimeout = 504,
 }
 
 export class ApiError extends Error {

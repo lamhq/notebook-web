@@ -32,6 +32,10 @@ const ErrorFallback: React.VFC<FallbackProps> = ({ error, resetErrorBoundary }) 
         message = 'An error occurred while processing your request.';
         break;
 
+      case ApiErrorCode.GatewayTimeout:
+        message = 'Our server did not have any response.';
+        break;
+
       default:
         break;
     }

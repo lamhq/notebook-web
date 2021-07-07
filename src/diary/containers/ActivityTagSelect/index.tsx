@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { ErrorBoundary } from 'react-error-boundary';
 import TagInput, { TagInputProps } from '../../../common/atoms/TagInput';
 import { tagListState } from '../../states';
 
@@ -15,11 +16,14 @@ const LoadableTagSelect = React.forwardRef<unknown, ActivityTagSelectProps>(
 
 const ActivityTagSelect = React.forwardRef<unknown, ActivityTagSelectProps>(
   function ActivityTagSelectRef(props, ref) {
-    const fallBack = <TagInput {...props} options={[]} loading />;
+    const LoadingFallback = <TagInput {...props} options={[]} loading />;
+    const errorFallbackRender = React.useCallback(() => null, []);
     return (
-      <React.Suspense fallback={fallBack}>
-        <LoadableTagSelect {...props} ref={ref} />
-      </React.Suspense>
+      <ErrorBoundary fallbackRender={errorFallbackRender}>
+        <React.Suspense fallback={LoadingFallback}>
+          <LoadableTagSelect {...props} ref={ref} />
+        </React.Suspense>
+      </ErrorBoundary>
     );
   },
 );
