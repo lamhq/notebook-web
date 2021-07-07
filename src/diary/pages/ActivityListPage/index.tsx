@@ -7,8 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ActivityList from '../../organisms/ActivityList';
 import Revenue from '../../atoms/Revenue';
 import ActivitySearchDialog from '../../organisms/ActivitySearchDialog';
-import { MainLayout } from '../../../common/templates/MainLayout';
-import { ActionButtons } from '../../../common/atoms/ActionButtons';
+import MainLayout from '../../../common/templates/MainLayout';
+import ActionButtons from '../../../common/atoms/ActionButtons';
 import { withAuth } from '../../../identity';
 
 const ToolBar = styled('div')(({ theme }) => ({

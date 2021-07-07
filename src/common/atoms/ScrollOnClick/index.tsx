@@ -17,7 +17,7 @@ export interface ScrollToProps {
   anchorSelector: string;
 }
 
-export const ScrollOnClick: React.FC<ScrollToProps> = ({ children, anchorSelector }) => {
+const ScrollOnClick: React.FC<ScrollToProps> = ({ children, anchorSelector }) => {
   const classes = useStyles();
   const trigger = useScrollTrigger();
 
@@ -39,3 +39,5 @@ export const ScrollOnClick: React.FC<ScrollToProps> = ({ children, anchorSelecto
     </Zoom>
   );
 };
+
+export default ScrollOnClick;

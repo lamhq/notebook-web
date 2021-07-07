@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { LoginFormModel } from '../../types';
-import { LoadingButton } from '../../../common/atoms/LoadingButton';
+import LoadingButton from '../../../common/atoms/LoadingButton';
 
 const schema = yup.object().shape({
   email: yup.string().email('This field must be an email').required('This field is required'),
@@ -21,7 +21,7 @@ export interface LoginFormProps {
   onSubmit: SubmitHandler<LoginFormModel>;
 }
 
-export const LoginForm: React.VFC<LoginFormProps> = ({ onSubmit }) => {
+const LoginForm: React.VFC<LoginFormProps> = ({ onSubmit }) => {
   const {
     control,
     handleSubmit,
@@ -82,3 +82,5 @@ export const LoginForm: React.VFC<LoginFormProps> = ({ onSubmit }) => {
     </form>
   );
 };
+
+export default LoginForm;

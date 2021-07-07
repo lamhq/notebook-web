@@ -23,7 +23,7 @@ export interface TimeLabelProps {
   time: string;
 }
 
-export const TimeLabel: React.VFC<TimeLabelProps> = ({ time }) => {
+const TimeLabel: React.VFC<TimeLabelProps> = ({ time }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -34,3 +34,5 @@ export const TimeLabel: React.VFC<TimeLabelProps> = ({ time }) => {
     </div>
   );
 };
+
+export default TimeLabel;

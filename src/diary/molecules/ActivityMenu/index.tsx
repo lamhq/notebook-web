@@ -11,7 +11,7 @@ export interface ActivityMenuProps {
   activity: Activity;
 }
 
-export const ActivityMenu: React.VFC<ActivityMenuProps> = ({ activity }) => {
+const ActivityMenu: React.VFC<ActivityMenuProps> = ({ activity }) => {
   const { getLinkProps } = useNavUtils();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -40,3 +40,5 @@ export const ActivityMenu: React.VFC<ActivityMenuProps> = ({ activity }) => {
     </>
   );
 };
+
+export default ActivityMenu;

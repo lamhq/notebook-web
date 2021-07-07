@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const ListItemIcon = withStyles({
+const ListItemIcon = withStyles({
   root: {
     minWidth: 40,
   },
 })(MuiListItemIcon);
 
-export const Sidebar: React.VFC = () => {
+const Sidebar: React.VFC = () => {
   const classes = useStyles();
   const setIdentity = useSetIdentity();
   const apiClient = useApi();
@@ -76,3 +76,5 @@ export const Sidebar: React.VFC = () => {
     </>
   );
 };
+
+export default Sidebar;

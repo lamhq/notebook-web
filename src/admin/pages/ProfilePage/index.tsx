@@ -1,9 +1,9 @@
 import React from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { ProfileForm } from '../../organisms/ProfileForm';
+import ProfileForm from '../../organisms/ProfileForm';
 import { ProfileFormModel } from '../../types';
 import { withAuth } from '../../../identity';
-import { MainLayout } from '../../../common/templates/MainLayout';
+import MainLayout from '../../../common/templates/MainLayout';
 
 const defaultValues: ProfileFormModel = {
   displayName: 'John Doe',

@@ -15,7 +15,7 @@ import {
   UpdateProfileDto,
 } from './types';
 
-export class ApiUtils implements ApiClient {
+export default class ApiUtils implements ApiClient {
   private client: AxiosInstance;
 
   constructor(endpoint: string) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import { ChipProps } from '@material-ui/core/Chip';
-import { Chip } from '.';
+import Chip from '.';
 
 export default {
   title: 'Atoms/Chip',

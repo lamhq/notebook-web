@@ -4,14 +4,14 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ChangePwdFormModel } from '../../types';
-import { ActionButtons } from '../../../common/atoms/ActionButtons';
+import ActionButtons from '../../../common/atoms/ActionButtons';
 import { useNavUtils } from '../../../common/hooks';
 
 export interface ChangePwdFormProps {
   onSubmit: SubmitHandler<ChangePwdFormModel>;
 }
 
-export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
+const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
   const { register, handleSubmit } = useForm<ChangePwdFormModel>({
     defaultValues: {
       currentPassword: '',
@@ -45,3 +45,5 @@ export const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
     </form>
   );
 };
+
+export default ChangePwdForm;

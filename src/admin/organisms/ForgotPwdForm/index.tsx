@@ -4,13 +4,13 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ForgotPwdFormModel } from '../../types';
-import { ActionButtons } from '../../../common/atoms/ActionButtons';
+import ActionButtons from '../../../common/atoms/ActionButtons';
 
 export interface ForgotPwdFormProps {
   onSubmit: SubmitHandler<ForgotPwdFormModel>;
 }
 
-export const ForgotPwdForm: React.VFC<ForgotPwdFormProps> = ({ onSubmit }) => {
+const ForgotPwdForm: React.VFC<ForgotPwdFormProps> = ({ onSubmit }) => {
   const { register, handleSubmit } = useForm<ForgotPwdFormModel>({
     defaultValues: {
       email: '',
@@ -32,3 +32,5 @@ export const ForgotPwdForm: React.VFC<ForgotPwdFormProps> = ({ onSubmit }) => {
     </form>
   );
 };
+
+export default ForgotPwdForm;

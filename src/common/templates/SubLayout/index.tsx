@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
-import { Container } from '../../atoms/Container';
+import Container from '../../atoms/Container';
 import { useNavUtils } from '../../hooks';
 
 export interface SubLayoutProps {
@@ -13,7 +13,7 @@ export interface SubLayoutProps {
   backUrl?: string;
 }
 
-export const SubLayout: React.FC<SubLayoutProps> = ({ title, backUrl, children }) => {
+const SubLayout: React.FC<SubLayoutProps> = ({ title, backUrl, children }) => {
   const { getLinkProps } = useNavUtils();
   return (
     <>
@@ -39,3 +39,5 @@ export const SubLayout: React.FC<SubLayoutProps> = ({ title, backUrl, children }
     </>
   );
 };
+
+export default SubLayout;

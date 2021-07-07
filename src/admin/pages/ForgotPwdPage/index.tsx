@@ -1,9 +1,9 @@
 import React from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import Typography from '@material-ui/core/Typography';
-import { ForgotPwdForm } from '../../organisms/ForgotPwdForm';
+import ForgotPwdForm from '../../organisms/ForgotPwdForm';
 import { ForgotPwdFormModel } from '../../types';
-import { SubLayout } from '../../../common/templates/SubLayout';
+import SubLayout from '../../../common/templates/SubLayout';
 
 const ForgotPwdPage: React.VFC = () => {
   const handleSubmit: SubmitHandler<ForgotPwdFormModel> = (data) => {

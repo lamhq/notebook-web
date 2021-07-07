@@ -7,7 +7,7 @@ export interface LoadingButtonProps extends ButtonProps {
   loadingIndicator?: React.ReactNode;
 }
 
-export const LoadingButton: React.FC<LoadingButtonProps> = ({
+const LoadingButton: React.FC<LoadingButtonProps> = ({
   loading = false,
   loadingIndicator,
   ...rest
@@ -20,3 +20,5 @@ export const LoadingButton: React.FC<LoadingButtonProps> = ({
   };
   return <Button {...btnProps} />;
 };
+
+export default LoadingButton;

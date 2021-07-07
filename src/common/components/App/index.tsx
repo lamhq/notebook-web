@@ -10,14 +10,14 @@ import { SnackbarProvider } from 'notistack';
 import '../../../styles.css';
 import { theme } from '../../../theme';
 import routes from '../../../routes';
-import { ProtectedRoute } from '../ProtectedRoute';
-import { LoadingFallback } from '../../atoms/LoadingFallback';
+import ProtectedRoute from '../ProtectedRoute';
+import LoadingFallback from '../../atoms/LoadingFallback';
 import NotFoundPage from '../../pages/NotFoundPage';
 import { ApiProvider } from '../../../api';
 import { API_BASE_URL } from '../../../config';
 import { ConfirmProvider } from '../../../confirm';
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
@@ -60,3 +60,5 @@ export const App: React.FC = () => {
     </ThemeProvider>
   );
 };
+
+export default App;

@@ -9,7 +9,9 @@ interface TextareaProps extends TextareaAutosizeProps {
  * Customized TextareaAutosize to be used with TextField
  * https://material-ui.com/components/text-fields/#integration-with-3rd-party-input-libraries
  */
-export const Textarea: React.FC<TextareaProps> = (props) => {
+const Textarea: React.FC<TextareaProps> = (props) => {
   const { inputRef = undefined, ...other } = props;
   return <TextareaAutosize {...other} ref={inputRef} />;
 };
+
+export default Textarea;

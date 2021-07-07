@@ -3,7 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
 import { useRecoilValue } from 'recoil';
-import { Chip } from '../../../common/atoms/Chip';
+import Chip from '../../../common/atoms/Chip';
 import { formatNumber } from '../../../common/utils';
 import { revenueState } from './states';
 

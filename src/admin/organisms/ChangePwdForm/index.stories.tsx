@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { ChangePwdForm, ChangePwdFormProps } from '.';
+import ChangePwdForm, { ChangePwdFormProps } from '.';
 
 export default {
   title: 'Organisms/ChangePwdForm',

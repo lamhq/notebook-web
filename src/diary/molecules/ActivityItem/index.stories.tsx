@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { ActivityItem, ActivityItemProps } from '.';
+import ActivityItem, { ActivityItemProps } from '.';
 
 export default {
   title: 'Molecules/ActivityItem',

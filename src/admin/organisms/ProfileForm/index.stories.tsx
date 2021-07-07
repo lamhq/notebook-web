@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { ProfileForm, ProfileFormProps } from '.';
+import ProfileForm, { ProfileFormProps } from '.';
 
 export default {
   title: 'Organisms/ProfileForm',

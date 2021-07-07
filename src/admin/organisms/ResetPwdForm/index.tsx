@@ -4,13 +4,13 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ResetPwdFormModel } from '../../types';
-import { ActionButtons } from '../../../common/atoms/ActionButtons';
+import ActionButtons from '../../../common/atoms/ActionButtons';
 
 export interface ResetPwdFormProps {
   onSubmit: SubmitHandler<ResetPwdFormModel>;
 }
 
-export const ResetPwdForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
+const ResetPwdForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
   const { register, handleSubmit } = useForm<ResetPwdFormModel>({
     defaultValues: {
       newPassword: '',
@@ -36,3 +36,5 @@ export const ResetPwdForm: React.VFC<ResetPwdFormProps> = ({ onSubmit }) => {
     </form>
   );
 };
+
+export default ResetPwdForm;

@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { TimeLabel } from '../../atoms/TimeLabel';
+import TimeLabel from '../../atoms/TimeLabel';
 import { Activity } from '../../types';
-import { ActivityMenu } from '../ActivityMenu';
+import ActivityMenu from '../ActivityMenu';
 import { formatNumber } from '../../../common/utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ export interface ActivityItemProps {
   model: Activity;
 }
 
-export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
+const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
   const classes = useStyles();
   const html = model.content.replace('\n', '<br/>');
   const income = formatNumber(model.income);
@@ -68,3 +68,5 @@ export const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
     </>
   );
 };
+
+export default ActivityItem;

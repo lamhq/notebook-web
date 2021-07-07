@@ -11,10 +11,10 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Typography from '@material-ui/core/Typography';
-import { ScrollOnClick } from '../../atoms/ScrollOnClick';
-import { HideOnScroll } from '../../atoms/HideOnScroll';
-import { Container } from '../../atoms/Container';
-import { Sidebar } from './Sidebar';
+import ScrollOnClick from '../../atoms/ScrollOnClick';
+import HideOnScroll from '../../atoms/HideOnScroll';
+import Container from '../../atoms/Container';
+import Sidebar from './Sidebar';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,7 +35,7 @@ export interface MainLayoutProps {
   title: string;
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
   const classes = useStyles();
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -94,3 +94,5 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
     </>
   );
 };
+
+export default MainLayout;

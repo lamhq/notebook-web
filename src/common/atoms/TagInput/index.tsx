@@ -13,7 +13,7 @@ export interface TagInputProps
   label?: React.ReactNode;
 }
 
-export const TagInput = React.forwardRef<unknown, TagInputProps>(function TagInputRef(props, ref) {
+const TagInput = React.forwardRef<unknown, TagInputProps>(function TagInputRef(props, ref) {
   const { loading, freeSolo, onChange, label, ...rest } = props;
   return (
     <Autocomplete<string, true, false, true>
@@ -56,3 +56,5 @@ export const TagInput = React.forwardRef<unknown, TagInputProps>(function TagInp
     />
   );
 });
+
+export default TagInput;

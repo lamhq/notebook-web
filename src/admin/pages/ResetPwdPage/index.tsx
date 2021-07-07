@@ -1,9 +1,9 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { SubmitHandler } from 'react-hook-form';
-import { ResetPwdForm } from '../../organisms/ResetPwdForm';
+import ResetPwdForm from '../../organisms/ResetPwdForm';
 import { ResetPwdFormModel } from '../../types';
-import { Container } from '../../../common/atoms/Container';
+import Container from '../../../common/atoms/Container';
 
 const ResetPwdPage: React.VFC = () => {
   const handleSubmit: SubmitHandler<ResetPwdFormModel> = (data) => {

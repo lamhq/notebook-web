@@ -6,7 +6,7 @@ export interface HideOnScrollProps {
   children: React.ReactElement;
 }
 
-export const HideOnScroll: React.FC<HideOnScrollProps> = ({ children }) => {
+const HideOnScroll: React.FC<HideOnScrollProps> = ({ children }) => {
   const trigger = useScrollTrigger();
 
   return (
@@ -15,3 +15,5 @@ export const HideOnScroll: React.FC<HideOnScrollProps> = ({ children }) => {
     </Slide>
   );
 };
+
+export default HideOnScroll;

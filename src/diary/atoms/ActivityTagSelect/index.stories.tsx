@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { ActivityTagSelect, ActivityTagSelectProps } from '.';
+import ActivityTagSelect, { ActivityTagSelectProps } from '.';
 
 export default {
   title: 'Atoms/ActivityTagSelect',
