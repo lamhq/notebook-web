@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { SubmitHandler } from 'react-hook-form';
 import ResetPwdForm from '../../organisms/ResetPwdForm';
 import { ResetPwdFormModel } from '../../types';
-import Container from '../../../common/atoms/Container';
+import BlankLayout from '../../../common/templates/BlankLayout';
 
 const ResetPwdPage: React.VFC = () => {
   const handleSubmit: SubmitHandler<ResetPwdFormModel> = (data) => {
@@ -11,13 +11,10 @@ const ResetPwdPage: React.VFC = () => {
   };
 
   return (
-    <Container>
-      <Typography component="h1" variant="h2">
-        Reset password
-      </Typography>
+    <BlankLayout title="Reset password">
       <Typography paragraph>Please enter your new password in these fields below:</Typography>
       <ResetPwdForm onSubmit={handleSubmit} />
-    </Container>
+    </BlankLayout>
   );
 };
 

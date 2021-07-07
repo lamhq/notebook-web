@@ -1,14 +1,13 @@
 import React from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
-import Typography from '@material-ui/core/Typography';
 import { LoginFormModel } from '../../types';
 import LoginForm from '../../organisms/LoginForm';
 import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../error';
 import { useApi } from '../../../api';
 import { useSetIdentity } from '../../../identity';
 import { useNavUtils } from '../../../common/hooks';
-import Container from '../../../common/atoms/Container';
+import BlankLayout from '../../../common/templates/BlankLayout';
 
 const LoginPage: React.VFC = () => {
   const api = useApi();
@@ -37,12 +36,9 @@ const LoginPage: React.VFC = () => {
   };
 
   return (
-    <Container>
-      <Typography component="h1" variant="h2">
-        Sign In
-      </Typography>
+    <BlankLayout title="Sign In">
       <LoginForm onSubmit={handleSubmit} />
-    </Container>
+    </BlankLayout>
   );
 };
 
