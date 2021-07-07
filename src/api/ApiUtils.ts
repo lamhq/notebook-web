@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../admin/types';
 import { sleep } from '../common/utils';
 import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
@@ -22,9 +22,11 @@ export default class ApiUtils implements ApiClient {
     this.client = axios.create({ baseURL: endpoint });
   }
 
-  request<T, R = AxiosResponse<T>>(config: AxiosRequestConfig): Promise<R> {
-    const result = this.client.request<T, R>(config);
-    result.catch((error: AxiosError<ApiError>) => {
+  async request<T, R = AxiosResponse<T>>(config: AxiosRequestConfig): Promise<R> {
+    try {
+      const result = await this.client.request<T, R>(config);
+      return result;
+    } catch (error) {
       const apiErr = new ApiError(error.message);
       apiErr.stack = error.stack;
       if (error.response) {
@@ -35,9 +37,7 @@ export default class ApiUtils implements ApiClient {
         apiErr.details = error.response.data.details;
       }
       throw apiErr;
-    });
-
-    return result;
+    }
   }
 
   async login(data: LoginDto): Promise<Identity> {
@@ -66,25 +66,44 @@ export default class ApiUtils implements ApiClient {
   }
 
   async getProfile(): Promise<Profile> {
-    const resp = await this.client.get<Profile>('/admin/accounts/me');
+    const resp = await this.request<Profile>({
+      url: '/admin/accounts/me',
+      method: 'GET',
+    });
     return resp.data;
   }
 
   async updateProfile(data: UpdateProfileDto): Promise<Profile> {
-    const resp = await this.client.patch<Profile>('/admin/accounts/me', data);
+    const resp = await this.request<Profile>({
+      url: '/admin/accounts/me',
+      method: 'PATCH',
+      data,
+    });
     return resp.data;
   }
 
   async changePassword(data: ChangePasswordDto): Promise<void> {
-    await this.client.post<void>('/admin/accounts/me/password', data);
+    await this.request<void>({
+      url: '/admin/accounts/me/password',
+      method: 'POST',
+      data,
+    });
   }
 
   async forgotPassword(data: ForgotPasswordDto): Promise<void> {
-    await this.client.post<void>('/admin/accounts/forgot-password', data);
+    await this.request<void>({
+      url: '/admin/accounts/forgot-password',
+      method: 'POST',
+      data,
+    });
   }
 
   async resetPassword(data: ResetPasswordDto): Promise<void> {
-    await this.client.post<void>('/admin/accounts/reset-password', data);
+    await this.request<void>({
+      url: '/admin/accounts/reset-password',
+      method: 'POST',
+      data,
+    });
   }
 
   async searchActivities(filter: ActivityFilterModel): Promise<[Activity[], number]> {
@@ -106,21 +125,36 @@ export default class ApiUtils implements ApiClient {
   }
 
   async addActivity(data: ActivityDto): Promise<Activity> {
+    await this.request<void>({
+      url: '/admin/accounts/reset-password',
+      method: 'POST',
+      data,
+    });
     const resp = await this.client.post<Activity>('/diary/activities', data);
     return resp.data;
   }
 
   async updateActivity(id: string, data: ActivityDto): Promise<Activity> {
-    const resp = await this.client.put<Activity>(`/diary/activities/${id}`, data);
+    const resp = await this.request<Activity>({
+      url: `/diary/activities/${id}`,
+      method: 'PUT',
+      data,
+    });
     return resp.data;
   }
 
   async deleteActivity(id: string): Promise<void> {
-    await this.client.delete<void>(`/diary/activities/${id}`);
+    await this.request<void>({
+      url: `/diary/activities/${id}`,
+      method: 'DELETE',
+    });
   }
 
   async getTags(): Promise<string[]> {
-    const resp = await this.client.get<string[]>('/diary/tags');
+    const resp = await this.request<string[]>({
+      url: '/diary/tags',
+      method: 'GET',
+    });
     return resp.data;
   }
 

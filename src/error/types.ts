@@ -26,5 +26,5 @@ export class ApiError extends Error {
 }
 
 export interface ErrorHandler {
-  (error: Error | ApiError): Promise<void>;
+  (error: Error): Promise<void>;
 }

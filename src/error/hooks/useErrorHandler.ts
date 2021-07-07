@@ -40,6 +40,10 @@ export default function useErrorHandler(): ErrorHandler {
           enqueueSnackbar('Your cannot access this section right now.', { variant: 'error' });
           break;
 
+        case ApiErrorCode.GatewayTimeout:
+          enqueueSnackbar('Our server did not return any response', { variant: 'error' });
+          break;
+
         default:
           enqueueSnackbar('An unknow error occured. Please try again later.', { variant: 'error' });
           break;
