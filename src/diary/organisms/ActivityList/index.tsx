@@ -1,18 +1,11 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { styled } from '@material-ui/core/styles';
-import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { ErrorBoundary } from 'react-error-boundary';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import Pagination from '../../../common/molecules/Pagination';
-import { activityFilterState, filteredActivitiesState } from '../../states';
-import LoadingFallback from '../../../common/atoms/LoadingFallback';
 import ActivityItem from '../../molecules/ActivityItem';
 import { Activity } from '../../types';
-import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../error';
-import ErrorFallback from '../../../error/organisms/ErrorFallback';
 
 const Panel = styled('div')(({ theme }) => ({
   backgroundColor: '#fff',
@@ -25,7 +18,7 @@ const ItemDivider = styled(Divider)(({ theme }) => ({
   margin: `${theme.spacing(1)}px 0`,
 }));
 
-export interface ActivityListViewProps {
+export interface ActivityListProps {
   models: Activity[];
 }
 
@@ -33,7 +26,7 @@ interface ActivityGroup {
   [key: string]: Activity[];
 }
 
-export const ActivityListView: React.VFC<ActivityListViewProps> = ({ models }) => {
+const ActivityList: React.VFC<ActivityListProps> = ({ models }) => {
   const dates = models.reduce((current, item) => {
     const date = format(new Date(item.time), 'EEE, d LLL, yyyy');
     const res = { ...current };
@@ -58,55 +51,6 @@ export const ActivityListView: React.VFC<ActivityListViewProps> = ({ models }) =
         </Panel>
       ))}
     </>
-  );
-};
-
-const LoadableActivityList: React.VFC = () => {
-  const [activities, pageCount] = useRecoilValue(filteredActivitiesState);
-  const [filter, setFilter] = useRecoilState(activityFilterState);
-  const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {
-    setFilter((curFilter) => ({
-      ...curFilter,
-      page: newPage,
-    }));
-  };
-  return activities.length ? (
-    <>
-      <ActivityListView models={activities} />
-      {pageCount > 1 && (
-        <Pagination page={filter.page} onChange={handlePageChange} count={pageCount} />
-      )}
-    </>
-  ) : (
-    <Typography align="center" variant="body1">
-      There&apos;s no items to display.
-    </Typography>
-  );
-};
-
-const ActivityList: React.VFC = () => {
-  const [filter, setFilter] = useRecoilState(activityFilterState);
-  const retry = React.useCallback(() => setFilter((data) => ({ ...data })), [setFilter]);
-  const defaultHandler = useErrorHandler();
-  const handleError: ErrorHandler = React.useCallback(
-    async (error) => {
-      if (error instanceof ApiError && error.statusCode === ApiErrorCode.Unauthenticated) {
-        defaultHandler(error);
-      }
-    },
-    [defaultHandler],
-  );
-  return (
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onReset={retry}
-      resetKeys={[filter]}
-      onError={handleError}
-    >
-      <React.Suspense fallback={<LoadingFallback />}>
-        <LoadableActivityList />
-      </React.Suspense>
-    </ErrorBoundary>
   );
 };
 

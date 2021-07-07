@@ -5,7 +5,7 @@ import { styled } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 import ActivityList from '../../organisms/ActivityList';
-import Revenue from '../../atoms/Revenue';
+import Revenue from '../../containers/Revenue';
 import ActivitySearchDialog from '../../organisms/ActivitySearchDialog';
 import MainLayout from '../../../common/templates/MainLayout';
 import ActionButtons from '../../../common/atoms/ActionButtons';
