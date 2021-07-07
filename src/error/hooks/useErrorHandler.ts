@@ -1,7 +1,7 @@
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useNavUtils } from '../common/hooks';
-import { ApiError, ApiErrorCode, ErrorHandler } from './types';
+import { useNavUtils } from '../../common/hooks';
+import { ApiError, ApiErrorCode, ErrorHandler } from '../types';
 
 export default function useErrorHandler(): ErrorHandler {
   const { enqueueSnackbar } = useSnackbar();

@@ -1,6 +1,6 @@
 import React from 'react';
-import ApiContext from './ApiContext';
-import { ApiClient } from './types';
+import ApiContext from '../contexts/ApiContext';
+import { ApiClient } from '../types';
 
 export default function useApi(): ApiClient {
   const contextVal = React.useContext(ApiContext);

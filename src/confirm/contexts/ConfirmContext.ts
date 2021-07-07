@@ -1,4 +1,4 @@
 import { createContext } from 'react';
-import { ConfirmFn } from './types';
+import { ConfirmFn } from '../types';
 
 export default createContext<ConfirmFn | undefined>(undefined);

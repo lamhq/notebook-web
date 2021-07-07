@@ -1,7 +1,7 @@
 import React from 'react';
-import ApiUtils, { fakeApiUtils } from './ApiUtils';
-import ApiContext from './ApiContext';
-import { setApiClient } from './utils';
+import ApiUtils, { fakeApiUtils } from '../ApiUtils';
+import ApiContext from '../contexts/ApiContext';
+import { setApiClient } from '../utils';
 
 interface ApiProviderProps {
   baseUrl: string;

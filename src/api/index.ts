@@ -1,3 +1,3 @@
-export { default as ApiProvider, FakeApiProvider } from './ApiProvider';
-export { default as useApi } from './useApi';
+export { default as ApiProvider, FakeApiProvider } from './containers/ApiProvider';
+export { default as useApi } from './hooks/useApi';
 export { getApiClient } from './utils';

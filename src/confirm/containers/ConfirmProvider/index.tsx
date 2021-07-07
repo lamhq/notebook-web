@@ -1,7 +1,7 @@
 import React from 'react';
-import ConfirmDialog, { ConfirmDialogProps } from '../ConfirmDialog';
-import ConfirmContext from '../ConfirmContext';
-import { ConfirmDialogOptions, ConfirmFn } from '../types';
+import ConfirmDialog, { ConfirmDialogProps } from '../../molecules/ConfirmDialog';
+import ConfirmContext from '../../contexts/ConfirmContext';
+import { ConfirmDialogOptions, ConfirmFn } from '../../types';
 
 const ConfirmProvider: React.FC = ({ children }) => {
   const [open, setIsOpen] = React.useState<boolean>(false);
