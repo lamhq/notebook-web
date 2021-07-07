@@ -1,5 +1,3 @@
-export { ErrorHandler, ApiError } from './types';
-export { ApiProvider, FakeApiProvider } from './ApiProvider';
-export { useApi, useErrorHandler } from './hooks';
-export { ApiErrorCode } from './types';
+export { default as ApiProvider, FakeApiProvider } from './containers/ApiProvider';
+export { default as useApi } from './hooks/useApi';
 export { getApiClient } from './utils';

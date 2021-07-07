@@ -13,31 +13,31 @@ const routes: RouteItem<ComponentType>[] = [
   },
   {
     path: '/login',
-    component: lazy(() => import('./common/pages/LoginPage')),
+    component: lazy(() => import('./admin/pages/LoginPage')),
   },
   {
     path: '/forgot-pwd',
-    component: lazy(() => import('./common/pages/ForgotPwdPage')),
+    component: lazy(() => import('./admin/pages/ForgotPwdPage')),
   },
   {
     path: '/forgot-pwd/success',
-    component: lazy(() => import('./common/pages/ForgotPwdSuccessPage')),
+    component: lazy(() => import('./admin/pages/ForgotPwdSuccessPage')),
   },
   {
     path: '/reset-pwd',
-    component: lazy(() => import('./common/pages/ResetPwdPage')),
+    component: lazy(() => import('./admin/pages/ResetPwdPage')),
   },
   {
     path: '/reset-pwd/success',
-    component: lazy(() => import('./common/pages/ResetPwdSuccessPage')),
+    component: lazy(() => import('./admin/pages/ResetPwdSuccessPage')),
   },
   {
     path: '/profile',
-    component: lazy(() => import('./common/pages/ProfilePage')),
+    component: lazy(() => import('./admin/pages/ProfilePage')),
   },
   {
     path: '/profile/change-pwd',
-    component: lazy(() => import('./common/pages/ChangePwdPage')),
+    component: lazy(() => import('./admin/pages/ChangePwdPage')),
   },
   {
     path: '/activities/new',

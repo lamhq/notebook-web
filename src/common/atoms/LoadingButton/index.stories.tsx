@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { LoadingButton, LoadingButtonProps } from '.';
+import LoadingButton, { LoadingButtonProps } from '.';
 import { sleep } from '../../utils';
 
 export default {

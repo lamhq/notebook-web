@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { ActivityForm, ActivityFormProps } from '.';
+import ActivityForm, { ActivityFormProps } from '.';
 
 export default {
   title: 'Organisms/ActivityForm',

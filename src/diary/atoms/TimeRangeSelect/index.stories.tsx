@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import { TextFieldProps } from '@material-ui/core/TextField';
-import { TimeRangeSelect } from '.';
+import TimeRangeSelect from '.';
 
 export default {
   title: 'Atoms/TimeRangeSelect',

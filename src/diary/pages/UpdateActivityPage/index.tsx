@@ -1,8 +1,8 @@
 import React from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { ActivityFormModel } from '../../types';
-import { SubLayout } from '../../../common/templates/SubLayout';
-import { ActivityForm } from '../../organisms/ActivityForm';
+import SubLayout from '../../../common/templates/SubLayout';
+import ActivityForm from '../../organisms/ActivityForm';
 import { withAuth } from '../../../identity';
 
 const defaultValues: ActivityFormModel = {

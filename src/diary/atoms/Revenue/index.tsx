@@ -2,19 +2,17 @@ import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
-import { useRecoilValue } from 'recoil';
-import { Chip } from '../../../common/atoms/Chip';
+import Chip from '../../../common/atoms/Chip';
 import { formatNumber } from '../../../common/utils';
-import { revenueState } from './states';
 
-export interface RevenueViewProps {
+export interface RevenueProps {
   income: number;
   outcome: number;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   chip: {
-    backgroundColor: (props: RevenueViewProps) =>
+    backgroundColor: (props: RevenueProps) =>
       props.income > props.outcome ? theme.palette.success.main : theme.palette.error.main,
   },
   incomeText: {
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const RevenueView: React.VFC<RevenueViewProps> = (props) => {
+const Revenue: React.VFC<RevenueProps> = (props) => {
   const { income, outcome } = props;
   const classes = useStyles(props);
   const label = formatNumber(Math.abs(income - outcome));
@@ -70,19 +68,6 @@ export const RevenueView: React.VFC<RevenueViewProps> = (props) => {
         </Typography>
       </Popover>
     </>
-  );
-};
-
-export const LoadableRevenue: React.VFC = () => {
-  const { income, outcome } = useRecoilValue(revenueState);
-  return <RevenueView income={income} outcome={outcome} />;
-};
-
-const Revenue: React.VFC = () => {
-  return (
-    <React.Suspense fallback="">
-      <LoadableRevenue />
-    </React.Suspense>
   );
 };
 

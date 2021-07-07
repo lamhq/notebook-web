@@ -3,11 +3,11 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { TagInput } from '../../../common/atoms/TagInput';
+import TagInput from '../../../common/atoms/TagInput';
 import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
-import { Textarea } from '../../../common/atoms/Textarea';
-import { ActionButtons } from '../../../common/atoms/ActionButtons';
+import Textarea from '../../../common/atoms/Textarea';
+import ActionButtons from '../../../common/atoms/ActionButtons';
 import { useNavUtils } from '../../../common/hooks';
 
 export interface ActivityFormProps {
@@ -15,7 +15,7 @@ export interface ActivityFormProps {
   onSubmit: SubmitHandler<ActivityFormModel>;
 }
 
-export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit }) => {
+const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit }) => {
   const { getLinkProps } = useNavUtils();
   const { register, control, handleSubmit } = useForm<ActivityFormModel>({
     defaultValues,
@@ -60,3 +60,5 @@ export const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSu
     </form>
   );
 };
+
+export default ActivityForm;

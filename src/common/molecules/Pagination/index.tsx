@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import MuiPagination, { PaginationProps } from '@material-ui/lab/Pagination';
 
-export const Pagination = withStyles({
+const Pagination = withStyles({
   root: {
     '& .MuiPaginationItem-page': {
       backgroundColor: '#fff',
@@ -21,3 +21,5 @@ export const Pagination = withStyles({
     {...props}
   />
 ));
+
+export default Pagination;

@@ -1,8 +1,8 @@
-import { create as createDeferred } from 'typescript-deferred';
+import DeferredObject from './DeferredObject';
 import { ApiClient } from './types';
 
 // A deferred object created to access ApiUtils outside of Component
-const deferred = createDeferred<ApiClient>();
+const deferred = new DeferredObject<ApiClient>();
 
 export function getApiClient(): PromiseLike<ApiClient> {
   return deferred.promise;

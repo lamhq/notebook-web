@@ -1,11 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { ActivitySearchDialogView } from '.';
+import ActivitySearchDialog from '.';
 import { ActivityFilterModel, TimeRange } from '../../types';
 
 export default {
   title: 'Organisms/ActivitySearchDialog',
-  component: ActivitySearchDialogView,
+  component: ActivitySearchDialog,
 } as Meta;
 
 const Template: Story = () => {
@@ -19,7 +19,7 @@ const Template: Story = () => {
     pageSize: 10,
   });
   return (
-    <ActivitySearchDialogView
+    <ActivitySearchDialog
       values={values}
       onSubmit={(data) => {
         setValues(data);

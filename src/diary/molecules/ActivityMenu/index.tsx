@@ -5,13 +5,13 @@ import IconButton from '@material-ui/core/IconButton';
 import { Activity } from '../../types';
 import { ItemIcon, ItemText, Menu, MenuItem } from '../../../common/atoms/ContextMenu';
 import { useNavUtils } from '../../../common/hooks';
-import DeleteActivityMenuItem from '../DeleteActivityMenuItem';
+import DeleteActivityMenuItem from '../../containers/DeleteActivityMenuItem';
 
 export interface ActivityMenuProps {
   activity: Activity;
 }
 
-export const ActivityMenu: React.VFC<ActivityMenuProps> = ({ activity }) => {
+const ActivityMenu: React.VFC<ActivityMenuProps> = ({ activity }) => {
   const { getLinkProps } = useNavUtils();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -40,3 +40,5 @@ export const ActivityMenu: React.VFC<ActivityMenuProps> = ({ activity }) => {
     </>
   );
 };
+
+export default ActivityMenu;

@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import { Meta } from '@storybook/react/types-6-0';
 
-import { SubLayout } from '.';
+import SubLayout from '.';
 
 export default {
   title: 'Templates/SubLayout',

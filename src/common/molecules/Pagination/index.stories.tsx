@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import { PaginationProps } from '@material-ui/lab/Pagination';
-import { Pagination } from '.';
+import Pagination from '.';
 
 export default {
   title: 'Molecules/Pagination',

@@ -1,2 +1,2 @@
-export { default as ConfirmProvider } from './ConfirmProvider';
-export { useConfirm } from './hooks';
+export { default as ConfirmProvider } from './containers/ConfirmProvider';
+export { useConfirm } from './hooks/useConfirm';
