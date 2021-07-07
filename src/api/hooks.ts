@@ -1,7 +1,7 @@
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useNavUtils } from '../common/hooks';
-import { ApiContext } from './contexts';
+import ApiContext from './ApiContext';
 import { ApiClient, ApiError, ApiErrorCode, ErrorHandler } from './types';
 
 export function useApi(): ApiClient {

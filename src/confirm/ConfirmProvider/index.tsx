@@ -1,6 +1,6 @@
 import React from 'react';
 import ConfirmDialog, { ConfirmDialogProps } from '../ConfirmDialog';
-import ConfirmContext from '../contexts';
+import ConfirmContext from '../ConfirmContext';
 import { ConfirmDialogOptions, ConfirmFn } from '../types';
 
 const ConfirmProvider: React.FC = ({ children }) => {

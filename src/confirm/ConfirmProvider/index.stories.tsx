@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 import { ConfirmProvider } from '..';
-import { useConfirm } from '../hooks';
+import { useConfirm } from '../useConfirm';
 
 export default {
   title: 'Providers/ConfirmProvider',

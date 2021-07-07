@@ -1,2 +1,2 @@
 export { default as ConfirmProvider } from './ConfirmProvider';
-export { useConfirm } from './hooks';
+export { useConfirm } from './useConfirm';
