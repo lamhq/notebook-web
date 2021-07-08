@@ -6,7 +6,7 @@ import { Activity } from '../../types';
 import { ItemIcon, ItemText, MenuItem } from '../../../common/atoms/ContextMenu';
 import { useConfirm } from '../../../confirm';
 import { useErrorHandler } from '../../../error';
-import { useLoadActivityList } from '../../hooks';
+import { useRefreshActivityList } from '../../hooks';
 
 interface DeleteActivityMenuItemProps {
   activity: Activity;
@@ -21,7 +21,7 @@ const DeleteActivityMenuItem: React.VFC<DeleteActivityMenuItemProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const handleError = useErrorHandler();
   const confirm = useConfirm();
-  const loadActivityList = useLoadActivityList();
+  const refreshActivityList = useRefreshActivityList();
   const handleDelete = React.useCallback(async () => {
     try {
       closeMenu();
@@ -30,11 +30,19 @@ const DeleteActivityMenuItem: React.VFC<DeleteActivityMenuItemProps> = ({
       enqueueSnackbar('Removing...', { variant: 'info' });
       await apiUtils.deleteActivity(activity.id);
       enqueueSnackbar('Remove success!', { variant: 'success' });
-      loadActivityList();
+      refreshActivityList();
     } catch (error) {
       handleError(error);
     }
-  }, [apiUtils, activity.id, enqueueSnackbar, confirm, handleError, closeMenu, loadActivityList]);
+  }, [
+    apiUtils,
+    activity.id,
+    enqueueSnackbar,
+    confirm,
+    handleError,
+    closeMenu,
+    refreshActivityList,
+  ]);
 
   return (
     <MenuItem onClick={handleDelete}>

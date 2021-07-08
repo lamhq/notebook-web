@@ -15,6 +15,7 @@ export interface ApiClient {
   addActivity: (data: ActivityFormModel) => Promise<Activity>;
   updateActivity: (id: string, data: ActivityFormModel) => Promise<Activity>;
   deleteActivity: (id: string) => Promise<void>;
+  getActivity: (id: string) => Promise<Activity>;
 
   getTags: () => Promise<string[]>;
   getRevenue: (filter: ActivityFilterModel) => Promise<Revenue>;

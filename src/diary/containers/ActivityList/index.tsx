@@ -9,7 +9,7 @@ import Pagination from '../../../common/molecules/Pagination';
 import LoadingFallback from '../../../common/atoms/LoadingFallback';
 import ErrorFallback from '../../../error/organisms/ErrorFallback';
 import ActivityListView from '../../organisms/ActivityList';
-import { useLoadActivityList } from '../../hooks';
+import { useRefreshActivityList } from '../../hooks';
 
 const LoadableActivityList: React.VFC = () => {
   const [activities, pageCount] = useRecoilValue(filteredActivitiesState);
@@ -35,8 +35,8 @@ const LoadableActivityList: React.VFC = () => {
 };
 
 const ActivityList: React.VFC = () => {
-  const filter = useRecoilValue(activityFilterState);
-  const loadActivityList = useLoadActivityList();
+  const activityFilter = useRecoilValue(activityFilterState);
+  const refreshActivityList = useRefreshActivityList();
   const defaultHandler = useErrorHandler();
   const handleError: ErrorHandler = React.useCallback(
     async (error) => {
@@ -46,11 +46,15 @@ const ActivityList: React.VFC = () => {
     },
     [defaultHandler],
   );
+
+  // invalidate activity list when component is unmounted
+  React.useEffect(() => refreshActivityList, [refreshActivityList]);
+
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onReset={loadActivityList}
-      resetKeys={[filter]}
+      onReset={refreshActivityList}
+      resetKeys={[activityFilter]}
       onError={handleError}
     >
       <React.Suspense fallback={<LoadingFallback />}>

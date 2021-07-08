@@ -3,10 +3,10 @@ import { useSetRecoilState } from 'recoil';
 import { activityFilterState } from './states';
 
 interface RefreshFn {
-  (): unknown;
+  (): void;
 }
 
-export function useLoadActivityList(): RefreshFn {
+export function useRefreshActivityList(): RefreshFn {
   const setFilter = useSetRecoilState(activityFilterState);
   return React.useCallback(() => setFilter((filter) => ({ ...filter })), [setFilter]);
 }

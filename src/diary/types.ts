@@ -3,8 +3,8 @@ export interface Activity {
   content: string;
   time: string;
   tags: string[];
-  income: number;
-  outcome: number;
+  income?: number;
+  outcome?: number;
 }
 
 export interface Revenue {
