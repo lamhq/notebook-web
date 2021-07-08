@@ -148,6 +148,14 @@ export default class ApiUtils implements ApiClient {
     });
   }
 
+  async getActivity(id: string): Promise<Activity> {
+    const resp = await this.request<Activity>({
+      url: `/diary/activities/${id}`,
+      method: 'GET',
+    });
+    return resp.data;
+  }
+
   async getTags(): Promise<string[]> {
     const resp = await this.request<string[]>({
       url: '/diary/tags',
@@ -174,7 +182,6 @@ export default class ApiUtils implements ApiClient {
 
 export const fakeApiUtils: ApiClient = {
   login: async () => {
-    await sleep(2000);
     const fakeIdenity: Identity = {
       displayName: 'Admin',
       token: '',
@@ -208,11 +215,6 @@ export const fakeApiUtils: ApiClient = {
   resetPassword: async () => undefined,
 
   searchActivities: async () => {
-    // await sleep(1500);
-    // const error = new ApiError('Network Error');
-    // error.statusCode = 404;
-    // throw error;
-    await sleep(1500);
     const models = [
       {
         id: '1',
@@ -292,17 +294,31 @@ export const fakeApiUtils: ApiClient = {
   },
 
   deleteActivity: async () => {
-    await sleep(2000);
+    await sleep(10);
+  },
+
+  getActivity: async () => {
+    // await sleep(1000);
+    // const err = new ApiError('Test');
+    // err.statusCode = 404;
+    // throw err;
+    return {
+      id: '1',
+      time: '2021-06-15T01:21:03.368Z',
+      tags: ['play', 'gog'],
+      income: 100.0,
+      outcome: 0,
+      content:
+        'Lorem ipsum dolor sit amet\nconsectetur adipiscing elit\nmagnam aliquam quaerat voluptatem',
+    };
   },
 
   getTags: async () => {
-    await sleep(2000);
     const tags = ['abc', 'def', 'ghi'];
     return tags;
   },
 
   getRevenue: async () => {
-    await sleep(2000);
     return { income: 123, outcome: 456 };
   },
 };

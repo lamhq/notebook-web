@@ -3,8 +3,8 @@ import { FieldValues } from 'react-hook-form';
 import * as yup from 'yup';
 import { LazyBuilder } from 'yup/lib/Lazy';
 
-export function formatNumber(n: number): string {
-  return numeral(n).format('0,0.[00]');
+export function formatNumber(n?: number): string {
+  return n ? numeral(n).format('0,0.[00]') : '';
 }
 
 export function hasSubArray(master: string[], sub: string[]): boolean {

@@ -46,12 +46,12 @@ const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
       />
       <Grid container justify="space-between" spacing={0}>
         <Box display="flex" gridColumnGap={8}>
-          {model.income > 0 && (
+          {model.income && model.income > 0 && (
             <Typography variant="body2" className={classes.income}>
               {income}
             </Typography>
           )}
-          {model.outcome > 0 && (
+          {model.outcome && model.outcome > 0 && (
             <Typography variant="body2" className={classes.outcome}>
               {outcome}
             </Typography>
