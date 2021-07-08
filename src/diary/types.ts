@@ -16,8 +16,8 @@ export interface ActivityFormModel {
   content: string;
   time: Date;
   tags: string[];
-  income: number;
-  outcome: number;
+  income: number | '';
+  outcome: number | '';
 }
 
 export enum TimeRange {

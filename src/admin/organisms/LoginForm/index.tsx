@@ -28,8 +28,8 @@ const LoginForm: React.VFC<LoginFormProps> = ({ onSubmit }) => {
     formState: { isSubmitting, errors },
   } = useForm<LoginFormModel>({
     defaultValues: {
-      email: 'a@m.com',
-      password: '123123',
+      email: '',
+      password: '',
     },
     resolver: yupResolver(schema),
   });
