@@ -1,6 +1,6 @@
 import { Identity } from '../identity';
 import { Profile } from '../admin/types';
-import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
+import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
 
 export interface ApiClient {
   login: (data: LoginDto) => Promise<Identity>;
@@ -12,8 +12,8 @@ export interface ApiClient {
   resetPassword: (data: ResetPasswordDto) => Promise<void>;
 
   searchActivities: (filter: ActivityFilterModel) => Promise<[Activity[], number]>;
-  addActivity: (data: ActivityDto) => Promise<Activity>;
-  updateActivity: (id: string, data: ActivityDto) => Promise<Activity>;
+  addActivity: (data: ActivityFormModel) => Promise<Activity>;
+  updateActivity: (id: string, data: ActivityFormModel) => Promise<Activity>;
   deleteActivity: (id: string) => Promise<void>;
 
   getTags: () => Promise<string[]>;
@@ -42,12 +42,4 @@ export interface ForgotPasswordDto {
 export interface ResetPasswordDto {
   password: string;
   token: string;
-}
-
-export interface ActivityDto {
-  content: string;
-  time: Date;
-  tags: string[];
-  income: number;
-  outcome: number;
 }

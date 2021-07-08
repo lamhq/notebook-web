@@ -1,14 +1,27 @@
 import React from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler, FieldPath } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import TagInput from '../../../common/atoms/TagInput';
+import { useSnackbar } from 'notistack';
 import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
 import Textarea from '../../../common/atoms/Textarea';
 import ActionButtons from '../../../common/atoms/ActionButtons';
 import { useNavUtils } from '../../../common/hooks';
+import LoadingButton from '../../../common/atoms/LoadingButton';
+import ActivityTagSelect from '../../containers/ActivityTagSelect';
+import { emptyStringOrNumber } from '../../../common/utils';
+import { ApiError, useErrorHandler } from '../../../error';
+
+const schema = yup.object().shape({
+  content: yup.string().required('This field is required'),
+  income: yup.lazy(emptyStringOrNumber),
+  outcome: yup.lazy(emptyStringOrNumber),
+  time: yup.date(),
+});
 
 export interface ActivityFormProps {
   defaultValues: ActivityFormModel;
@@ -17,45 +30,121 @@ export interface ActivityFormProps {
 
 const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit }) => {
   const { getLinkProps } = useNavUtils();
-  const { register, control, handleSubmit } = useForm<ActivityFormModel>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+    setError,
+  } = useForm<ActivityFormModel>({
     defaultValues,
+    resolver: yupResolver(schema),
   });
+  const { enqueueSnackbar } = useSnackbar();
+  const handleError = useErrorHandler();
+  const handleFormSubmit: SubmitHandler<ActivityFormModel> = React.useCallback(
+    async (data) => {
+      try {
+        await onSubmit(data);
+      } catch (error) {
+        if (error instanceof ApiError && error.details) {
+          enqueueSnackbar('Please correct your input.', { variant: 'error' });
+          Object.entries(error.details).forEach(([field, msg]) => {
+            setError(
+              field as FieldPath<ActivityFormModel>,
+              { message: msg as string },
+              { shouldFocus: true },
+            );
+          });
+        } else {
+          handleError(error);
+        }
+      }
+    },
+    [onSubmit, enqueueSnackbar, handleError, setError],
+  );
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <TextField
-            {...register('content')}
-            label="Content"
-            InputProps={{
-              inputComponent: Textarea,
-            }}
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                label="Content"
+                required
+                error={!!errors.content}
+                helperText={errors.content?.message}
+                InputProps={{
+                  inputComponent: Textarea,
+                }}
+                {...field}
+              />
+            )}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TagInput {...register('tags')} options={['abc', 'def', 'ghi']} freeSolo />
+          <Controller
+            name="tags"
+            control={control}
+            render={({ field: { onChange, ...rest } }) => (
+              <ActivityTagSelect label="Tags" onChange={(e, v) => onChange(v)} freeSolo {...rest} />
+            )}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controller
             name="time"
             control={control}
-            render={({ field }) => <DateTimePicker label="Time" {...field} />}
+            render={({ field }) => (
+              <DateTimePicker
+                label="Time"
+                error={!!errors.time}
+                helperText={errors.time?.message}
+                {...field}
+              />
+            )}
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField {...register('income')} type="number" label="Income" />
+          <Controller
+            name="income"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                label="Income"
+                type="number"
+                error={!!errors.income}
+                helperText={errors.income?.message}
+                {...field}
+              />
+            )}
+          />
         </Grid>
         <Grid item xs={6}>
-          <TextField {...register('outcome')} type="number" label="Outcome" />
+          <Controller
+            name="outcome"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                label="Outcome"
+                type="number"
+                error={!!errors.outcome}
+                helperText={errors.outcome?.message}
+                {...field}
+              />
+            )}
+          />
         </Grid>
       </Grid>
       <ActionButtons>
         <Button variant="contained" color="default" {...getLinkProps()}>
           Cancel
         </Button>
-        <Button type="submit" variant="contained" color="primary">
+        <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">
           Submit
-        </Button>
+        </LoadingButton>
       </ActionButtons>
     </form>
   );

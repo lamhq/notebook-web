@@ -1,13 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Profile } from '../admin/types';
-import { sleep } from '../common/utils';
-import { Activity, ActivityFilterModel, Revenue } from '../diary/types';
+import { removeEmptyFields, sleep } from '../common/utils';
+import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
 import { getTimeRangeFromFilter } from '../diary/utils';
 import { ApiError } from '../error';
 import { Identity } from '../identity';
 import {
   ApiClient,
-  ActivityDto,
   ChangePasswordDto,
   ForgotPasswordDto,
   LoginDto,
@@ -111,34 +110,33 @@ export default class ApiUtils implements ApiClient {
     const resp = await this.request<Activity[]>({
       url: '/diary/activities',
       method: 'GET',
-      params: {
-        text: filter.text || undefined,
-        tags: filter.tags || undefined,
+      params: removeEmptyFields({
+        text: filter.text,
+        tags: filter.tags,
         from: from?.toISOString(),
         to: to?.toISOString(),
         limit: filter.pageSize,
         offset: (filter.page - 1) * filter.pageSize,
-      },
+      }),
     });
     const total = parseInt(resp.headers['x-total-count'], 10);
     return [resp.data, Math.ceil(total / filter.pageSize)];
   }
 
-  async addActivity(data: ActivityDto): Promise<Activity> {
-    await this.request<void>({
-      url: '/admin/accounts/reset-password',
+  async addActivity(data: ActivityFormModel): Promise<Activity> {
+    const resp = await this.request<Activity>({
+      url: '/diary/activities',
       method: 'POST',
-      data,
+      data: removeEmptyFields(data),
     });
-    const resp = await this.client.post<Activity>('/diary/activities', data);
     return resp.data;
   }
 
-  async updateActivity(id: string, data: ActivityDto): Promise<Activity> {
+  async updateActivity(id: string, data: ActivityFormModel): Promise<Activity> {
     const resp = await this.request<Activity>({
       url: `/diary/activities/${id}`,
       method: 'PUT',
-      data,
+      data: removeEmptyFields(data),
     });
     return resp.data;
   }
@@ -274,11 +272,23 @@ export const fakeApiUtils: ApiClient = {
   },
 
   addActivity: async (data) => {
-    return { ...data, id: 'newid', time: data.time.toISOString() };
+    return {
+      ...data,
+      id: 'newid',
+      time: data.time.toISOString(),
+      income: data.income || 0,
+      outcome: data.outcome || 0,
+    };
   },
 
-  updateActivity: async (id: string, data: ActivityDto) => {
-    return { ...data, id, time: data.time.toISOString() };
+  updateActivity: async (id: string, data: ActivityFormModel) => {
+    return {
+      ...data,
+      id,
+      time: data.time.toISOString(),
+      income: data.income || 0,
+      outcome: data.outcome || 0,
+    };
   },
 
   deleteActivity: async () => {

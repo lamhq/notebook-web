@@ -3,7 +3,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import { LoginFormModel } from '../../types';
 import LoginForm from '../../organisms/LoginForm';
-import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../error';
+import { ApiErrorCode, useErrorHandler, ApiError } from '../../../error';
 import { useApi } from '../../../api';
 import { useSetIdentity } from '../../../identity';
 import { useNavUtils } from '../../../common/hooks';
@@ -14,26 +14,23 @@ const LoginPage: React.VFC = () => {
   const setIdentity = useSetIdentity();
   const { redirect } = useNavUtils();
   const { enqueueSnackbar } = useSnackbar();
-  const defaultHandler = useErrorHandler();
-  const handleError: ErrorHandler = React.useCallback(
-    async (error) => {
-      if (error instanceof ApiError && error.statusCode === ApiErrorCode.BadRequest) {
-        enqueueSnackbar('Wrong email or password.', { variant: 'error' });
-      } else {
-        defaultHandler(error);
+  const handleError = useErrorHandler();
+  const handleSubmit: SubmitHandler<LoginFormModel> = React.useCallback(
+    async (data) => {
+      try {
+        const identity = await api.login(data);
+        setIdentity(identity);
+        redirect('/');
+      } catch (error) {
+        if (error instanceof ApiError && error.statusCode === ApiErrorCode.BadRequest) {
+          enqueueSnackbar('Wrong email or password.', { variant: 'error' });
+        } else {
+          handleError(error);
+        }
       }
     },
-    [enqueueSnackbar, defaultHandler],
+    [api, setIdentity, redirect, handleError, enqueueSnackbar],
   );
-  const handleSubmit: SubmitHandler<LoginFormModel> = async (data) => {
-    try {
-      const identity = await api.login(data);
-      setIdentity(identity);
-      redirect('/');
-    } catch (error) {
-      handleError(error);
-    }
-  };
 
   return (
     <BlankLayout title="Sign In">

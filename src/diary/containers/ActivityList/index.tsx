@@ -9,6 +9,7 @@ import Pagination from '../../../common/molecules/Pagination';
 import LoadingFallback from '../../../common/atoms/LoadingFallback';
 import ErrorFallback from '../../../error/organisms/ErrorFallback';
 import ActivityListView from '../../organisms/ActivityList';
+import { useLoadActivityList } from '../../hooks';
 
 const LoadableActivityList: React.VFC = () => {
   const [activities, pageCount] = useRecoilValue(filteredActivitiesState);
@@ -34,8 +35,8 @@ const LoadableActivityList: React.VFC = () => {
 };
 
 const ActivityList: React.VFC = () => {
-  const [filter, setFilter] = useRecoilState(activityFilterState);
-  const retry = React.useCallback(() => setFilter((data) => ({ ...data })), [setFilter]);
+  const filter = useRecoilValue(activityFilterState);
+  const loadActivityList = useLoadActivityList();
   const defaultHandler = useErrorHandler();
   const handleError: ErrorHandler = React.useCallback(
     async (error) => {
@@ -48,7 +49,7 @@ const ActivityList: React.VFC = () => {
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onReset={retry}
+      onReset={loadActivityList}
       resetKeys={[filter]}
       onError={handleError}
     >
