@@ -26,16 +26,7 @@ export default class ApiUtils implements ApiClient {
       const result = await this.client.request<T, R>(config);
       return result;
     } catch (error) {
-      const apiErr = new ApiError(error.message);
-      apiErr.stack = error.stack;
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        apiErr.statusCode = error.response.status;
-        apiErr.message = error.response.data.message;
-        apiErr.details = error.response.data.details;
-      }
-      throw apiErr;
+      throw new ApiError(error);
     }
   }
 

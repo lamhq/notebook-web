@@ -1,11 +1,10 @@
 import React from 'react';
-import { useForm, Controller, SubmitHandler, FieldPath } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { useSnackbar } from 'notistack';
 import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
 import Textarea from '../../../common/atoms/Textarea';
@@ -14,7 +13,7 @@ import { useNavUtils } from '../../../common/hooks';
 import LoadingButton from '../../../common/atoms/LoadingButton';
 import ActivityTagSelect from '../../containers/ActivityTagSelect';
 import { emptyStringOrNumber } from '../../../common/utils';
-import { ApiError, useErrorHandler } from '../../../error';
+import { useFormErrorHandler } from '../../../error';
 
 const schema = yup.object().shape({
   content: yup.string().required('This field is required'),
@@ -39,28 +38,16 @@ const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit })
     defaultValues,
     resolver: yupResolver(schema),
   });
-  const { enqueueSnackbar } = useSnackbar();
-  const handleError = useErrorHandler();
+  const handleFormError = useFormErrorHandler<ActivityFormModel>();
   const handleFormSubmit: SubmitHandler<ActivityFormModel> = React.useCallback(
     async (data) => {
       try {
         await onSubmit(data);
       } catch (error) {
-        if (error instanceof ApiError && error.details) {
-          enqueueSnackbar('Please correct your input.', { variant: 'error' });
-          Object.entries(error.details).forEach(([field, msg]) => {
-            setError(
-              field as FieldPath<ActivityFormModel>,
-              { message: msg as string },
-              { shouldFocus: true },
-            );
-          });
-        } else {
-          handleError(error);
-        }
+        handleFormError(error, setError, 'Please correct your inputs');
       }
     },
-    [onSubmit, enqueueSnackbar, handleError, setError],
+    [onSubmit, handleFormError, setError],
   );
 
   return (

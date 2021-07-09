@@ -1,32 +1,33 @@
-import { useSnackbar } from 'notistack';
 import React from 'react';
+import { useSnackbar } from 'notistack';
 import { useNavUtils } from '../../common/hooks';
-import { ApiError, ApiErrorCode, ErrorHandler } from '../types';
+import { ApiErrorCode, ErrorHandler } from '../types';
+import { isApiError } from '../utils';
 
 export default function useErrorHandler(): ErrorHandler {
   const { enqueueSnackbar } = useSnackbar();
   const { redirect } = useNavUtils();
-  const errorHandler: ErrorHandler = React.useCallback(
+  return React.useCallback(
     async (error) => {
-      if (!(error instanceof ApiError)) {
+      if (!isApiError(error)) {
         enqueueSnackbar('An error occurred in the app.', { variant: 'error' });
         return;
       }
 
-      switch (error.statusCode) {
+      switch (error.code) {
         case ApiErrorCode.NetworkError:
           enqueueSnackbar('Please check your internet connection.', { variant: 'error' });
           break;
 
         case ApiErrorCode.BadRequest:
         case ApiErrorCode.Notfound:
-          enqueueSnackbar("Unable to proccess your request. We're fixing this.", {
+          enqueueSnackbar('Unable to proccess your request.', {
             variant: 'error',
           });
           break;
 
         case ApiErrorCode.ServerError:
-          enqueueSnackbar('Our server is having an issue. Please try again later.', {
+          enqueueSnackbar('Our server is having an issue.', {
             variant: 'error',
           });
           break;
@@ -41,16 +42,14 @@ export default function useErrorHandler(): ErrorHandler {
           break;
 
         case ApiErrorCode.GatewayTimeout:
-          enqueueSnackbar('Our server did not return any response', { variant: 'error' });
+          enqueueSnackbar('Our server did not return any response.', { variant: 'error' });
           break;
 
         default:
-          enqueueSnackbar('An unknow error occured. Please try again later.', { variant: 'error' });
+          enqueueSnackbar('An unknow error occured.', { variant: 'error' });
           break;
       }
     },
     [enqueueSnackbar, redirect],
   );
-
-  return errorHandler;
 }

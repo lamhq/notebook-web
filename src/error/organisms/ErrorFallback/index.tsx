@@ -6,13 +6,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { FallbackProps } from 'react-error-boundary';
 import ActionButtons from '../../../common/atoms/ActionButtons';
-import { ApiError, ApiErrorCode } from '../../types';
+import { ApiErrorCode } from '../../types';
+import { isApiError } from '../../utils';
 
 const ErrorFallback: React.VFC<FallbackProps> = ({ error, resetErrorBoundary }) => {
   let message = 'An error occurred in the app.';
   let icon: React.ReactElement = <WarningIcon style={{ fontSize: '5rem' }} />;
-  if (error instanceof ApiError) {
-    switch (error.statusCode) {
+  if (isApiError(error)) {
+    switch (error.code) {
       case ApiErrorCode.NetworkError:
         message = 'Please check your internet connection.';
         icon = <WarningIcon style={{ fontSize: '5rem' }} />;
