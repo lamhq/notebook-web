@@ -4,11 +4,19 @@ import ChangePwdForm from '../../organisms/ChangePwdForm';
 import SubLayout from '../../../common/templates/SubLayout';
 import { ChangePwdFormModel } from '../../types';
 import { withAuth } from '../../../identity';
+import { useApi } from '../../../api';
+import { useNavUtils } from '../../../common/hooks';
 
 const ChangePwdPage: React.VFC = () => {
-  const handleSubmit: SubmitHandler<ChangePwdFormModel> = (data) => {
-    console.log(data);
-  };
+  const api = useApi();
+  const { redirect } = useNavUtils();
+  const handleSubmit: SubmitHandler<ChangePwdFormModel> = React.useCallback(
+    async (data) => {
+      await api.changePassword(data);
+      redirect('/');
+    },
+    [api, redirect],
+  );
 
   return (
     <SubLayout title="Change password">

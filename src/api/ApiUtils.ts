@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Profile } from '../admin/types';
+import { LoginFormModel, Profile } from '../admin/types';
 import { removeEmptyFields, sleep } from '../common/utils';
 import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
 import { getTimeRangeFromFilter } from '../diary/utils';
@@ -9,7 +9,6 @@ import {
   ApiClient,
   ChangePasswordDto,
   ForgotPasswordDto,
-  LoginDto,
   ResetPasswordDto,
   UpdateProfileDto,
 } from './types';
@@ -30,7 +29,7 @@ export default class ApiUtils implements ApiClient {
     }
   }
 
-  async login(data: LoginDto): Promise<Identity> {
+  async login(data: LoginFormModel): Promise<Identity> {
     const resp = await this.request<Identity>({
       url: '/auth/admin/tokens',
       method: 'POST',
