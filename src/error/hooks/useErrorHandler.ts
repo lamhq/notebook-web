@@ -20,8 +20,13 @@ export default function useErrorHandler(): ErrorHandler {
           break;
 
         case ApiErrorCode.BadRequest:
+          enqueueSnackbar('The request sent to server is invalid.', {
+            variant: 'error',
+          });
+          break;
+
         case ApiErrorCode.Notfound:
-          enqueueSnackbar('Unable to proccess your request.', {
+          enqueueSnackbar('The thing you are looking for was not found.', {
             variant: 'error',
           });
           break;
