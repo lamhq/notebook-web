@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 import Typography from '@material-ui/core/Typography';
 import { activityFilterState, filteredActivitiesState } from '../../states';
-import { ApiErrorCode, ErrorHandler, useErrorHandler, ApiError } from '../../../error';
+import { ErrorHandler, isUnauthenticated, useErrorHandler } from '../../../error';
 import Pagination from '../../../common/molecules/Pagination';
 import LoadingFallback from '../../../common/atoms/LoadingFallback';
 import ErrorFallback from '../../../error/organisms/ErrorFallback';
@@ -40,7 +40,7 @@ const ActivityList: React.VFC = () => {
   const defaultHandler = useErrorHandler();
   const handleError: ErrorHandler = React.useCallback(
     async (error) => {
-      if (error instanceof ApiError && error.statusCode === ApiErrorCode.Unauthenticated) {
+      if (isUnauthenticated(error)) {
         defaultHandler(error);
       }
     },

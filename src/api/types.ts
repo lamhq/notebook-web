@@ -1,9 +1,9 @@
 import { Identity } from '../identity';
-import { Profile } from '../admin/types';
+import { ChangePwdFormModel, LoginFormModel, Profile } from '../admin/types';
 import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
 
 export interface ApiClient {
-  login: (data: LoginDto) => Promise<Identity>;
+  login: (data: LoginFormModel) => Promise<Identity>;
   logout: () => Promise<void>;
   getProfile: () => Promise<Profile>;
   updateProfile: (data: UpdateProfileDto) => Promise<Profile>;
@@ -21,20 +21,12 @@ export interface ApiClient {
   getRevenue: (filter: ActivityFilterModel) => Promise<Revenue>;
 }
 
-export interface LoginDto {
-  email: string;
-  password: string;
-}
-
 export interface UpdateProfileDto {
   displayName: string;
   avatar: string;
 }
 
-export interface ChangePasswordDto {
-  currentPassword: string;
-  newPassword: string;
-}
+export type ChangePasswordDto = Omit<ChangePwdFormModel, 'confirmPassword'>;
 
 export interface ForgotPasswordDto {
   email: string;

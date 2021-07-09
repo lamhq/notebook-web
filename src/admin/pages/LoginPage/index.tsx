@@ -3,7 +3,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import { LoginFormModel } from '../../types';
 import LoginForm from '../../organisms/LoginForm';
-import { ApiErrorCode, useErrorHandler, ApiError } from '../../../error';
+import { useErrorHandler, isBadRequest } from '../../../error';
 import { useApi } from '../../../api';
 import { useSetIdentity } from '../../../identity';
 import { useNavUtils } from '../../../common/hooks';
@@ -22,7 +22,7 @@ const LoginPage: React.VFC = () => {
         setIdentity(identity);
         redirect('/');
       } catch (error) {
-        if (error instanceof ApiError && error.statusCode === ApiErrorCode.BadRequest) {
+        if (isBadRequest(error)) {
           enqueueSnackbar('Wrong email or password.', { variant: 'error' });
         } else {
           handleError(error);

@@ -3,13 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 import ActivityForm, { ActivityFormProps } from '../../organisms/ActivityForm';
 import { activityDetailState, refreshActivityFlag } from './states';
-import {
-  ApiError,
-  ApiErrorCode,
-  ErrorFallback,
-  ErrorHandler,
-  useErrorHandler,
-} from '../../../error';
+import { ErrorFallback, ErrorHandler, isUnauthenticated, useErrorHandler } from '../../../error';
 import LoadingFallback from '../../../common/atoms/LoadingFallback';
 import { ActivityFormModel } from '../../types';
 
@@ -36,7 +30,7 @@ const ActivityEditForm: React.VFC<ActivityEditFormProps> = ({ activityId, onSubm
   const defaultHandler = useErrorHandler();
   const handleError: ErrorHandler = React.useCallback(
     async (error) => {
-      if (error instanceof ApiError && error.statusCode === ApiErrorCode.Unauthenticated) {
+      if (isUnauthenticated(error)) {
         defaultHandler(error);
       }
     },
