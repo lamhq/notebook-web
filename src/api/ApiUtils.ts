@@ -1,17 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { LoginFormModel, Profile } from '../admin/types';
-import { removeEmptyFields, sleep } from '../common/utils';
-import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
-import { getTimeRangeFromFilter } from '../diary/utils';
 import { ApiError } from '../error';
 import { Identity } from '../identity';
-import {
-  ApiClient,
-  ChangePasswordDto,
-  ForgotPasswordDto,
-  ResetPasswordDto,
-  UpdateProfileDto,
-} from './types';
+import { ForgotPwdFormModel, LoginFormModel, Profile } from '../admin/types';
+import { ApiClient, ChangePasswordDto, ResetPasswordDto, UpdateProfileDto } from './types';
+import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
+import { removeEmptyFields, sleep } from '../common/utils';
+import { getTimeRangeFromFilter } from '../diary/utils';
 
 export default class ApiUtils implements ApiClient {
   private client: AxiosInstance;
@@ -79,7 +73,7 @@ export default class ApiUtils implements ApiClient {
     });
   }
 
-  async forgotPassword(data: ForgotPasswordDto): Promise<void> {
+  async forgotPassword(data: ForgotPwdFormModel): Promise<void> {
     await this.request<void>({
       url: '/admin/accounts/forgot-password',
       method: 'POST',
@@ -90,7 +84,7 @@ export default class ApiUtils implements ApiClient {
   async resetPassword(data: ResetPasswordDto): Promise<void> {
     await this.request<void>({
       url: '/admin/accounts/reset-password',
-      method: 'POST',
+      method: 'PUT',
       data,
     });
   }

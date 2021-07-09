@@ -4,11 +4,19 @@ import Typography from '@material-ui/core/Typography';
 import ForgotPwdForm from '../../organisms/ForgotPwdForm';
 import { ForgotPwdFormModel } from '../../types';
 import SubLayout from '../../../common/templates/SubLayout';
+import { useApi } from '../../../api';
+import { useNavUtils } from '../../../common/hooks';
 
 const ForgotPwdPage: React.VFC = () => {
-  const handleSubmit: SubmitHandler<ForgotPwdFormModel> = (data) => {
-    console.log(data);
-  };
+  const api = useApi();
+  const { redirect } = useNavUtils();
+  const handleSubmit: SubmitHandler<ForgotPwdFormModel> = React.useCallback(
+    async (data) => {
+      await api.forgotPassword(data);
+      redirect('/forgot-pwd/success');
+    },
+    [api, redirect],
+  );
 
   return (
     <SubLayout title="Forgot password" backUrl="/login">
