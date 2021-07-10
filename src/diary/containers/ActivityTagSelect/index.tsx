@@ -1,8 +1,8 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 import TagInput, { TagInputProps } from '../../../common/atoms/TagInput';
-import { tagListState } from '../../states';
+import { refreshTagListFlag, tagListState } from '../../states';
 
 export type ActivityTagSelectProps = Omit<TagInputProps, 'options'>;
 
@@ -18,6 +18,12 @@ const ActivityTagSelect = React.forwardRef<unknown, ActivityTagSelectProps>(
   function ActivityTagSelectRef(props, ref) {
     const LoadingFallback = <TagInput {...props} options={[]} loading />;
     const errorFallbackRender = React.useCallback(() => null, []);
+    const setRefreshFlag = useSetRecoilState(refreshTagListFlag);
+    const refreshTagList = React.useCallback(() => setRefreshFlag(Date.now()), [setRefreshFlag]);
+
+    // invalidate tag list when component is unmounted
+    React.useEffect(() => refreshTagList, [refreshTagList]);
+
     return (
       <ErrorBoundary fallbackRender={errorFallbackRender}>
         <React.Suspense fallback={LoadingFallback}>
