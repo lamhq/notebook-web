@@ -24,7 +24,7 @@ export const filteredActivitiesState = selector<[Activity[], number]>({
   },
 });
 
-export const refreshTagListFlag = atom<number>({
+export const tagListRereshFlag = atom<number>({
   key: 'diary/refresh-tags',
   default: 0,
 });
@@ -32,7 +32,7 @@ export const refreshTagListFlag = atom<number>({
 export const tagListState = selector<string[]>({
   key: 'diary/tags', // unique ID (with respect to other atoms/selectors)
   get: async ({ get }) => {
-    get(refreshTagListFlag);
+    get(tagListRereshFlag);
     const apiClient = await getApiClient();
     return apiClient.getTags();
   },
