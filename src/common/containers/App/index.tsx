@@ -10,7 +10,7 @@ import { SnackbarProvider } from 'notistack';
 import '../../../styles.css';
 import { theme } from '../../../theme';
 import routes from '../../../routes';
-import ProtectedRoute from '../../atoms/ProtectedRoute';
+import { ProtectedRoute } from '../../../identity';
 import LoadingFallback from '../../atoms/LoadingFallback';
 import NotFoundPage from '../../pages/NotFoundPage';
 import { ApiProvider } from '../../../api';

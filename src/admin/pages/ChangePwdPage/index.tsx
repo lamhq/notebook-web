@@ -4,7 +4,6 @@ import { useSnackbar } from 'notistack';
 import ChangePwdForm from '../../organisms/ChangePwdForm';
 import SubLayout from '../../../common/templates/SubLayout';
 import { ChangePwdFormModel } from '../../types';
-import { withAuth } from '../../../identity';
 import { useApi } from '../../../api';
 import { useNavUtils } from '../../../common/hooks';
 
@@ -28,4 +27,4 @@ const ChangePwdPage: React.VFC = () => {
   );
 };
 
-export default withAuth()(ChangePwdPage);
+export default ChangePwdPage;

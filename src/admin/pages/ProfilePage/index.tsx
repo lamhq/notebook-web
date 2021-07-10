@@ -3,7 +3,6 @@ import { SubmitHandler } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import { useApi } from '../../../api';
 import { ProfileFormModel } from '../../types';
-import { withAuth } from '../../../identity';
 import MainLayout from '../../../common/templates/MainLayout';
 import ProfileEditForm from '../../containers/ProfileEditForm';
 
@@ -25,4 +24,4 @@ const ProfilePage: React.VFC = () => {
   );
 };
 
-export default withAuth()(ProfilePage);
+export default ProfilePage;

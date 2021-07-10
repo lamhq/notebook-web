@@ -9,7 +9,6 @@ import Revenue from '../../containers/Revenue';
 import ActivitySearchDialog from '../../containers/ActivitySearchDialog';
 import MainLayout from '../../../common/templates/MainLayout';
 import ActionButtons from '../../../common/atoms/ActionButtons';
-import { withAuth } from '../../../identity';
 
 const ToolBar = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(2),
@@ -34,4 +33,4 @@ const ActivityListPage: React.VFC = () => {
   );
 };
 
-export default withAuth()(ActivityListPage);
+export default ActivityListPage;

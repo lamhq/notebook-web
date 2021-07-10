@@ -10,6 +10,7 @@ const routes: RouteItem<ComponentType>[] = [
   {
     path: '/',
     component: lazy(() => import('./diary/pages/ActivityListPage')),
+    permissions: ['admin'],
   },
   {
     path: '/login',
@@ -34,18 +35,22 @@ const routes: RouteItem<ComponentType>[] = [
   {
     path: '/profile',
     component: lazy(() => import('./admin/pages/ProfilePage')),
+    permissions: ['admin'],
   },
   {
     path: '/profile/change-pwd',
     component: lazy(() => import('./admin/pages/ChangePwdPage')),
+    permissions: ['admin'],
   },
   {
     path: '/activities/new',
     component: lazy(() => import('./diary/pages/AddActivityPage')),
+    permissions: ['admin'],
   },
   {
     path: '/activities/edit/:id',
     component: lazy(() => import('./diary/pages/UpdateActivityPage')),
+    permissions: ['admin'],
   },
 ];
 
