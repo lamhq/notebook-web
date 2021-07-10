@@ -11,8 +11,8 @@ export interface LoginFormModel {
 
 export interface ProfileFormModel {
   displayName: string;
-  avatar?: string;
   email: string;
+  avatar?: string;
 }
 
 export interface ChangePwdFormModel {
