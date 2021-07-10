@@ -3,7 +3,6 @@ import { SubmitHandler } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { ActivityFormModel } from '../../types';
 import SubLayout from '../../../common/templates/SubLayout';
-import { withAuth } from '../../../identity';
 import ActivityEditForm from '../../containers/ActivityEditForm';
 import { useApi } from '../../../api';
 import { useNavUtils } from '../../../common/hooks';
@@ -27,4 +26,4 @@ const UpdateActivityPage: React.VFC = () => {
   );
 };
 
-export default withAuth()(UpdateActivityPage);
+export default UpdateActivityPage;

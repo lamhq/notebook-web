@@ -1,12 +1,18 @@
 import { Identity } from '../identity';
-import { ChangePwdFormModel, ForgotPwdFormModel, LoginFormModel, Profile } from '../admin/types';
+import {
+  ChangePwdFormModel,
+  ForgotPwdFormModel,
+  LoginFormModel,
+  Profile,
+  ProfileFormModel,
+} from '../admin/types';
 import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
 
 export interface ApiClient {
   login: (data: LoginFormModel) => Promise<Identity>;
   logout: () => Promise<void>;
   getProfile: () => Promise<Profile>;
-  updateProfile: (data: UpdateProfileDto) => Promise<Profile>;
+  updateProfile: (data: ProfileFormModel) => Promise<Profile>;
   changePassword: (data: ChangePasswordDto) => Promise<void>;
   forgotPassword: (data: ForgotPwdFormModel) => Promise<void>;
   resetPassword: (data: ResetPasswordDto) => Promise<void>;
@@ -19,11 +25,6 @@ export interface ApiClient {
 
   getTags: () => Promise<string[]>;
   getRevenue: (filter: ActivityFilterModel) => Promise<Revenue>;
-}
-
-export interface UpdateProfileDto {
-  displayName: string;
-  avatar: string;
 }
 
 export type ChangePasswordDto = Omit<ChangePwdFormModel, 'confirmPassword'>;

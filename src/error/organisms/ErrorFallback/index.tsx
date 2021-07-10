@@ -2,6 +2,7 @@ import React from 'react';
 import WarningIcon from '@material-ui/icons/Warning';
 import SearchIcon from '@material-ui/icons/Search';
 import BlockIcon from '@material-ui/icons/Block';
+import CloudOffIcon from '@material-ui/icons/CloudOff';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { FallbackProps } from 'react-error-boundary';
@@ -16,7 +17,7 @@ const ErrorFallback: React.VFC<FallbackProps> = ({ error, resetErrorBoundary }) 
     switch (error.code) {
       case ApiErrorCode.NetworkError:
         message = 'Please check your internet connection.';
-        icon = <WarningIcon style={{ fontSize: '5rem' }} />;
+        icon = <CloudOffIcon style={{ fontSize: '5rem' }} />;
         break;
 
       case ApiErrorCode.Notfound:

@@ -1,8 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from '../error';
 import { Identity } from '../identity';
-import { ForgotPwdFormModel, LoginFormModel, Profile } from '../admin/types';
-import { ApiClient, ChangePasswordDto, ResetPasswordDto, UpdateProfileDto } from './types';
+import { ForgotPwdFormModel, LoginFormModel, Profile, ProfileFormModel } from '../admin/types';
+import { ApiClient, ChangePasswordDto, ResetPasswordDto } from './types';
 import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
 import { removeEmptyFields, sleep } from '../common/utils';
 import { getTimeRangeFromFilter } from '../diary/utils';
@@ -56,7 +56,7 @@ export default class ApiUtils implements ApiClient {
     return resp.data;
   }
 
-  async updateProfile(data: UpdateProfileDto): Promise<Profile> {
+  async updateProfile(data: ProfileFormModel): Promise<Profile> {
     const resp = await this.request<Profile>({
       url: '/admin/accounts/me',
       method: 'PATCH',
@@ -179,6 +179,7 @@ export const fakeApiUtils: ApiClient = {
   logout: async () => undefined,
 
   getProfile: async () => {
+    await sleep(1000);
     return {
       displayName: 'Admin',
       email: 'john@gmail.com',

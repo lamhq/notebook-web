@@ -3,7 +3,6 @@ import { SubmitHandler } from 'react-hook-form';
 import { ActivityFormModel } from '../../types';
 import SubLayout from '../../../common/templates/SubLayout';
 import ActivityForm from '../../organisms/ActivityForm';
-import { withAuth } from '../../../identity';
 import { useApi } from '../../../api';
 import { useNavUtils } from '../../../common/hooks';
 
@@ -33,4 +32,4 @@ const AddActivityPage: React.VFC = () => {
   );
 };
 
-export default withAuth()(AddActivityPage);
+export default AddActivityPage;
