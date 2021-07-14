@@ -10,7 +10,7 @@ module.exports = (env) => {
     devServer: {
       contentBase: './dist',
       hot: true,
-      open: 'Google Chrome',
+      open: true,
       historyApiFallback: true,
       port: 3001,
       proxy: {
