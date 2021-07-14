@@ -21,7 +21,7 @@ const DeleteActivityMenuItem: React.VFC<DeleteActivityMenuItemProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const handleError = useErrorHandler();
   const confirm = useConfirm();
-  const refreshActivityList = useRefreshActivityList();
+  const [, refreshActivityList] = useRefreshActivityList();
   const handleDelete = React.useCallback(async () => {
     try {
       closeMenu();

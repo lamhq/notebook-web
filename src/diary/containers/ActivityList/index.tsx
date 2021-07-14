@@ -1,25 +1,27 @@
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-
+import { useRecoilState } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 import Typography from '@material-ui/core/Typography';
-import { activityFilterState, filteredActivitiesState } from '../../states';
+import { activityFilterState } from '../../states';
 import { ErrorHandler, isUnauthenticated, useErrorHandler } from '../../../error';
 import Pagination from '../../../common/molecules/Pagination';
 import LoadingFallback from '../../../common/atoms/LoadingFallback';
 import ErrorFallback from '../../../error/organisms/ErrorFallback';
 import ActivityListView from '../../organisms/ActivityList';
-import { useRefreshActivityList } from '../../hooks';
+import { useActivityList, useRefreshActivityList } from '../../hooks';
 
 const LoadableActivityList: React.VFC = () => {
-  const [activities, pageCount] = useRecoilValue(filteredActivitiesState);
+  const [activities, pageCount] = useActivityList();
   const [filter, setFilter] = useRecoilState(activityFilterState);
-  const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {
-    setFilter((curFilter) => ({
-      ...curFilter,
-      page: newPage,
-    }));
-  };
+  const handlePageChange = React.useCallback(
+    (event: React.ChangeEvent<unknown>, newPage: number) => {
+      setFilter((curFilter) => ({
+        ...curFilter,
+        page: newPage,
+      }));
+    },
+    [setFilter],
+  );
   return activities.length ? (
     <>
       <ActivityListView models={activities} />
@@ -35,8 +37,7 @@ const LoadableActivityList: React.VFC = () => {
 };
 
 const ActivityList: React.VFC = () => {
-  const activityFilter = useRecoilValue(activityFilterState);
-  const refreshActivityList = useRefreshActivityList();
+  const [flag, refresh] = useRefreshActivityList();
   const defaultHandler = useErrorHandler();
   const handleError: ErrorHandler = React.useCallback(
     async (error) => {
@@ -47,14 +48,11 @@ const ActivityList: React.VFC = () => {
     [defaultHandler],
   );
 
-  // invalidate activity list when component is unmounted
-  React.useEffect(() => refreshActivityList, [refreshActivityList]);
-
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onReset={refreshActivityList}
-      resetKeys={[activityFilter]}
+      onReset={refresh}
+      resetKeys={[flag]}
       onError={handleError}
     >
       <React.Suspense fallback={<LoadingFallback />}>

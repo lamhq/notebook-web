@@ -1,23 +1,19 @@
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
 import ProfileForm, { ProfileFormProps } from '../../organisms/ProfileForm';
-import { profileState, refreshProfileFlag } from './states';
 import { ErrorFallback, ErrorHandler, isUnauthenticated, useErrorHandler } from '../../../error';
 import LoadingFallback from '../../../common/atoms/LoadingFallback';
-import { ProfileFormModel } from '../../types';
+import { useProfile, useRefreshProfile } from './hooks';
 
 export type ProfileEditFormProps = Omit<ProfileFormProps, 'defaultValues'>;
 
 const LoadableProfileForm: React.VFC<ProfileEditFormProps> = ({ onSubmit }) => {
-  const profile = useRecoilValue(profileState);
-  const formValues: ProfileFormModel = profile;
-  return <ProfileForm defaultValues={formValues} onSubmit={onSubmit} />;
+  const profile = useProfile();
+  return <ProfileForm defaultValues={profile} onSubmit={onSubmit} />;
 };
 
 const ProfileEditForm: React.VFC<ProfileEditFormProps> = (props) => {
-  const [refreshFlag, setRefreshFlag] = useRecoilState(refreshProfileFlag);
-  const refreshProfile = React.useCallback(() => setRefreshFlag(Date.now()), [setRefreshFlag]);
+  const [flag, refresh] = useRefreshProfile();
   const defaultHandler = useErrorHandler();
   const handleError: ErrorHandler = React.useCallback(
     async (error) => {
@@ -28,14 +24,11 @@ const ProfileEditForm: React.VFC<ProfileEditFormProps> = (props) => {
     [defaultHandler],
   );
 
-  // invalidate activity data when component is unmounted
-  React.useEffect(() => refreshProfile, [refreshProfile]);
-
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onReset={refreshProfile}
-      resetKeys={[refreshFlag]}
+      onReset={refresh}
+      resetKeys={[flag]}
       onError={handleError}
     >
       <React.Suspense fallback={<LoadingFallback />}>
