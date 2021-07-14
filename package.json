@@ -12,7 +12,7 @@
     "test": "jest --coverage --errorOnDeprecated",
     "testw": "jest --watch",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
-    "deploy": "./infra/deploy.sh",
+    "deploy": "firebase deploy --only hosting",
     "release": "standard-version --no-verify && git push --follow-tags --no-verify",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
