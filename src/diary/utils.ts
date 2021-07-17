@@ -30,7 +30,7 @@ export function getTimeRangeFromFilter(filter: ActivityFilterModel): [FilterDate
 
     case TimeRange.LastMonth:
       from = startOfMonth(subMonths(new Date(), 1));
-      to = startOfMonth(subMonths(new Date(), 1));
+      to = endOfMonth(subMonths(new Date(), 1));
       break;
 
     default:
