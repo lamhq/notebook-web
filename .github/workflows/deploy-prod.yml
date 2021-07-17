@@ -1,12 +1,12 @@
-name: Deploy to Preview Channel
-on:
-  pull_request:
-    branches:
-      - master
+name: Deploy to Production
+
+on: create
+
 jobs:
-  build_preview:
-    name: Build Preview
-    environment: test
+  deploy_to_production:
+    name: Deploy to Production
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    environment: prod
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,9 +19,9 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Build
         run: yarn build
-      - name: Deploy preview
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
+          channelId: live
           projectId: '${{ secrets.PROJECT_ID }}'
