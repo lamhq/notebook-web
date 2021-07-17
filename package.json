@@ -1,6 +1,6 @@
 {
   "name": "notebook-web",
-  "version": "2.0.0",
+  "version": "3.0.1",
   "description": "Web UI for Notebook app",
   "author": "lamhq",
   "private": true,
@@ -13,7 +13,7 @@
     "testw": "jest --watch",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
     "deploy": "firebase deploy --only hosting",
-    "release": "standard-version --no-verify && git push --follow-tags --no-verify",
+    "release": "standard-version --no-verify",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
