@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 module.exports = (env) => {
   return {
@@ -21,13 +22,35 @@ module.exports = (env) => {
       // Automatically generate an HTML5 file for you that includes all your webpack bundles
       new HtmlWebpackPlugin({
         title: 'Admin App',
-        favicon: './src/favicon.ico',
+        favicon: './src/favicon.svg',
         template: './src/index.html',
       }),
 
       // Create global constants which can be configured at compile time
       new webpack.DefinePlugin({
         'process.env.VERSION': JSON.stringify(process.env.npm_package_version),
+      }),
+
+      new WebpackPwaManifest({
+        name: 'Notebook',
+        short_name: 'Notebook',
+        orientation: 'portrait',
+        display: 'standalone',
+        start_url: '.',
+        description: 'My note application',
+        background_color: '#eff1f2',
+        theme_color: '#296BE3',
+        icons: [
+          {
+            src: path.resolve('src/favicon.svg'),
+            sizes: [96, 128, 256, 512], // multiple sizes
+          },
+          {
+            src: path.resolve('src/favicon.svg'),
+            size: '512x512',
+            purpose: 'maskable',
+          },
+        ],
       }),
     ],
     module: {
