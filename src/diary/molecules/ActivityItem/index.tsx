@@ -11,6 +11,7 @@ import { formatNumber } from '../../../common/utils';
 const useStyles = makeStyles((theme) => ({
   content: () => ({
     marginBottom: theme.spacing(1),
+    lineHeight: 1.8,
   }),
   income: () => ({
     color: theme.palette.success.main,
