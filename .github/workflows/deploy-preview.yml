@@ -6,10 +6,11 @@ on:
 jobs:
   build_preview:
     name: Build Preview
-    environment: test
+    environment: preview
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Setup Node.js 14
         uses: actions/setup-node@v2
         with:
