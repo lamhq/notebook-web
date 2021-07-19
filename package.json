@@ -12,8 +12,6 @@
     "test": "jest --coverage --errorOnDeprecated",
     "testw": "jest --watch",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
-    "deploy": "firebase deploy --only hosting",
-    "release": "standard-version --no-verify",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -90,7 +88,6 @@
     "prettier": "^2.0.5",
     "react-test-renderer": "^17.0.2",
     "source-map-loader": "^1.0.1",
-    "standard-version": "^9.1.0",
     "style-loader": "^1.2.1",
     "ts-jest": "^26.1.3",
     "ts-loader": "^9.2.3",
