@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { LazyBuilder } from 'yup/lib/Lazy';
 
 export function formatNumber(n?: number): string {
-  return n ? numeral(n).format('0,0.[00]') : '';
+  return n ? numeral(n).format('0,0.[00]') : '0';
 }
 
 export function hasSubArray(master: string[], sub: string[]): boolean {
