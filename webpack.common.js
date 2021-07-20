@@ -21,7 +21,7 @@ module.exports = (env) => {
     plugins: [
       // Automatically generate an HTML5 file for you that includes all your webpack bundles
       new HtmlWebpackPlugin({
-        title: 'Admin App',
+        title: 'Notebook',
         favicon: './src/favicon.svg',
         template: './src/index.html',
       }),
