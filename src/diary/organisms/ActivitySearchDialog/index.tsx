@@ -26,23 +26,22 @@ const ActivitySearchDialog: React.VFC<ActivitySearchDialogViewProps> = ({ values
     defaultValues: values,
   });
   const timeRange = watch('timeRange');
-
-  const handleOpenDialog = () => {
+  const handleOpenDialog = React.useCallback(() => {
     setOpen(true);
-  };
-
-  const handleCloseDialog = () => {
+  }, []);
+  const handleCloseDialog = React.useCallback(() => {
     setOpen(false);
-  };
-
-  const handleFormSubmit: SubmitHandler<ActivityFilterModel> = (data) => {
-    onSubmit(data);
-    setOpen(false);
-  };
-
-  const handleReset = () => {
+  }, []);
+  const handleFormSubmit: SubmitHandler<ActivityFilterModel> = React.useCallback(
+    (data) => {
+      onSubmit(data);
+      setOpen(false);
+    },
+    [onSubmit],
+  );
+  const handleReset = React.useCallback(() => {
     reset();
-  };
+  }, [reset]);
 
   return (
     <>

@@ -38,9 +38,9 @@ export interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
   const classes = useStyles();
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = React.useCallback(() => {
     setDrawerOpen(!isDrawerOpen);
-  };
+  }, [isDrawerOpen]);
   return (
     <>
       <HideOnScroll>

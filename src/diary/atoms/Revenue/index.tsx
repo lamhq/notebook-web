@@ -35,14 +35,12 @@ const Revenue: React.VFC<RevenueProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
   const open = Boolean(anchorEl);
   const id = open ? 'revenue-popover' : undefined;
-
-  const handleClick: React.MouseEventHandler = (event) => {
+  const handleClick: React.MouseEventHandler = React.useCallback((event) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
+  }, []);
+  const handleClose = React.useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   return (
     <>
