@@ -1,23 +1,23 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
   },
   label: {
-    color: '#9e9e9e',
+    color: theme.palette.grey['500'],
   },
   icon: {
     fontSize: '1.125rem',
-    color: '#9e9e9e',
+    color: theme.palette.grey['500'],
     marginRight: '4px',
   },
-});
+}));
 
 export interface TimeLabelProps {
   time: string;

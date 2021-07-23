@@ -14,14 +14,15 @@ export interface ActivityMenuProps {
 const ActivityMenu: React.VFC<ActivityMenuProps> = ({ activity }) => {
   const { getLinkProps } = useNavUtils();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
+  const handleClick: React.MouseEventHandler = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    },
+    [],
+  );
+  const handleClose = React.useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   return (
     <>

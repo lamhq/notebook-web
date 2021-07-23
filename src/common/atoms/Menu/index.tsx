@@ -1,18 +1,20 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { Theme, withStyles } from '@material-ui/core/styles';
 import MuiMenu, { MenuProps as MuiMenuProps } from '@material-ui/core/Menu';
 import MuiMenuItem from '@material-ui/core/MenuItem';
 import MuiListItemIcon from '@material-ui/core/ListItemIcon';
 import MuiListItemText from '@material-ui/core/ListItemText';
 
-export const Menu = withStyles({
+export const Menu = withStyles((theme: Theme) => ({
   paper: {
-    border: '1px solid #d3d4d5',
+    borderColor: theme.palette.grey['400'],
+    borderWidth: '1px',
+    borderStyle: 'solid',
   },
   list: {
-    padding: '4px',
+    padding: 0,
   },
-})((props: MuiMenuProps) => (
+}))((props: MuiMenuProps) => (
   <MuiMenu
     getContentAnchorEl={null}
     anchorOrigin={{

@@ -20,16 +20,15 @@ export interface ScrollToProps {
 const ScrollOnClick: React.FC<ScrollToProps> = ({ children, anchorSelector }) => {
   const classes = useStyles();
   const trigger = useScrollTrigger();
-
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector(
-      anchorSelector,
-    );
-
-    if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = React.useCallback(
+    (event) => {
+      const anchor = (event.currentTarget.ownerDocument || document).querySelector(anchorSelector);
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    },
+    [anchorSelector],
+  );
 
   return (
     <Zoom in={trigger}>

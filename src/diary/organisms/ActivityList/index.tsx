@@ -8,7 +8,7 @@ import ActivityItem from '../../molecules/ActivityItem';
 import { Activity } from '../../types';
 
 const Panel = styled('div')(({ theme }) => ({
-  backgroundColor: '#fff',
+  backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(1),
   marginBottom: theme.spacing(2),
 }));
