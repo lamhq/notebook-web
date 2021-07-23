@@ -31,8 +31,6 @@ export interface ActivityItemProps {
 const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
   const classes = useStyles();
   const html = model.content.replace('\n', '<br/>');
-  const income = formatNumber(model.income);
-  const outcome = formatNumber(model.outcome);
 
   return (
     <>
@@ -47,14 +45,14 @@ const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
       />
       <Grid container justify="space-between" spacing={0}>
         <Box display="flex" gridColumnGap={8}>
-          {model.income && model.income > 0 && (
+          {Boolean(model.income && model.income > 0) && (
             <Typography variant="body2" className={classes.income}>
-              {income}
+              {formatNumber(model.income)}
             </Typography>
           )}
-          {model.outcome && model.outcome > 0 && (
+          {Boolean(model.outcome && model.outcome > 0) && (
             <Typography variant="body2" className={classes.outcome}>
-              {outcome}
+              {formatNumber(model.outcome)}
             </Typography>
           )}
         </Box>

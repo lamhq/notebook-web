@@ -1,17 +1,17 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { Theme, withStyles } from '@material-ui/core/styles';
 import MuiPagination, { PaginationProps } from '@material-ui/lab/Pagination';
 
-const Pagination = withStyles({
+const Pagination = withStyles((theme: Theme) => ({
   root: {
     '& .MuiPaginationItem-page': {
-      backgroundColor: '#fff',
+      backgroundColor: theme.palette.background.paper,
     },
     '& .Mui-selected': {
       backgroundColor: 'rgba(0, 0, 0, 0.08)',
     },
   },
-})((props: PaginationProps) => (
+}))((props: PaginationProps) => (
   <MuiPagination
     siblingCount={0}
     boundaryCount={2}
