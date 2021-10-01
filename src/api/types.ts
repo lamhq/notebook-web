@@ -10,6 +10,7 @@ import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../di
 
 export interface ApiClient {
   login: (data: LoginFormModel) => Promise<Identity>;
+  googleLogin: (token: string) => Promise<Identity>;
   logout: () => Promise<void>;
   getProfile: () => Promise<Profile>;
   updateProfile: (data: ProfileFormModel) => Promise<Profile>;

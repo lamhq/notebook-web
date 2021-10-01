@@ -1,13 +1,12 @@
 import React from 'react';
-import { SubmitHandler } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
-import { LoginFormModel } from '../../types';
 import LoginForm from '../../organisms/LoginForm';
 import { useErrorHandler, isBadRequest } from '../../../error';
 import { useApi } from '../../../api';
 import { useSetIdentity } from '../../../identity';
 import { useNavUtils } from '../../../common/hooks';
 import BlankLayout from '../../../common/templates/BlankLayout';
+import GoogleLoginForm from '../../organisms/GoogleLoginForm';
 
 const LoginPage: React.VFC = () => {
   const api = useApi();
@@ -15,13 +14,13 @@ const LoginPage: React.VFC = () => {
   const { redirect } = useNavUtils();
   const { enqueueSnackbar } = useSnackbar();
   const handleError = useErrorHandler();
-  const handleSubmit: SubmitHandler<LoginFormModel> = React.useCallback(
-    async (data) => {
+  const handleLogin = React.useCallback(
+    async (token) => {
       try {
-        const identity = await api.login(data);
+        const identity = await api.googleLogin(token);
         setIdentity(identity);
         redirect('/');
-      } catch (error) {
+      } catch (error: Error) {
         if (isBadRequest(error)) {
           enqueueSnackbar('Wrong email or password.', { variant: 'error' });
         } else {
@@ -34,7 +33,8 @@ const LoginPage: React.VFC = () => {
 
   return (
     <BlankLayout title="Sign In">
-      <LoginForm onSubmit={handleSubmit} />
+      <LoginForm onSubmit={handleLogin} />
+      <GoogleLoginForm onLoginSuccess={handleLogin} />
     </BlankLayout>
   );
 };

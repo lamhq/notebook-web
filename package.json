@@ -8,7 +8,7 @@
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --env production --config webpack.prod.js",
-    "preversion": "git-branch-is -r \"^(feature|fix|hotfix)/[a-z\\-\\d\\.]+$\" && echo Preversion checks passed. Your branch name is correct format.",
+    "preversion": "git-branch-is -r \"^(feature|fix|hotfix)/NB-\\d+/[a-z\\-\\d\\.]+$\" && echo Preversion checks passed. Your branch name is correct format.",
     "test": "jest --coverage --errorOnDeprecated",
     "testw": "jest --watch",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
@@ -40,6 +40,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.3",
+    "react-google-login": "^5.2.2",
     "react-hook-form": "^7.9.0",
     "react-router-dom": "^5.2.0",
     "recoil": "^0.3.1",
