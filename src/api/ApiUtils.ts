@@ -41,6 +41,24 @@ export default class ApiUtils implements ApiClient {
     return identity;
   }
 
+  async googleLogin(token: string): Promise<Identity> {
+    const resp = await this.request<Identity>({
+      url: '/auth/google/access-tokens',
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const identity: Identity = {
+      displayName: resp.data.displayName,
+      expireAt: new Date(resp.data.expireAt),
+      // token won't be saved in local storage but in http cookie
+      token: '',
+      avatar: resp.data.avatar,
+      email: resp.data.email,
+      roles: resp.data.roles,
+    };
+    return identity;
+  }
+
   async logout(): Promise<void> {
     return this.request({
       url: '/auth/tokens/mine',
@@ -166,6 +184,17 @@ export default class ApiUtils implements ApiClient {
 
 export const fakeApiUtils: ApiClient = {
   login: async () => {
+    const fakeIdenity: Identity = {
+      displayName: 'Admin',
+      token: '',
+      expireAt: new Date(),
+      email: '',
+      roles: [],
+    };
+    return fakeIdenity;
+  },
+
+  googleLogin: async () => {
     const fakeIdenity: Identity = {
       displayName: 'Admin',
       token: '',
