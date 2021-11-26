@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.0.3 (2021-11-26)
+
+
+### Bug Fixes
+
+* login two times ([f90b356](https://github.com/lamhq/notebook-web/commit/f90b35645ee0bd4307aea53d25a7fdce70a745fc))
+
 ### 3.0.2 (2021-07-19)
 
 ### [3.0.1](https://github.com/lamhq/notebook-web/compare/v3.0.0...v3.0.1) (2021-07-17)
