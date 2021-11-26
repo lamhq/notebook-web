@@ -1,6 +1,9 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import GoogleIcon from '@mui/icons-material/Google';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { GOOGLE_CLIENT_ID } from '../../../config';
+import ActionButtons from '../../../common/atoms/ActionButtons';
 
 export interface GoogleLoginFormProps {
   onLoginSuccess: (token: string) => void;
@@ -18,16 +21,24 @@ const GoogleLoginForm: React.VFC<GoogleLoginFormProps> = ({ onLoginSuccess }) =>
   };
 
   return (
-    <GoogleLogin
-      clientId={GOOGLE_CLIENT_ID}
-      onSuccess={handleSuccess}
-      onFailure={handleFailure}
-      render={(renderProps) => (
-        <button type="button" disabled={renderProps.disabled} onClick={renderProps.onClick}>
-          Login with Google
-        </button>
-      )}
-    />
+    <ActionButtons>
+      <GoogleLogin
+        clientId={GOOGLE_CLIENT_ID}
+        onSuccess={handleSuccess}
+        onFailure={handleFailure}
+        render={(renderProps) => (
+          <Button
+            disabled={renderProps.disabled}
+            onClick={renderProps.onClick}
+            color="primary"
+            variant="contained"
+            startIcon={<GoogleIcon />}
+          >
+            Sign in with Google
+          </Button>
+        )}
+      />
+    </ActionButtons>
   );
 };
 

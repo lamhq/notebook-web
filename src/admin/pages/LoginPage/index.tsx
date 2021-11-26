@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSnackbar } from 'notistack';
-import LoginForm from '../../organisms/LoginForm';
 import { useErrorHandler, isBadRequest } from '../../../error';
 import { useApi } from '../../../api';
 import { useSetIdentity } from '../../../identity';
@@ -33,7 +32,6 @@ const LoginPage: React.VFC = () => {
 
   return (
     <BlankLayout title="Sign In">
-      <LoginForm onSubmit={handleLogin} />
       <GoogleLoginForm onLoginSuccess={handleLogin} />
     </BlankLayout>
   );
