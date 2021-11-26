@@ -18,7 +18,7 @@ const LoginPage: React.VFC = () => {
       try {
         const identity = await api.googleLogin(token);
         setIdentity(identity);
-        redirect('/');
+        setTimeout(() => redirect('/'), 100);
       } catch (error: Error) {
         if (isBadRequest(error)) {
           enqueueSnackbar('Wrong email or password.', { variant: 'error' });
