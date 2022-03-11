@@ -30,7 +30,7 @@ export interface ActivityItemProps {
 
 const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
   const classes = useStyles();
-  const html = model.content.replace('\n', '<br/>');
+  const html = model.content.replace(/\n/g, '<br/>');
 
   return (
     <>
