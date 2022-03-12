@@ -7,11 +7,9 @@ import endOfYear from 'date-fns/endOfYear';
 import subMonths from 'date-fns/subMonths';
 import { ActivityFilterModel, TimeRange } from './types';
 
-type FilterDate = Date | undefined;
-
-export function getTimeRangeFromFilter(filter: ActivityFilterModel): [FilterDate, FilterDate] {
-  let from: FilterDate;
-  let to: FilterDate;
+export function getTimeRangeFromFilter(filter: ActivityFilterModel): [Date?, Date?] {
+  let from: Date | undefined;
+  let to: Date | undefined;
   switch (filter.timeRange) {
     case TimeRange.ThisWeek:
       from = startOfWeek(new Date(), { weekStartsOn: 1 });
@@ -33,10 +31,41 @@ export function getTimeRangeFromFilter(filter: ActivityFilterModel): [FilterDate
       to = endOfMonth(subMonths(new Date(), 1));
       break;
 
-    default:
+    case TimeRange.Custom:
+      if (!filter.from || !filter.to) {
+        throw new Error('Invalid custom time range');
+      }
       from = filter.from;
       to = filter.to;
       break;
+
+    default:
+      break;
   }
   return [from, to];
+}
+
+export function buildQueryFromFilter(
+  filter: ActivityFilterModel,
+): Record<string, string | string[] | number> {
+  const params: ReturnType<typeof buildQueryFromFilter> = {};
+  if (filter.text) {
+    params.text = filter.text;
+  }
+
+  if (filter.tags) {
+    params.tags = filter.tags;
+  }
+
+  const [from, to] = getTimeRangeFromFilter(filter);
+  if (from) {
+    params.from = from.toISOString();
+  }
+  if (to) {
+    params.to = to.toISOString();
+  }
+
+  params.limit = filter.pageSize;
+  params.offset = (filter.page - 1) * filter.pageSize;
+  return params;
 }

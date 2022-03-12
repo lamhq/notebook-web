@@ -5,7 +5,7 @@ import { ForgotPwdFormModel, LoginFormModel, Profile, ProfileFormModel } from '.
 import { ApiClient, ChangePasswordDto, ResetPasswordDto } from './types';
 import { Activity, ActivityFilterModel, ActivityFormModel, Revenue } from '../diary/types';
 import { removeEmptyFields, sleep } from '../common/utils';
-import { getTimeRangeFromFilter } from '../diary/utils';
+import { buildQueryFromFilter } from '../diary/utils';
 
 export default class ApiUtils implements ApiClient {
   private client: AxiosInstance;
@@ -108,21 +108,27 @@ export default class ApiUtils implements ApiClient {
   }
 
   async searchActivities(filter: ActivityFilterModel): Promise<[Activity[], number]> {
-    const [from, to] = getTimeRangeFromFilter(filter);
     const resp = await this.request<Activity[]>({
       url: '/diary/activities',
       method: 'GET',
-      params: removeEmptyFields({
-        text: filter.text,
-        tags: filter.tags,
-        from: from?.toISOString(),
-        to: to?.toISOString(),
-        limit: filter.pageSize,
-        offset: (filter.page - 1) * filter.pageSize,
-      }),
+      params: buildQueryFromFilter(filter),
     });
     const total = parseInt(resp.headers['x-total-count'], 10);
     return [resp.data, Math.ceil(total / filter.pageSize)];
+  }
+
+  async getRevenue(filter: ActivityFilterModel): Promise<Revenue> {
+    const params = buildQueryFromFilter(filter);
+    if (!params.from || !params.to) {
+      return { income: 0, outcome: 0 };
+    }
+
+    const resp = await this.request<Revenue>({
+      url: '/diary/stat/revenue',
+      method: 'GET',
+      params,
+    });
+    return resp.data;
   }
 
   async addActivity(data: ActivityFormModel): Promise<Activity> {
@@ -162,21 +168,6 @@ export default class ApiUtils implements ApiClient {
     const resp = await this.request<string[]>({
       url: '/diary/tags',
       method: 'GET',
-    });
-    return resp.data;
-  }
-
-  async getRevenue(filter: ActivityFilterModel): Promise<Revenue> {
-    const [from, to] = getTimeRangeFromFilter(filter);
-    const resp = await this.request<Revenue>({
-      url: '/diary/stat/revenue',
-      method: 'GET',
-      params: {
-        text: filter.text || undefined,
-        tags: filter.tags || undefined,
-        from: from?.toISOString(),
-        to: to?.toISOString(),
-      },
     });
     return resp.data;
   }

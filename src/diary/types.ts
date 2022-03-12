@@ -21,6 +21,7 @@ export interface ActivityFormModel {
 }
 
 export enum TimeRange {
+  All = 'all',
   ThisWeek = 'this-week',
   ThisMonth = 'this-month',
   ThisYear = 'this-year',
