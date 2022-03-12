@@ -49,7 +49,7 @@ export interface FormError<TFieldValues extends FieldValues> extends ApiError {
 }
 
 export interface ErrorHandler {
-  (error: Error): Promise<void>;
+  (error: unknown): Promise<void>;
 }
 
 export interface FormErrorHandler<TFieldValues extends FieldValues> {

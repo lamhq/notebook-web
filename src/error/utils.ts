@@ -1,7 +1,7 @@
 import { FieldValues } from 'react-hook-form';
 import { ApiError, ApiErrorCode, FormError } from './types';
 
-export function isApiError(error: Error | ApiError): error is ApiError {
+export function isApiError(error: unknown): error is ApiError {
   return (error as ApiError).code !== undefined;
 }
 
@@ -9,7 +9,7 @@ export function isUnauthenticated(error: Error): boolean {
   return isApiError(error) && error.code === ApiErrorCode.Unauthenticated;
 }
 
-export function isBadRequest(error: Error): boolean {
+export function isBadRequest(error: unknown): boolean {
   return isApiError(error) && error.code === ApiErrorCode.BadRequest;
 }
 
