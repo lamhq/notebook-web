@@ -9,7 +9,7 @@ const ActivitySearchDialog: React.VFC = () => {
   const [filter, setFilter] = useRecoilState(activityFilterState);
   const handleSearch: SubmitHandler<ActivityFilterModel> = React.useCallback(
     (data) => {
-      setFilter(data);
+      setFilter({ ...data, page: 1 });
     },
     [setFilter],
   );

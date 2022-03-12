@@ -5,6 +5,8 @@ import endOfMonth from 'date-fns/endOfMonth';
 import startOfYear from 'date-fns/startOfYear';
 import endOfYear from 'date-fns/endOfYear';
 import subMonths from 'date-fns/subMonths';
+import endOfDay from 'date-fns/endOfDay';
+import startOfDay from 'date-fns/startOfDay';
 import { ActivityFilterModel, TimeRange } from './types';
 
 export function getTimeRangeFromFilter(filter: ActivityFilterModel): [Date?, Date?] {
@@ -35,8 +37,9 @@ export function getTimeRangeFromFilter(filter: ActivityFilterModel): [Date?, Dat
       if (!filter.from || !filter.to) {
         throw new Error('Invalid custom time range');
       }
-      from = filter.from;
-      to = filter.to;
+
+      from = startOfDay(filter.from);
+      to = endOfDay(filter.to);
       break;
 
     default:
