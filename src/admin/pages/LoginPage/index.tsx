@@ -14,12 +14,15 @@ const LoginPage: React.VFC = () => {
   const { enqueueSnackbar } = useSnackbar();
   const handleError = useErrorHandler();
   const handleLogin = React.useCallback(
-    async (token) => {
+    async (googleAccessToken) => {
       try {
-        const identity = await api.googleLogin(token);
+        enqueueSnackbar('Logging in...', { variant: 'info' });
+        const identity = await api.googleLogin(googleAccessToken);
+        enqueueSnackbar('Login success!', { variant: 'success' });
+
         setIdentity(identity);
         setTimeout(() => redirect('/'), 100);
-      } catch (error: Error) {
+      } catch (error) {
         if (isBadRequest(error)) {
           enqueueSnackbar('Wrong email or password.', { variant: 'error' });
         } else {
