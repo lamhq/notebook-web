@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
 import Textarea from '../../../common/atoms/Textarea';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import { useNavUtils } from '../../../common/hooks';
 import LoadingButton from '../../../common/atoms/LoadingButton';
 import ActivityTagSelect from '../../containers/ActivityTagSelect';
@@ -125,14 +125,14 @@ const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit })
           />
         </Grid>
       </Grid>
-      <ActionButtons>
+      <ButtonsContainer>
         <Button variant="contained" color="default" {...getLinkProps()}>
           Cancel
         </Button>
         <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">
           Submit
         </LoadingButton>
-      </ActionButtons>
+      </ButtonsContainer>
     </form>
   );
 };

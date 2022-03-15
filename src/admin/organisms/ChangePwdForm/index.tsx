@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ChangePwdFormModel } from '../../types';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import { useNavUtils } from '../../../common/hooks';
 import LoadingButton from '../../../common/atoms/LoadingButton';
 import { useFormErrorHandler } from '../../../error';
@@ -106,14 +106,14 @@ const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
           />
         </Grid>
       </Grid>
-      <ActionButtons>
+      <ButtonsContainer>
         <Button variant="contained" color="default" {...getLinkProps()}>
           Cancel
         </Button>
         <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">
           Submit
         </LoadingButton>
-      </ActionButtons>
+      </ButtonsContainer>
     </form>
   );
 };

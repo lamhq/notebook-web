@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import GoogleIcon from '@mui/icons-material/Google';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { GOOGLE_CLIENT_ID } from '../../../config';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 
 export interface GoogleLoginFormProps {
   onLoginSuccess: (token: string) => void;
@@ -21,7 +21,7 @@ const GoogleLoginForm: React.VFC<GoogleLoginFormProps> = ({ onLoginSuccess }) =>
   };
 
   return (
-    <ActionButtons>
+    <ButtonsContainer>
       <GoogleLogin
         clientId={GOOGLE_CLIENT_ID}
         onSuccess={handleSuccess}
@@ -38,7 +38,7 @@ const GoogleLoginForm: React.VFC<GoogleLoginFormProps> = ({ onLoginSuccess }) =>
           </Button>
         )}
       />
-    </ActionButtons>
+    </ButtonsContainer>
   );
 };
 

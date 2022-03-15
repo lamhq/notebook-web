@@ -8,7 +8,7 @@ import ActivityList from '../../containers/ActivityList';
 import Revenue from '../../containers/Revenue';
 import ActivitySearchDialog from '../../containers/ActivitySearchDialog';
 import MainLayout from '../../../common/templates/MainLayout';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 
 const ToolBar = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(2),
@@ -20,12 +20,12 @@ const ActivityListPage: React.VFC = () => {
   return (
     <MainLayout title="Activities">
       <ToolBar>
-        <ActionButtons>
+        <ButtonsContainer>
           <IconButton color="primary" size="small" component={RouterLink} to="/activities/new">
             <AddCircleIcon />
           </IconButton>
           <ActivitySearchDialog />
-        </ActionButtons>
+        </ButtonsContainer>
         <Revenue />
       </ToolBar>
       <ActivityList />

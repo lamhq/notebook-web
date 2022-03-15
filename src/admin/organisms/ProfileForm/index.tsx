@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { ProfileFormModel } from '../../types';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import { useFormErrorHandler } from '../../../error';
 import LoadingButton from '../../../common/atoms/LoadingButton';
 
@@ -84,14 +84,14 @@ const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubmit }) =
           />
         </Grid>
       </Grid>
-      <ActionButtons>
+      <ButtonsContainer>
         <Button variant="contained" color="default" component={RouterLink} to="/">
           Cancel
         </Button>
         <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">
           Submit
         </LoadingButton>
-      </ActionButtons>
+      </ButtonsContainer>
     </form>
   );
 };

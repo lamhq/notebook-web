@@ -4,7 +4,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Button from '@material-ui/core/Button';
 import { Link as RouterLink } from 'react-router-dom';
 import SubLayout from '../../../common/templates/SubLayout';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 
 const ResetPwdSuccessPage: React.VFC = () => {
   return (
@@ -15,11 +15,11 @@ const ResetPwdSuccessPage: React.VFC = () => {
       <Typography align="center" paragraph>
         Your password has been updated. Click the button below to continue.
       </Typography>
-      <ActionButtons>
+      <ButtonsContainer>
         <Button color="primary" variant="contained" component={RouterLink} to="/login">
           Continue
         </Button>
-      </ActionButtons>
+      </ButtonsContainer>
     </SubLayout>
   );
 };

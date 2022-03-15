@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import TimeRangeSelect from '../../atoms/TimeRangeSelect';
 import { TimeRange, ActivityFilterModel } from '../../types';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import ActivityTagSelect from '../../containers/ActivityTagSelect';
 
 export interface ActivitySearchDialogViewProps {
@@ -98,7 +98,7 @@ const ActivitySearchDialog: React.VFC<ActivitySearchDialogViewProps> = ({ values
           </form>
         </DialogContent>
         <DialogActions>
-          <ActionButtons>
+          <ButtonsContainer>
             <Button size="small" variant="contained" onClick={handleReset} color="default">
               Reset
             </Button>
@@ -112,7 +112,7 @@ const ActivitySearchDialog: React.VFC<ActivitySearchDialogViewProps> = ({ values
             >
               Search
             </Button>
-          </ActionButtons>
+          </ButtonsContainer>
         </DialogActions>
       </Dialog>
     </>
