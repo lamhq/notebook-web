@@ -53,5 +53,5 @@ export interface ErrorHandler {
 }
 
 export interface FormErrorHandler<TFieldValues extends FieldValues> {
-  (error: Error, setError: UseFormSetError<TFieldValues>, message?: string): Promise<void>;
+  (error: unknown, setError: UseFormSetError<TFieldValues>, message?: string): Promise<void>;
 }

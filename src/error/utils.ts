@@ -14,7 +14,7 @@ export function isBadRequest(error: unknown): boolean {
 }
 
 export function isFormError<TFieldValues extends FieldValues>(
-  error: Error | FormError<TFieldValues>,
+  error: unknown,
 ): error is FormError<TFieldValues> {
   return isApiError(error) && error.details !== undefined;
 }
