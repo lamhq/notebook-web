@@ -3,13 +3,15 @@ import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import viLocale from "date-fns/locale/vi";
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider as OldThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { SnackbarProvider } from 'notistack';
 
 import '../src/styles.css';
-import { theme } from '../src/theme';
+import { theme as oldTheme } from '../src/theme';
+import { theme } from '../src/theme2';
 import { identityState } from '../src/identity';
 import { FakeApiProvider } from '../src/api';
 import { ConfirmProvider } from '../src/confirm';
@@ -35,20 +37,22 @@ const initializeTestState = ({ set }) => {
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider theme={theme}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
-        <RecoilRoot initializeState={initializeTestState}>
-          <SnackbarProvider>
-            <ConfirmProvider>
-              <Router>
-                <FakeApiProvider>
-                  <Story />
-                </FakeApiProvider>
-              </Router>
-            </ConfirmProvider>
-          </SnackbarProvider>
-        </RecoilRoot>
-      </MuiPickersUtilsProvider>
-    </ThemeProvider>
+    <OldThemeProvider theme={oldTheme}>
+      <ThemeProvider theme={theme}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
+          <RecoilRoot initializeState={initializeTestState}>
+            <SnackbarProvider>
+              <ConfirmProvider>
+                <Router>
+                  <FakeApiProvider>
+                    <Story />
+                  </FakeApiProvider>
+                </Router>
+              </ConfirmProvider>
+            </SnackbarProvider>
+          </RecoilRoot>
+        </MuiPickersUtilsProvider>
+      </ThemeProvider>
+    </OldThemeProvider>
   ),
 ];

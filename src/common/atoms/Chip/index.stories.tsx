@@ -14,4 +14,4 @@ const Template: Story<ChipProps> = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = { label: 'play', size: 'small' };
+Default.args = { label: '74499', size: 'small' };

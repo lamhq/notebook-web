@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
-import Chip from '../../../common/atoms/Chip';
+import AmountBadge from '../../../common/atoms/AmountBadge';
 import { formatNumber } from '../../../common/utils';
 
 export interface RevenueProps {
@@ -11,10 +11,6 @@ export interface RevenueProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  chip: {
-    backgroundColor: (props: RevenueProps) =>
-      props.income > props.outcome ? theme.palette.success.main : theme.palette.error.main,
-  },
   incomeText: {
     color: theme.palette.success.main,
   },
@@ -29,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Revenue: React.VFC<RevenueProps> = (props) => {
   const { income, outcome } = props;
   const classes = useStyles(props);
-  const label = formatNumber(Math.abs(income - outcome));
   const it = formatNumber(income);
   const ot = formatNumber(outcome);
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
@@ -44,7 +39,11 @@ const Revenue: React.VFC<RevenueProps> = (props) => {
 
   return (
     <>
-      <Chip label={label} className={classes.chip} onClick={handleClick} />
+      <AmountBadge
+        amount={Math.abs(income - outcome)}
+        onClick={handleClick}
+        income={income > outcome}
+      />
       <Popover
         id={id}
         open={open}
