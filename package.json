@@ -14,7 +14,8 @@
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "release": "standard-version --no-verify && git push --no-verify && git push --tags --no-verify"
+    "release": "standard-version --no-verify && git push --no-verify && git push --tags --no-verify",
+    "chromatic": "npx chromatic --project-token=b9da917727f6"
   },
   "husky": {
     "hooks": {
@@ -72,6 +73,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "babel-loader": "^8.2.2",
+    "chromatic": "^6.5.3",
     "css-loader": "^3.5.3",
     "css-minimizer-webpack-plugin": "^3.0.2",
     "eslint": "^6.0.0",
