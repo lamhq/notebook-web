@@ -9,7 +9,8 @@ export default {
 } as Meta;
 
 const Template: Story<ActivityMenuProps> = (args) => {
-  return <ActivityMenu activity={args.activity} />;
+  const { activity } = args;
+  return <ActivityMenu activity={activity} />;
 };
 
 export const Default = Template.bind({});

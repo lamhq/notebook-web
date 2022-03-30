@@ -1,7 +1,7 @@
 import React from 'react';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import BorderColorIcon from '@material-ui/icons/BorderColor';
-import IconButton from '@material-ui/core/IconButton';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import IconButton from '@mui/material/IconButton';
 import { Activity } from '../../types';
 import { ItemIcon, ItemText, Menu, MenuItem } from '../../../common/atoms/ContextMenu';
 import { useNavUtils } from '../../../common/hooks';
