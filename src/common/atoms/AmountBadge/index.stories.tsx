@@ -8,9 +8,9 @@ export default {
 } as Meta;
 
 const Template: Story<AmountProps> = (args) => {
-  const { amount, income } = args;
-  return <AmountBadge amount={amount} income={income} />;
+  const { amount, isIncome: income } = args;
+  return <AmountBadge amount={amount} isIncome={income} />;
 };
 
 export const Default = Template.bind({});
-Default.args = { amount: 74499, income: true };
+Default.args = { amount: 74499, isIncome: true };

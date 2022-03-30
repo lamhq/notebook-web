@@ -1,5 +1,5 @@
 import React from 'react';
-import TextareaAutosize, { TextareaAutosizeProps } from '@material-ui/core/TextareaAutosize';
+import TextareaAutosize, { TextareaAutosizeProps } from '@mui/material/TextareaAutosize';
 
 interface TextareaProps extends TextareaAutosizeProps {
   inputRef?: React.Ref<HTMLTextAreaElement>;
@@ -12,6 +12,10 @@ interface TextareaProps extends TextareaAutosizeProps {
 const Textarea: React.FC<TextareaProps> = (props) => {
   const { inputRef = undefined, ...other } = props;
   return <TextareaAutosize {...other} ref={inputRef} />;
+};
+
+Textarea.defaultProps = {
+  inputRef: undefined,
 };
 
 export default Textarea;

@@ -1,42 +1,25 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Grid from '@material-ui/core/Grid';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Fab from '@material-ui/core/Fab';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Typography from '@material-ui/core/Typography';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Grid from '@mui/material/Grid';
+import Drawer from '@mui/material/Drawer';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import Fab from '@mui/material/Fab';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Typography from '@mui/material/Typography';
 import ScrollOnClick from '../../atoms/ScrollOnClick';
 import HideOnScroll from '../../atoms/HideOnScroll';
-import Container from '../../atoms/Container';
+import ContentContainer from '../../atoms/ContentContainer';
 import Sidebar from './Sidebar';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    drawerPaper: {
-      width: 200,
-    },
-    drawerToolbar: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-    },
-    topBtn: {
-      backgroundColor: 'transparent',
-    },
-  }),
-);
 
 export interface MainLayoutProps {
   title: string;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
-  const classes = useStyles();
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
   const handleDrawerToggle = React.useCallback(() => {
     setDrawerOpen(!isDrawerOpen);
@@ -67,15 +50,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
         anchor="left"
         open={isDrawerOpen}
         onClose={handleDrawerToggle}
-        classes={{
-          paper: classes.drawerPaper,
+        sx={{
+          '& .MuiPaper-root': { width: 200 },
         }}
         ModalProps={{
           // Better open performance on mobile.
           keepMounted: true,
         }}
       >
-        <Toolbar variant="dense" className={classes.drawerToolbar}>
+        <Toolbar variant="dense" sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <IconButton size="small" onClick={handleDrawerToggle}>
             <ChevronLeftIcon />
           </IconButton>
@@ -83,11 +66,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
         <Divider />
         <Sidebar />
       </Drawer>
-      <Container>
+      <ContentContainer>
         <>{children}</>
-      </Container>
+      </ContentContainer>
       <ScrollOnClick anchorSelector="#back-to-top-anchor">
-        <Fab color="inherit" size="small" className={classes.topBtn}>
+        <Fab color="inherit" size="small" sx={{ backgroundColor: 'transparent' }}>
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollOnClick>

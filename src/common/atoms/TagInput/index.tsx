@@ -1,10 +1,7 @@
 import React from 'react';
-import Autocomplete, {
-  AutocompleteProps,
-  createFilterOptions,
-} from '@material-ui/lab/Autocomplete';
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Autocomplete, { AutocompleteProps, createFilterOptions } from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const filter = createFilterOptions<string>();
 
@@ -41,6 +38,7 @@ const TagInput = React.forwardRef<unknown, TagInputProps>(function TagInputRef(p
       renderInput={(params) => (
         <TextField
           label={label}
+          variant="standard"
           {...params}
           InputProps={{
             ...params.InputProps,
@@ -56,5 +54,9 @@ const TagInput = React.forwardRef<unknown, TagInputProps>(function TagInputRef(p
     />
   );
 });
+
+TagInput.defaultProps = {
+  label: '',
+};
 
 export default TagInput;

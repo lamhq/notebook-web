@@ -1,9 +1,8 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { MenuProps } from '@material-ui/core/Menu';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-import BorderColorIcon from '@material-ui/icons/BorderColor';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { ItemIcon, ItemText, Menu, MenuItem } from '.';
 
 export default {
@@ -11,7 +10,7 @@ export default {
   component: Menu,
 } as Meta;
 
-const Template: Story<MenuProps> = () => {
+const Template: Story = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

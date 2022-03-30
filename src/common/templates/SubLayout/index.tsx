@@ -1,11 +1,11 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Typography from '@material-ui/core/Typography';
-import Container from '../../atoms/Container';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import Typography from '@mui/material/Typography';
+import Container from '../../atoms/ContentContainer';
 import { useNavUtils } from '../../hooks';
 
 export interface SubLayoutProps {
@@ -38,6 +38,10 @@ const SubLayout: React.FC<SubLayoutProps> = ({ title, backUrl, children }) => {
       </Container>
     </>
   );
+};
+
+SubLayout.defaultProps = {
+  backUrl: '#',
 };
 
 export default SubLayout;

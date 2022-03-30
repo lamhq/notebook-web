@@ -1,6 +1,6 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Container from '../../atoms/Container';
+import Typography from '@mui/material/Typography';
+import ContentContainer from '../../atoms/ContentContainer';
 
 export interface BlankLayoutProps {
   title: string;
@@ -9,12 +9,12 @@ export interface BlankLayoutProps {
 const BlankLayout: React.FC<BlankLayoutProps> = ({ title, children }) => {
   return (
     <>
-      <Container>
+      <ContentContainer>
         <Typography component="h1" variant="h2">
           {title}
         </Typography>
         {children}
-      </Container>
+      </ContentContainer>
     </>
   );
 };

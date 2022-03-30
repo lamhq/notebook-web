@@ -1,35 +1,23 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import MuiListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import TimelineIcon from '@material-ui/icons/Timeline';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import BookIcon from '@material-ui/icons/Book';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import MuiListItemIcon, { ListItemIconProps } from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import BookIcon from '@mui/icons-material/Book';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSetIdentity } from '../../../../identity';
 import { useApi } from '../../../../api';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    nestedList: {
-      paddingLeft: theme.spacing(4),
-    },
-  }),
+const ListItemIcon: React.FC<ListItemIconProps> = (props) => (
+  <MuiListItemIcon sx={{ minWidth: 40 }} {...props} />
 );
 
-const ListItemIcon = withStyles({
-  root: {
-    minWidth: 40,
-  },
-})(MuiListItemIcon);
-
 const Sidebar: React.VFC = () => {
-  const classes = useStyles();
   const setIdentity = useSetIdentity();
   const apiClient = useApi();
   const logout = React.useCallback(async () => {
@@ -56,7 +44,7 @@ const Sidebar: React.VFC = () => {
           <ExpandLess />
         </ListItem>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nestedList} component={RouterLink} to="/">
+          <ListItem button component={RouterLink} to="/" sx={{ paddingLeft: 4 }}>
             <ListItemIcon>
               <TimelineIcon />
             </ListItemIcon>
