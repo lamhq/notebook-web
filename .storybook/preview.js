@@ -1,16 +1,14 @@
 import React from 'react';
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
-import viLocale from "date-fns/locale/vi";
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@mui/material/styles';
-import { ThemeProvider as OldThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider as Emotion10ThemeProvider } from 'emotion-theming';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateAdapter from '@mui/lab/AdapterDateFns';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { SnackbarProvider } from 'notistack';
 
 import '../src/styles.css';
-import { theme as oldTheme } from '../src/theme';
 import { theme } from '../src/theme2';
 import { identityState } from '../src/identity';
 import { FakeApiProvider } from '../src/api';
@@ -37,9 +35,9 @@ const initializeTestState = ({ set }) => {
 
 export const decorators = [
   (Story) => (
-    <OldThemeProvider theme={oldTheme}>
+    <Emotion10ThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
+        <LocalizationProvider dateAdapter={DateAdapter}>
           <RecoilRoot initializeState={initializeTestState}>
             <SnackbarProvider>
               <ConfirmProvider>
@@ -51,8 +49,8 @@ export const decorators = [
               </ConfirmProvider>
             </SnackbarProvider>
           </RecoilRoot>
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider>
       </ThemeProvider>
-    </OldThemeProvider>
+    </Emotion10ThemeProvider>
   ),
 ];
