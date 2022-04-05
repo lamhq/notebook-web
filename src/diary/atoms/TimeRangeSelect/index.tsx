@@ -13,7 +13,7 @@ const TimeRangeSelect = React.forwardRef<unknown, TextFieldProps>(function TimeR
     },
   };
   return (
-    <TextField select variant="standard" sx={sx} {...props} inputRef={ref}>
+    <TextField select sx={sx} {...props} inputRef={ref}>
       <MenuItem value={TimeRange.All}>All</MenuItem>
       <MenuItem value={TimeRange.ThisWeek}>This week</MenuItem>
       <MenuItem value={TimeRange.ThisMonth}>This month</MenuItem>

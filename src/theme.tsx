@@ -21,6 +21,9 @@ export const theme = createTheme({
     primary: {
       main: '#296BE3',
     },
+    secondary: {
+      main: '#e0e0e0'
+    }
   },
   shape: {
     borderRadius: 0,
@@ -78,6 +81,7 @@ export const theme = createTheme({
     MuiTextField: {
       defaultProps: {
         fullWidth: true,
+        variant: 'standard'
       },
     },
     MuiAutocomplete: {

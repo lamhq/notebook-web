@@ -38,7 +38,6 @@ const TagInput = React.forwardRef<unknown, TagInputProps>(function TagInputRef(p
       renderInput={(params) => (
         <TextField
           label={label}
-          variant="standard"
           {...params}
           InputProps={{
             ...params.InputProps,

@@ -13,7 +13,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
     return (<MobileDatePicker
       inputFormat="dd/MM/yyyy"
       inputRef={ref}
-      renderInput={(inputProps) => <TextField variant="standard" {...inputProps} />}
+      renderInput={(inputProps) => <TextField {...inputProps} />}
       {...props}
     />);
   },
@@ -28,7 +28,7 @@ export const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerP
         inputFormat="EEE, d LLL, yyyy h:mm aaa"
         inputRef={ref}
         {...props}
-        renderInput={(inputProps) => <TextField variant="standard" {...inputProps} />}
+        renderInput={(inputProps) => <TextField {...inputProps} />}
       />
     );
   },
