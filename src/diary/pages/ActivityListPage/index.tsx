@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { styled } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
 
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import IconButton from '@material-ui/core/IconButton';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import IconButton from '@mui/material/IconButton';
 import ActivityList from '../../containers/ActivityList';
 import Revenue from '../../containers/Revenue';
 import ActivitySearchDialog from '../../containers/ActivitySearchDialog';

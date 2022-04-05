@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { useSnackbar } from 'notistack';
 import ResetPwdForm from '../../organisms/ResetPwdForm';
 import { ResetPwdFormModel } from '../../types';

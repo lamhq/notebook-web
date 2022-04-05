@@ -2,12 +2,12 @@ import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { ProfileFormModel } from '../../types';
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
@@ -85,7 +85,7 @@ const ProfileForm: React.VFC<ProfileFormProps> = ({ defaultValues, onSubmit }) =
         </Grid>
       </Grid>
       <ButtonsContainer>
-        <Button variant="contained" color="default" component={RouterLink} to="/">
+        <Button variant="contained" color="secondary" component={RouterLink} to="/">
           Cancel
         </Button>
         <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">

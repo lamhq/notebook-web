@@ -1,10 +1,10 @@
 import React from 'react';
-import WarningIcon from '@material-ui/icons/Warning';
-import SearchIcon from '@material-ui/icons/Search';
-import BlockIcon from '@material-ui/icons/Block';
-import CloudOffIcon from '@material-ui/icons/CloudOff';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@mui/icons-material/Warning';
+import SearchIcon from '@mui/icons-material/Search';
+import BlockIcon from '@mui/icons-material/Block';
+import CloudOffIcon from '@mui/icons-material/CloudOff';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { FallbackProps } from 'react-error-boundary';
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import { ApiErrorCode } from '../../types';

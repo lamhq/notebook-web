@@ -9,7 +9,7 @@ import { RecoilRoot } from 'recoil';
 import { SnackbarProvider } from 'notistack';
 
 import '../src/styles.css';
-import { theme } from '../src/theme2';
+import { theme } from '../src/theme';
 import { identityState } from '../src/identity';
 import { FakeApiProvider } from '../src/api';
 import { ConfirmProvider } from '../src/confirm';

@@ -2,9 +2,9 @@ import React from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { ChangePwdFormModel } from '../../types';
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import { useNavUtils } from '../../../common/hooks';
@@ -107,7 +107,7 @@ const ChangePwdForm: React.VFC<ChangePwdFormProps> = ({ onSubmit }) => {
         </Grid>
       </Grid>
       <ButtonsContainer>
-        <Button variant="contained" color="default" {...getLinkProps()}>
+        <Button variant="contained" color="secondary" {...getLinkProps()}>
           Cancel
         </Button>
         <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">

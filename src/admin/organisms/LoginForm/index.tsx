@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Link from '@material-ui/core/Link';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';

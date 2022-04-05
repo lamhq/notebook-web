@@ -1,9 +1,9 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { styled } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
 
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 import ActivityItem from '../../molecules/ActivityItem';
 import { Activity } from '../../types';
 

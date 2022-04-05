@@ -1,7 +1,7 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import Button from '@material-ui/core/Button';
+import Typography from '@mui/material/Typography';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import Button from '@mui/material/Button';
 import { Link as RouterLink } from 'react-router-dom';
 import SubLayout from '../../../common/templates/SubLayout';
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';

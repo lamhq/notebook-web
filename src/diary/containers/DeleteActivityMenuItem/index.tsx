@@ -1,6 +1,6 @@
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useApi } from '../../../api';
 import { Activity } from '../../types';
 import { ItemIcon, ItemText, MenuItem } from '../../../common/atoms/ContextMenu';

@@ -5,7 +5,7 @@ export function isApiError(error: unknown): error is ApiError {
   return (error as ApiError).code !== undefined;
 }
 
-export function isUnauthenticated(error: Error): boolean {
+export function isUnauthenticated(error: unknown): boolean {
   return isApiError(error) && error.code === ApiErrorCode.Unauthenticated;
 }
 
