@@ -22,8 +22,8 @@ export const theme = createTheme({
       main: '#296BE3',
     },
     secondary: {
-      main: '#e0e0e0'
-    }
+      main: '#e0e0e0',
+    },
   },
   shape: {
     borderRadius: 0,
@@ -81,13 +81,20 @@ export const theme = createTheme({
     MuiTextField: {
       defaultProps: {
         fullWidth: true,
-        variant: 'standard'
+        variant: 'standard',
       },
     },
     MuiAutocomplete: {
       styleOverrides: {
         tag: {
           height: '25px',
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        sizeSmall: {
+          padding: 0,
         },
       },
     },
@@ -100,13 +107,6 @@ export const theme = createTheme({
     //   styleOverrides: {
     //     root: {
     //       padding: '6px 24px',
-    //     },
-    //   },
-    // },
-    // MuiIconButton: {
-    //   styleOverrides: {
-    //     sizeSmall: {
-    //       padding: 0,
     //     },
     //   },
     // },

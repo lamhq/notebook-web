@@ -1,22 +1,10 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { styled } from '@mui/material/styles';
-
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import ActivityItem from '../../molecules/ActivityItem';
 import { Activity } from '../../types';
-
-const Panel = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  padding: theme.spacing(1),
-  marginBottom: theme.spacing(2),
-}));
-
-const ItemDivider = styled(Divider)(({ theme }) => ({
-  height: '1px',
-  margin: `${theme.spacing(1)}px 0`,
-}));
 
 export interface ActivityListProps {
   models: Activity[];
@@ -38,17 +26,35 @@ const ActivityList: React.VFC<ActivityListProps> = ({ models }) => {
   return (
     <>
       {Object.entries(dates).map(([date, activities]) => (
-        <Panel key={date}>
+        <Box
+          key={date}
+          sx={{
+            padding: 1,
+            marginBottom: 2,
+            backgroundColor: 'background.paper',
+          }}
+        >
           <Typography component="h4" variant="h4" gutterBottom>
             {date}
           </Typography>
           {activities.map((model, index) => (
             <React.Fragment key={model.id}>
-              {index > 0 && <ItemDivider variant="middle" />}
+              {index > 0 && (
+                <Divider
+                  variant="middle"
+                  sx={{
+                    height: '1px',
+                    my: 1,
+                    mx: 0,
+                    borderBottomWidth: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+                  }}
+                />
+              )}
               <ActivityItem model={model} />
             </React.Fragment>
           ))}
-        </Panel>
+        </Box>
       ))}
     </>
   );

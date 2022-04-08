@@ -26,7 +26,7 @@ const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
         sx={{ marginBottom: 1, lineHeight: 1.8 }}
       />
       <Grid container spacing={0} justifyContent="space-between">
-        <Box sx={{ display: 'flex', gridColumnGap: 1 }}>
+        <Box sx={{ display: 'flex', columnGap: 1 }}>
           {Boolean(model.income && model.income > 0) && (
             <Typography variant="body2" sx={{ color: 'success.main' }}>
               {formatNumber(model.income)}
@@ -38,7 +38,7 @@ const ActivityItem: React.VFC<ActivityItemProps> = ({ model }) => {
             </Typography>
           )}
         </Box>
-        <Box sx={{ display: 'flex', gridColumnGap: 1 }}>
+        <Box sx={{ display: 'flex', columnGap: 1 }}>
           {model.tags.map((tag) => (
             <Typography key={tag} variant="body2" sx={{ color: 'primary.main' }}>
               {`#${tag}`}

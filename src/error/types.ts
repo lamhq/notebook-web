@@ -11,7 +11,7 @@ export enum ApiErrorCode {
   GatewayTimeout = 504,
 }
 
-function isAxiosError<T = unknown>(error: Error | AxiosError<T>): error is AxiosError<T> {
+function isAxiosError<T = unknown>(error: unknown | AxiosError<T>): error is AxiosError<T> {
   return (error as AxiosError).isAxiosError;
 }
 
@@ -20,7 +20,7 @@ export class ApiError extends Error {
 
   public readonly details?: FieldValues;
 
-  constructor(error: Error) {
+  constructor(error: unknown) {
     if (!isAxiosError<FormError<FieldValues>>(error)) {
       throw new Error('The error passed in constructor must be an axios error');
     }

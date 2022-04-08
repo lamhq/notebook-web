@@ -126,7 +126,7 @@ const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit })
         </Grid>
       </Grid>
       <ButtonsContainer>
-        <Button variant="contained" color="default" {...getLinkProps()}>
+        <Button variant="contained" color="secondary" {...getLinkProps()}>
           Cancel
         </Button>
         <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">

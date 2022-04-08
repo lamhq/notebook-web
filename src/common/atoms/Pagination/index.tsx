@@ -21,5 +21,3 @@ const Pagination: React.FC<PaginationProps> = (props) => (
 );
 
 export default Pagination;
-
-export { PaginationProps } from '@mui/material/Pagination';
