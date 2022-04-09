@@ -21,7 +21,7 @@ const ErrorFallback: React.VFC<FallbackProps> = ({ error, resetErrorBoundary }) 
         break;
 
       case ApiErrorCode.Notfound:
-        message = "The one you're looking for was not found.";
+        message = "There's no items. found.";
         icon = <SearchIcon style={{ fontSize: '5rem' }} />;
         break;
 

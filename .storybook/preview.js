@@ -3,6 +3,7 @@ import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from '@mui/material/styles';
 import { ThemeProvider as Emotion10ThemeProvider } from 'emotion-theming';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import vnLocale from 'date-fns/locale/vi';
 import DateAdapter from '@mui/lab/AdapterDateFns';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
@@ -37,7 +38,7 @@ export const decorators = [
   (Story) => (
     <Emotion10ThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={DateAdapter}>
+        <LocalizationProvider dateAdapter={DateAdapter} locale={vnLocale}>
           <RecoilRoot initializeState={initializeTestState}>
             <SnackbarProvider>
               <ConfirmProvider>

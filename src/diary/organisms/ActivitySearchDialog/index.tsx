@@ -99,7 +99,7 @@ const ActivitySearchDialog: React.VFC<ActivitySearchDialogViewProps> = ({ values
         </DialogContent>
         <DialogActions>
           <ButtonsContainer>
-            <Button size="small" variant="contained" onClick={handleReset} color="default">
+            <Button onClick={handleReset} size="small" variant="contained" color="secondary">
               Reset
             </Button>
             <Button

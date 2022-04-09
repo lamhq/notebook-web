@@ -98,17 +98,17 @@ export const theme = createTheme({
         },
       },
     },
-    // MuiInputLabel: {
-    //   defaultProps: {
-    //     shrink: true,
-    //   },
-    // },
-    // MuiButton: {
-    //   styleOverrides: {
-    //     root: {
-    //       padding: '6px 24px',
-    //     },
-    //   },
-    // },
+    MuiInputLabel: {
+      defaultProps: {
+        shrink: true,
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          padding: '6px 24px',
+        },
+      },
+    },
   },
 });
