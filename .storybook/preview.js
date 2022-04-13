@@ -41,13 +41,13 @@ export const decorators = [
         <LocalizationProvider dateAdapter={DateAdapter} locale={vnLocale}>
           <RecoilRoot initializeState={initializeTestState}>
             <SnackbarProvider>
-              <ConfirmProvider>
-                <Router>
-                  <FakeApiProvider>
+              <FakeApiProvider>
+                <ConfirmProvider>
+                  <Router>
                     <Story />
-                  </FakeApiProvider>
-                </Router>
-              </ConfirmProvider>
+                  </Router>
+                </ConfirmProvider>
+              </FakeApiProvider>
             </SnackbarProvider>
           </RecoilRoot>
         </LocalizationProvider>

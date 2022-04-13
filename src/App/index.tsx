@@ -2,11 +2,12 @@ import React, { Suspense } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateAdapter from '@mui/lab/AdapterDateFns';
+import vnLocale from 'date-fns/locale/vi';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { SnackbarProvider } from 'notistack';
 
-import '../../../styles.css';
+import '../styles.css';
 import { theme } from '../theme';
 import routes from '../routes';
 import { ProtectedRoute } from '../identity';
@@ -19,7 +20,7 @@ import { ConfirmProvider } from '../confirm';
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={DateAdapter}>
+      <LocalizationProvider dateAdapter={DateAdapter} locale={vnLocale}>
         <RecoilRoot>
           <SnackbarProvider
             anchorOrigin={{
