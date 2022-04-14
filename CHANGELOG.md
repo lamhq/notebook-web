@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/lamhq/notebook-web/compare/v3.1.0...v3.2.0) (2022-04-14)
+
+
+### Features
+
+* display snackbar while logging ([a80c903](https://github.com/lamhq/notebook-web/commit/a80c9038fde27dea2eba43374f641cbf4abf5647))
+* migrate to Material UI v5 NB-30 ([#34](https://github.com/lamhq/notebook-web/issues/34)) ([180ed61](https://github.com/lamhq/notebook-web/commit/180ed614529dab1c3d3d47c8a310eefd7ce04bd1))
+* publish storybook to chromatic ([6f7b03b](https://github.com/lamhq/notebook-web/commit/6f7b03b116935dd926e1b976b2f4015ea97b15ee))
+
+
+### Bug Fixes
+
+* exception type error in catch clause ([5e2396d](https://github.com/lamhq/notebook-web/commit/5e2396d39193569347a8940b4196c753f18e491d))
+
 ## [3.1.0](https://github.com/lamhq/notebook-web/compare/v3.0.2...v3.1.0) (2022-03-12)
 
 
