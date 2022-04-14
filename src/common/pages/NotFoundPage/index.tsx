@@ -1,9 +1,9 @@
 import React from 'react';
-import SearchIcon from '@material-ui/icons/Search';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import SearchIcon from '@mui/icons-material/Search';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { Link as RouterLink } from 'react-router-dom';
-import ActionButtons from '../../atoms/ActionButtons';
+import ButtonsContainer from '../../atoms/ButtonsContainer';
 import BlankLayout from '../../templates/BlankLayout';
 
 const NotFoundPage: React.VFC = () => {
@@ -15,11 +15,11 @@ const NotFoundPage: React.VFC = () => {
       <Typography align="center" paragraph>
         This page does not exists
       </Typography>
-      <ActionButtons>
+      <ButtonsContainer>
         <Button color="primary" variant="contained" component={RouterLink} to="/">
           Return
         </Button>
-      </ActionButtons>
+      </ButtonsContainer>
     </BlankLayout>
   );
 };

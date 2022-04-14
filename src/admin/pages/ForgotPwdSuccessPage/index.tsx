@@ -1,6 +1,6 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import Typography from '@mui/material/Typography';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import SubLayout from '../../../common/templates/SubLayout';
 
 const ForgotPwdSuccessPage: React.VFC = () => {

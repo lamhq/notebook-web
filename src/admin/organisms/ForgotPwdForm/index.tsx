@@ -2,10 +2,10 @@ import React from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import { ForgotPwdFormModel } from '../../types';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import { useFormErrorHandler } from '../../../error';
 import LoadingButton from '../../../common/atoms/LoadingButton';
 
@@ -61,11 +61,11 @@ const ForgotPwdForm: React.VFC<ForgotPwdFormProps> = ({ onSubmit }) => {
           />
         </Grid>
       </Grid>
-      <ActionButtons>
+      <ButtonsContainer>
         <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">
           Reset password
         </LoadingButton>
-      </ActionButtons>
+      </ButtonsContainer>
     </form>
   );
 };

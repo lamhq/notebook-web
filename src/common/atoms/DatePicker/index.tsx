@@ -1,20 +1,39 @@
 import React from 'react';
-import {
-  DatePicker as MuiDatePicker,
-  DateTimePicker as MuiDateTimePicker,
-  DatePickerProps,
-  DateTimePickerProps,
-} from '@material-ui/pickers';
+import TextField from '@mui/material/TextField';
+import MobileDatePicker, {
+  MobileDatePickerProps as MuiDatePickerProps,
+} from '@mui/lab/MobileDatePicker';
+import MobileDateTimePicker, {
+  MobileDateTimePickerProps as MuiDateTimePickerProps,
+} from '@mui/lab/MobileDateTimePicker';
 
-export const DatePicker = React.forwardRef<unknown, DatePickerProps>(function DatePicker(
+export type DatePickerProps = Omit<MuiDatePickerProps, 'renderInput'>;
+
+export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(function DatePicker(
   props,
   ref,
 ) {
-  return <MuiDatePicker format="dd/MM/yyyy" {...props} inputRef={ref} />;
+  return (
+    <MobileDatePicker
+      inputFormat="dd/MM/yyyy"
+      inputRef={ref}
+      renderInput={(inputProps) => <TextField {...inputProps} />}
+      {...props}
+    />
+  );
 });
 
-export const DateTimePicker = React.forwardRef<unknown, DateTimePickerProps>(
+export type DateTimePickerProps = Omit<MuiDateTimePickerProps, 'renderInput'>;
+
+export const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
   function DateTimePicker(props, ref) {
-    return <MuiDateTimePicker format="EEE, d LLL, yyyy h:mm aaa" {...props} inputRef={ref} />;
+    return (
+      <MobileDateTimePicker
+        inputFormat="EEE, d LLL, yyyy h:mm aaa"
+        inputRef={ref}
+        renderInput={(inputProps) => <TextField {...inputProps} />}
+        {...props}
+      />
+    );
   },
 );

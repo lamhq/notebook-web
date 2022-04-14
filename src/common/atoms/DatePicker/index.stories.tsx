@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { DatePickerProps, DateTimePickerProps } from '@material-ui/pickers';
-import { DatePicker, DateTimePicker } from '.';
+import { DatePicker, DateTimePicker, DatePickerProps, DateTimePickerProps } from '.';
 
 export default {
   title: 'Atoms/DatePicker',

@@ -1,14 +1,19 @@
 import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { TimeRange } from '../../types';
 
 const TimeRangeSelect = React.forwardRef<unknown, TextFieldProps>(function TimeRangeSelectRef(
   props,
   ref,
 ) {
+  const sx = {
+    '& .MuiSelect-select': {
+      padding: '6px 24px 7px 0',
+    },
+  };
   return (
-    <TextField select {...props} inputRef={ref}>
+    <TextField select sx={sx} {...props} inputRef={ref}>
       <MenuItem value={TimeRange.All}>All</MenuItem>
       <MenuItem value={TimeRange.ThisWeek}>This week</MenuItem>
       <MenuItem value={TimeRange.ThisMonth}>This month</MenuItem>

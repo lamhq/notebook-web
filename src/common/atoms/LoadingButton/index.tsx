@@ -1,6 +1,6 @@
 import React from 'react';
-import Button, { ButtonProps } from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Button, { ButtonProps } from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export interface LoadingButtonProps extends ButtonProps {
   loading?: boolean;
@@ -19,6 +19,11 @@ const LoadingButton: React.FC<LoadingButtonProps> = ({
     ...rest,
   };
   return <Button {...btnProps} />;
+};
+
+LoadingButton.defaultProps = {
+  loading: false,
+  loadingIndicator: null,
 };
 
 export default LoadingButton;

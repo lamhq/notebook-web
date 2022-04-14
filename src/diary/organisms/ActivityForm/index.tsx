@@ -2,13 +2,13 @@ import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
 import Textarea from '../../../common/atoms/Textarea';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import { useNavUtils } from '../../../common/hooks';
 import LoadingButton from '../../../common/atoms/LoadingButton';
 import ActivityTagSelect from '../../containers/ActivityTagSelect';
@@ -125,14 +125,14 @@ const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit })
           />
         </Grid>
       </Grid>
-      <ActionButtons>
-        <Button variant="contained" color="default" {...getLinkProps()}>
+      <ButtonsContainer>
+        <Button variant="contained" color="secondary" {...getLinkProps()}>
           Cancel
         </Button>
         <LoadingButton loading={isSubmitting} type="submit" variant="contained" color="primary">
           Submit
         </LoadingButton>
-      </ActionButtons>
+      </ButtonsContainer>
     </form>
   );
 };

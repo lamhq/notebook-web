@@ -1,11 +1,28 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as type from '@material-ui/lab/themeAugmentation';
-import { createMuiTheme } from '@material-ui/core/styles';
+import type {} from '@mui/lab/themeAugmentation';
+import { createTheme } from '@mui/material/styles';
 
-export const theme = createMuiTheme({
+const fontFamily = [
+  '"Nunito Sans"',
+  '-apple-system',
+  'BlinkMacSystemFont',
+  'Roboto',
+  'Oxygen-Sans',
+  'Ubuntu',
+  'Cantarell',
+  '"Helvetica Neue"',
+  'sans-serif',
+].join(',');
+
+export const theme = createTheme({
   palette: {
+    success: {
+      main: 'rgb(76, 175, 80)',
+    },
     primary: {
       main: '#296BE3',
+    },
+    secondary: {
+      main: '#e0e0e0',
     },
   },
   shape: {
@@ -14,17 +31,7 @@ export const theme = createMuiTheme({
   typography: {
     htmlFontSize: 16,
     fontSize: 16,
-    fontFamily: [
-      '"Nunito Sans"',
-      '-apple-system',
-      'BlinkMacSystemFont',
-      'Roboto',
-      'Oxygen-Sans',
-      'Ubuntu',
-      'Cantarell',
-      '"Helvetica Neue"',
-      'sans-serif',
-    ].join(','),
+    fontFamily,
     h1: {
       fontSize: '1.3125rem',
       fontWeight: 'bold',
@@ -48,47 +55,60 @@ export const theme = createMuiTheme({
       fontSize: '0.75rem',
     },
   },
-  overrides: {
+  components: {
     MuiFormControl: {
-      root: {
-        marginBottom: '1.4375rem',
+      styleOverrides: {
+        root: {
+          marginBottom: '1.4375rem',
+        },
+      },
+      defaultProps: {
+        fullWidth: true,
       },
     },
     MuiInput: {
-      underline: {
-        '&::before': {
-          borderColor: '#BFBFBF',
-        },
-        '&::after': {
-          borderColor: '#BFBFBF',
+      styleOverrides: {
+        underline: {
+          '&::before': {
+            borderColor: '#BFBFBF',
+          },
+          '&::after': {
+            borderColor: '#BFBFBF',
+          },
         },
       },
     },
-    MuiButton: {
-      root: {
-        padding: '6px 24px',
-      },
-    },
-    MuiIconButton: {
-      sizeSmall: {
-        padding: 0,
+    MuiTextField: {
+      defaultProps: {
+        fullWidth: true,
+        variant: 'standard',
       },
     },
     MuiAutocomplete: {
-      tag: {
-        height: '25px',
+      styleOverrides: {
+        tag: {
+          height: '25px',
+        },
       },
     },
-  },
-  props: {
+    MuiIconButton: {
+      styleOverrides: {
+        sizeSmall: {
+          padding: 0,
+        },
+      },
+    },
     MuiInputLabel: {
-      shrink: true,
+      defaultProps: {
+        shrink: true,
+      },
     },
-    MuiTextField: {
-      fullWidth: true,
-    },
-    MuiFormControl: {
-      fullWidth: true,
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          padding: '6px 24px',
+        },
+      },
     },
   },
 });

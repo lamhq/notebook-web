@@ -1,10 +1,10 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { ErrorBoundary } from 'react-error-boundary';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { activityFilterState } from '../../states';
 import { ErrorHandler, isUnauthenticated, useErrorHandler } from '../../../error';
-import Pagination from '../../../common/molecules/Pagination';
+import Pagination from '../../../common/atoms/Pagination';
 import LoadingFallback from '../../../common/atoms/LoadingFallback';
 import ErrorFallback from '../../../error/organisms/ErrorFallback';
 import ActivityListView from '../../organisms/ActivityList';

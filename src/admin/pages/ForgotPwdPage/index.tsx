@@ -1,6 +1,6 @@
 import React from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import ForgotPwdForm from '../../organisms/ForgotPwdForm';
 import { ForgotPwdFormModel } from '../../types';
 import SubLayout from '../../../common/templates/SubLayout';

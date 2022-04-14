@@ -1,16 +1,17 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
-import { PaginationProps } from '@material-ui/lab/Pagination';
+import { PaginationProps } from '@mui/material/Pagination';
 import Pagination from '.';
 
 export default {
-  title: 'Molecules/Pagination',
+  title: 'Atoms/Pagination',
   argTypes: { onChange: { action: 'changed' } },
   component: Pagination,
 } as Meta;
 
 const Template: Story<PaginationProps> = (args) => {
-  return <Pagination count={args.count} onChange={args.onChange} />;
+  const { count, onChange } = args;
+  return <Pagination count={count} onChange={onChange} />;
 };
 
 export const Default = Template.bind({});

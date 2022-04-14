@@ -1,18 +1,18 @@
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import { DatePicker } from '../../../common/atoms/DatePicker';
 import TimeRangeSelect from '../../atoms/TimeRangeSelect';
 import { TimeRange, ActivityFilterModel } from '../../types';
-import ActionButtons from '../../../common/atoms/ActionButtons';
+import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import ActivityTagSelect from '../../containers/ActivityTagSelect';
 
 export interface ActivitySearchDialogViewProps {
@@ -98,8 +98,8 @@ const ActivitySearchDialog: React.VFC<ActivitySearchDialogViewProps> = ({ values
           </form>
         </DialogContent>
         <DialogActions>
-          <ActionButtons>
-            <Button size="small" variant="contained" onClick={handleReset} color="default">
+          <ButtonsContainer>
+            <Button onClick={handleReset} size="small" variant="contained" color="secondary">
               Reset
             </Button>
             <Button
@@ -112,7 +112,7 @@ const ActivitySearchDialog: React.VFC<ActivitySearchDialogViewProps> = ({ values
             >
               Search
             </Button>
-          </ActionButtons>
+          </ButtonsContainer>
         </DialogActions>
       </Dialog>
     </>

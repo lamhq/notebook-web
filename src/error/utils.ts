@@ -5,7 +5,7 @@ export function isApiError(error: unknown): error is ApiError {
   return (error as ApiError).code !== undefined;
 }
 
-export function isUnauthenticated(error: Error): boolean {
+export function isUnauthenticated(error: unknown): boolean {
   return isApiError(error) && error.code === ApiErrorCode.Unauthenticated;
 }
 
@@ -14,7 +14,7 @@ export function isBadRequest(error: unknown): boolean {
 }
 
 export function isFormError<TFieldValues extends FieldValues>(
-  error: Error | FormError<TFieldValues>,
+  error: unknown,
 ): error is FormError<TFieldValues> {
   return isApiError(error) && error.details !== undefined;
 }

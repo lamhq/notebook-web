@@ -1,35 +1,17 @@
 import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Popover from '@material-ui/core/Popover';
-import Chip from '../../../common/atoms/Chip';
+import Typography from '@mui/material/Typography';
+import Popover from '@mui/material/Popover';
+import Box from '@mui/material/Box';
 import { formatNumber } from '../../../common/utils';
+import AmountBadge from '../../../common/atoms/AmountBadge';
 
 export interface RevenueProps {
   income: number;
   outcome: number;
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  chip: {
-    backgroundColor: (props: RevenueProps) =>
-      props.income > props.outcome ? theme.palette.success.main : theme.palette.error.main,
-  },
-  incomeText: {
-    color: theme.palette.success.main,
-  },
-  outcomeText: {
-    color: theme.palette.error.main,
-  },
-  popover: {
-    padding: theme.spacing(1),
-  },
-}));
-
 const Revenue: React.VFC<RevenueProps> = (props) => {
   const { income, outcome } = props;
-  const classes = useStyles(props);
-  const label = formatNumber(Math.abs(income - outcome));
   const it = formatNumber(income);
   const ot = formatNumber(outcome);
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
@@ -44,7 +26,11 @@ const Revenue: React.VFC<RevenueProps> = (props) => {
 
   return (
     <>
-      <Chip label={label} className={classes.chip} onClick={handleClick} />
+      <AmountBadge
+        isIncome={income > outcome}
+        amount={Math.abs(income - outcome)}
+        onClick={handleClick}
+      />
       <Popover
         id={id}
         open={open}
@@ -59,10 +45,14 @@ const Revenue: React.VFC<RevenueProps> = (props) => {
           horizontal: 'right',
         }}
       >
-        <Typography variant="body2" className={classes.popover}>
-          <span className={classes.incomeText}>{it}</span>
+        <Typography variant="body2" sx={{ padding: 1 }}>
+          <Box sx={{ color: 'success.main' }} component="span">
+            {it}
+          </Box>
           &nbsp;/&nbsp;
-          <span className={classes.outcomeText}>{ot}</span>
+          <Box sx={{ color: 'error.main' }} component="span">
+            {ot}
+          </Box>
         </Typography>
       </Popover>
     </>

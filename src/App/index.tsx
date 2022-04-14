@@ -1,26 +1,26 @@
 import React, { Suspense } from 'react';
-import DateFnsUtils from '@date-io/date-fns';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import viLocale from 'date-fns/locale/vi';
+import { ThemeProvider } from '@mui/material/styles';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateAdapter from '@mui/lab/AdapterDateFns';
+import vnLocale from 'date-fns/locale/vi';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { SnackbarProvider } from 'notistack';
 
-import '../../../styles.css';
-import { theme } from '../../../theme';
-import routes from '../../../routes';
-import { ProtectedRoute } from '../../../identity';
-import LoadingFallback from '../../atoms/LoadingFallback';
-import NotFoundPage from '../../pages/NotFoundPage';
-import { ApiProvider } from '../../../api';
-import { API_BASE_URL } from '../../../config';
-import { ConfirmProvider } from '../../../confirm';
+import '../styles.css';
+import { theme } from '../theme';
+import routes from '../routes';
+import { ProtectedRoute } from '../identity';
+import LoadingFallback from '../common/atoms/LoadingFallback';
+import NotFoundPage from '../common/pages/NotFoundPage';
+import { ApiProvider } from '../api';
+import { API_BASE_URL } from '../config';
+import { ConfirmProvider } from '../confirm';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={viLocale}>
+      <LocalizationProvider dateAdapter={DateAdapter} locale={vnLocale}>
         <RecoilRoot>
           <SnackbarProvider
             anchorOrigin={{
@@ -56,7 +56,7 @@ const App: React.FC = () => {
             </ApiProvider>
           </SnackbarProvider>
         </RecoilRoot>
-      </MuiPickersUtilsProvider>
+      </LocalizationProvider>
     </ThemeProvider>
   );
 };

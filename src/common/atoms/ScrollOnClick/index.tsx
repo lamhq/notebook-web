@@ -1,24 +1,13 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Zoom from '@material-ui/core/Zoom';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      position: 'fixed',
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-    },
-  }),
-);
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Zoom from '@mui/material/Zoom';
+import Box from '@mui/material/Box';
 
 export interface ScrollToProps {
   anchorSelector: string;
 }
 
 const ScrollOnClick: React.FC<ScrollToProps> = ({ children, anchorSelector }) => {
-  const classes = useStyles();
   const trigger = useScrollTrigger();
   const handleClick: React.MouseEventHandler<HTMLDivElement> = React.useCallback(
     (event) => {
@@ -32,9 +21,17 @@ const ScrollOnClick: React.FC<ScrollToProps> = ({ children, anchorSelector }) =>
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.root}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{
+          position: 'fixed',
+          bottom: 2,
+          right: 2,
+        }}
+      >
         {children}
-      </div>
+      </Box>
     </Zoom>
   );
 };
