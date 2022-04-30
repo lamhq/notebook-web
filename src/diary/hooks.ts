@@ -15,9 +15,12 @@ interface Refresh {
 export function useActivityList(): [Activity[], number] {
   const result = useRecoilValue(filteredActivitiesState);
   const setRefreshFlag = useSetRecoilState(activityFilterState);
-  const refresh = React.useCallback(() => setRefreshFlag((flag) => ({ ...flag })), [
-    setRefreshFlag,
-  ]);
+  // prettier-ignore
+  const refresh = React.useCallback(
+    () => setRefreshFlag((flag) => ({ ...flag })),
+    [setRefreshFlag]
+  );
+
   // invalidate list when component is unmounted
   React.useEffect(() => refresh, [refresh]);
   return result;
@@ -25,9 +28,11 @@ export function useActivityList(): [Activity[], number] {
 
 export function useRefreshActivityList(): [ActivityFilterModel, Refresh] {
   const [refreshFlag, setRefreshFlag] = useRecoilState(activityFilterState);
-  const refresh = React.useCallback(() => setRefreshFlag((flag) => ({ ...flag })), [
-    setRefreshFlag,
-  ]);
+  // prettier-ignore
+  const refresh = React.useCallback(
+    () => setRefreshFlag((flag) => ({ ...flag })),
+    [ setRefreshFlag ]
+  );
   return [refreshFlag, refresh];
 }
 
@@ -35,6 +40,7 @@ export function useTagList(): string[] {
   const tagList = useRecoilValue(tagListState);
   const setRefreshFlag = useSetRecoilState(tagListRereshFlag);
   const refresh = React.useCallback(() => setRefreshFlag(Date.now()), [setRefreshFlag]);
+
   // invalidate list when component is unmounted
   React.useEffect(() => refresh, [refresh]);
   return tagList;

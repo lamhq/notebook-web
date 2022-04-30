@@ -14,7 +14,7 @@ const LoadableActivityList: React.VFC = () => {
   const [activities, pageCount] = useActivityList();
   const [filter, setFilter] = useRecoilState(activityFilterState);
   const handlePageChange = React.useCallback(
-    (event: React.ChangeEvent<unknown>, newPage: number) => {
+    (_, newPage: number) => {
       setFilter((curFilter) => ({
         ...curFilter,
         page: newPage,
