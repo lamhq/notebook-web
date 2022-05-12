@@ -14,7 +14,7 @@
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "release": "standard-version --no-verify && git push --no-verify && git push --tags --no-verify",
+    "release": "standard-version --no-verify && git push --no-verify && git push --tags -f --no-verify",
     "chromatic": "npx chromatic --project-token=b9da917727f6"
   },
   "husky": {
