@@ -1,17 +1,17 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
-import ActivityEditForm, { ActivityEditFormProps } from '.';
+import ActivityForm, { ActivityFormProps } from '.';
 
 export default {
   title: 'Containers/ActivityEditForm',
-  component: ActivityEditForm,
+  component: ActivityForm,
   argTypes: { onSubmit: { action: 'onSubmit' } },
 } as Meta;
 
-const Template: Story<ActivityEditFormProps> = (args) => {
+const Template: Story<ActivityFormProps> = (args) => {
   const { onSubmit } = args;
-  return <ActivityEditForm onSubmit={onSubmit} activityId="1123" />;
+  return <ActivityForm onSubmit={onSubmit} activityId="1123" />;
 };
 
 export const Default = Template.bind({});

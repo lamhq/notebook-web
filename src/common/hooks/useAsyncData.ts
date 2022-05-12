@@ -1,7 +1,7 @@
-import { useEffect, useCallback, useReducer, Reducer, useRef } from 'react';
+import { useEffect, useCallback, useReducer, Reducer } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AsyncFn = (...args: any[]) => Promise<any>;
+type FetchDataFn = () => Promise<any>;
 
 enum FetchActionType {
   START = 'START',
@@ -33,9 +33,8 @@ function reducer<T>(prevState: FetchState<T>, action: FetchAction<T>): FetchStat
   }
 }
 
-export default function useAsyncData<T extends AsyncFn>(
+export default function useAsyncData<T extends FetchDataFn>(
   fn: T,
-  ...args: Parameters<typeof fn>
 ): Awaited<ReturnType<T>> | undefined {
   const [state, dispatch] = useReducer<
     Reducer<FetchState<Awaited<ReturnType<T>>>, FetchAction<Awaited<ReturnType<T>>>>
@@ -43,28 +42,23 @@ export default function useAsyncData<T extends AsyncFn>(
     data: undefined,
     error: undefined,
   });
-  const { current: refArgs } = useRef(args);
-
-  const load = useCallback(
-    async (...p: Parameters<typeof fn>) => {
-      try {
-        dispatch({ type: FetchActionType.START });
-        const fetchData = await fn(...p);
-        dispatch({ type: FetchActionType.FINISH, data: fetchData });
-      } catch (error) {
-        dispatch({ type: FetchActionType.ERROR, error });
-      }
-    },
-    [fn, dispatch],
-  );
+  const load = useCallback(async () => {
+    try {
+      dispatch({ type: FetchActionType.START });
+      const fetchData = await fn();
+      dispatch({ type: FetchActionType.FINISH, data: fetchData });
+    } catch (error) {
+      dispatch({ type: FetchActionType.ERROR, error });
+    }
+  }, [fn, dispatch]);
 
   if (state.error) {
     throw state.error;
   }
 
   useEffect(() => {
-    load(...refArgs);
-  }, [load, refArgs]);
+    load();
+  }, [load]);
 
   return state.data;
 }

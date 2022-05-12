@@ -3,7 +3,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { ActivityFormModel } from '../../types';
 import SubLayout from '../../../common/templates/SubLayout';
-import ActivityEditForm from '../../containers/ActivityEditForm';
+import ActivityForm from '../../containers/ActivityForm';
 import { useApi } from '../../../api';
 import { useNavUtils } from '../../../common/hooks';
 
@@ -21,7 +21,7 @@ const UpdateActivityPage: React.VFC = () => {
 
   return (
     <SubLayout title="Update Activity">
-      <ActivityEditForm activityId={id} onSubmit={handleSubmit} />
+      <ActivityForm activityId={id} onSubmit={handleSubmit} />
     </SubLayout>
   );
 };
