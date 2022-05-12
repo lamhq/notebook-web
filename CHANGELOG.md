@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.1](https://github.com/lamhq/notebook-web/compare/v3.2.0...v3.2.1) (2022-05-12)
+
+
+### Bug Fixes
+
+* fix datepicker locale ([128cd05](https://github.com/lamhq/notebook-web/commit/128cd058fd2d3fade8015b85ec6f1c36a02f693f))
+* handling async error with ErrorBoundary ([780de5f](https://github.com/lamhq/notebook-web/commit/780de5f7c3be0a6e2fa2c60c615a5e0dbcdbe3f4))
+* typescript error Cannot find name 'Awaited' ([2e64af0](https://github.com/lamhq/notebook-web/commit/2e64af029f68e558dc9c2d29d728c837d05f98bb))
+
 ## [3.2.0](https://github.com/lamhq/notebook-web/compare/v3.1.0...v3.2.0) (2022-04-14)
 
 
