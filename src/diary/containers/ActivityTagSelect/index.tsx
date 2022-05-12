@@ -1,7 +1,15 @@
-import React from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import React, { useCallback } from 'react';
+import { useApi } from '../../../api';
 import TagInput, { TagInputProps } from '../../../common/atoms/TagInput';
-import { useTagList } from '../../hooks';
+import { useAsyncData } from '../../../common/hooks';
+import { ApiErrorBoundary } from '../../../error';
+
+export function useTagList(): string[] | undefined {
+  const api = useApi();
+  const loadTags = useCallback(() => api.getTags(), [api]);
+  const result = useAsyncData(loadTags);
+  return result;
+}
 
 export type ActivityTagSelectProps = Omit<TagInputProps, 'options'>;
 
@@ -9,21 +17,19 @@ export type ActivityTagSelectProps = Omit<TagInputProps, 'options'>;
 const LoadableTagSelect = React.forwardRef<unknown, ActivityTagSelectProps>(
   function LoadableTagSelectRef(props, ref) {
     const tags = useTagList();
+    const LoadingFallback = <TagInput {...props} options={[]} loading />;
+    if (tags === undefined) return LoadingFallback;
+
     return <TagInput {...props} ref={ref} options={tags} />;
   },
 );
 
 const ActivityTagSelect = React.forwardRef<unknown, ActivityTagSelectProps>(
   function ActivityTagSelectRef(props, ref) {
-    const LoadingFallback = <TagInput {...props} options={[]} loading />;
-    const renderErrorFallback = React.useCallback(() => null, []);
-
     return (
-      <ErrorBoundary fallbackRender={renderErrorFallback}>
-        <React.Suspense fallback={LoadingFallback}>
-          <LoadableTagSelect {...props} ref={ref} />
-        </React.Suspense>
-      </ErrorBoundary>
+      <ApiErrorBoundary displayError={false}>
+        <LoadableTagSelect {...props} ref={ref} />
+      </ApiErrorBoundary>
     );
   },
 );

@@ -6,6 +6,7 @@ import CloudOffIcon from '@mui/icons-material/CloudOff';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { FallbackProps } from 'react-error-boundary';
+import { Redirect } from 'react-router-dom';
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import { ApiErrorCode } from '../../types';
 import { isApiError } from '../../utils';
@@ -15,6 +16,9 @@ const ErrorFallback: React.VFC<FallbackProps> = ({ error, resetErrorBoundary }) 
   let icon: React.ReactElement = <WarningIcon style={{ fontSize: '5rem' }} />;
   if (isApiError(error)) {
     switch (error.code) {
+      case ApiErrorCode.Unauthenticated:
+        return <Redirect to="/login" />;
+
       case ApiErrorCode.NetworkError:
         message = 'Please check your internet connection.';
         icon = <CloudOffIcon style={{ fontSize: '5rem' }} />;

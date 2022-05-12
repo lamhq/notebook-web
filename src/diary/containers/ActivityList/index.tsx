@@ -1,20 +1,28 @@
-import React from 'react';
-import { useRecoilState } from 'recoil';
-import { ErrorBoundary } from 'react-error-boundary';
+import React, { useCallback } from 'react';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import Typography from '@mui/material/Typography';
+import { Activity } from '../../types';
 import { activityFilterState } from '../../states';
-import { ErrorHandler, isUnauthenticated, useErrorHandler } from '../../../error';
 import Pagination from '../../../common/atoms/Pagination';
 import LoadingFallback from '../../../common/atoms/LoadingFallback';
-import ErrorFallback from '../../../error/organisms/ErrorFallback';
 import ActivityListView from '../../organisms/ActivityList';
-import { useActivityList, useRefreshActivityList } from '../../hooks';
+import { useApi } from '../../../api';
+import { useAsyncData } from '../../../common/hooks';
+import { ApiErrorBoundary } from '../../../error';
+
+function useActivityList(): [Activity[], number] | undefined {
+  const api = useApi();
+  const filter = useRecoilValue(activityFilterState);
+  const loadActivities = useCallback(() => api.searchActivities(filter), [filter, api]);
+  const result = useAsyncData(loadActivities);
+  return result;
+}
 
 const LoadableActivityList: React.VFC = () => {
-  const [activities, pageCount] = useActivityList();
+  const activityData = useActivityList();
   const [filter, setFilter] = useRecoilState(activityFilterState);
   const handlePageChange = React.useCallback(
-    (event: React.ChangeEvent<unknown>, newPage: number) => {
+    (_, newPage: number) => {
       setFilter((curFilter) => ({
         ...curFilter,
         page: newPage,
@@ -22,6 +30,10 @@ const LoadableActivityList: React.VFC = () => {
     },
     [setFilter],
   );
+
+  if (activityData === undefined) return <LoadingFallback />;
+  const [activities, pageCount] = activityData;
+
   return activities.length ? (
     <>
       <ActivityListView models={activities} />
@@ -37,28 +49,10 @@ const LoadableActivityList: React.VFC = () => {
 };
 
 const ActivityList: React.VFC = () => {
-  const [flag, refresh] = useRefreshActivityList();
-  const defaultHandler = useErrorHandler();
-  const handleError: ErrorHandler = React.useCallback(
-    async (error) => {
-      if (isUnauthenticated(error)) {
-        defaultHandler(error);
-      }
-    },
-    [defaultHandler],
-  );
-
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onReset={refresh}
-      resetKeys={[flag]}
-      onError={handleError}
-    >
-      <React.Suspense fallback={<LoadingFallback />}>
-        <LoadableActivityList />
-      </React.Suspense>
-    </ErrorBoundary>
+    <ApiErrorBoundary>
+      <LoadableActivityList />
+    </ApiErrorBoundary>
   );
 };
 
