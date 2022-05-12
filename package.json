@@ -1,6 +1,6 @@
 {
   "name": "notebook-web",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Web UI for Notebook app",
   "author": "lamhq",
   "private": true,

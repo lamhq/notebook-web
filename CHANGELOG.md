@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.1](https://github.com/lamhq/notebook-web/compare/v3.2.0...v3.2.1) (2022-05-12)
+
+
+### Bug Fixes
+
+* can not re-login after session expired ([#35](https://github.com/lamhq/notebook-web/issues/35)) ([e2df66e](https://github.com/lamhq/notebook-web/commit/e2df66e8cc62e09f6064f1f3c7fca16ddd01d7a0))
+
 ## [3.2.0](https://github.com/lamhq/notebook-web/compare/v3.1.0...v3.2.0) (2022-04-14)
 
 
