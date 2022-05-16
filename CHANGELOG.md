@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.2](https://github.com/lamhq/notebook-web/compare/v3.2.1...v3.2.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* change first day of week to Monday ([1d51d8a](https://github.com/lamhq/notebook-web/commit/1d51d8a6a580a26c4c84a92fd87073c97b55b54c))
+* fix release command ([7394115](https://github.com/lamhq/notebook-web/commit/7394115a13350bcaf2d8d5349cadbfbfd2c574f8))
+
 ### [3.2.1](https://github.com/lamhq/notebook-web/compare/v3.2.0...v3.2.1) (2022-05-12)
 
 
