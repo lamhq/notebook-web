@@ -3,7 +3,7 @@ import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from '@mui/material/styles';
 import { ThemeProvider as Emotion10ThemeProvider } from 'emotion-theming';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import vnLocale from 'date-fns/locale/vi';
+import enLocale from 'date-fns/locale/en-US';
 import DateAdapter from '@mui/lab/AdapterDateFns';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
@@ -34,11 +34,15 @@ const initializeTestState = ({ set }) => {
   });
 };
 
+if (enLocale.options) {
+  enLocale.options.weekStartsOn = 1;
+}
+
 export const decorators = [
   (Story) => (
     <Emotion10ThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={DateAdapter} locale={vnLocale}>
+        <LocalizationProvider dateAdapter={DateAdapter} locale={enLocale}>
           <RecoilRoot initializeState={initializeTestState}>
             <SnackbarProvider>
               <FakeApiProvider>

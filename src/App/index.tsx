@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateAdapter from '@mui/lab/AdapterDateFns';
+import enLocale from 'date-fns/locale/en-US';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { SnackbarProvider } from 'notistack';
@@ -16,10 +17,14 @@ import { ApiProvider } from '../api';
 import { API_BASE_URL } from '../config';
 import { ConfirmProvider } from '../confirm';
 
+if (enLocale.options) {
+  enLocale.options.weekStartsOn = 1;
+}
+
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={DateAdapter}>
+      <LocalizationProvider dateAdapter={DateAdapter} locale={enLocale}>
         <RecoilRoot>
           <SnackbarProvider
             anchorOrigin={{
