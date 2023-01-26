@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/lamhq/notebook-web/compare/v3.3.0...v3.3.1) (2023-01-26)
+
+
+### Bug Fixes
+
+* github workflow install project dependency ([#37](https://github.com/lamhq/notebook-web/issues/37)) ([9786e2b](https://github.com/lamhq/notebook-web/commit/9786e2b117bfcfee4e50f8a6b3ad69bc720826a7))
+
 ## [3.3.0](https://github.com/lamhq/notebook-web/compare/v3.2.2...v3.3.0) (2023-01-26)
 
 
