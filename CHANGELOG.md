@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/lamhq/notebook-web/compare/v3.2.2...v3.3.0) (2023-01-26)
+
+
+### Features
+
+* automatically calculate income, outcome ([#36](https://github.com/lamhq/notebook-web/issues/36)) ([a2bc889](https://github.com/lamhq/notebook-web/commit/a2bc889f68c9e268dc317f5463b6fdbe438c1263))
+
 ### [3.2.2](https://github.com/lamhq/notebook-web/compare/v3.2.1...v3.2.2) (2022-05-16)
 
 
