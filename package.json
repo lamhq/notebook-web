@@ -8,20 +8,14 @@
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --env production --config webpack.prod.js",
-    "preversion": "git-branch-is -r \"^(feature|fix|hotfix)/NB-\\d+/[a-z\\-\\d\\.]+$\" && echo Preversion checks passed. Your branch name is correct format.",
     "test": "jest --coverage --errorOnDeprecated",
     "test:watch": "jest --watch",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "release": "standard-version --no-verify && git push --no-verify && git push --tags -f --no-verify",
-    "chromatic": "npx chromatic --project-token=b9da917727f6"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn preversion && lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "chromatic": "npx chromatic --project-token=b9da917727f6",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -86,7 +80,7 @@
     "fork-ts-checker-webpack-plugin": "^6.2.12",
     "git-branch-is": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
-    "husky": "^4.3.7",
+    "husky": "^7.0.0",
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^1.6.2",
