@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+yarn git-branch-is -r '^(feature|fix|hotfix|release)/(NB-\d+/)?[a-z\-\d\.]+$' && echo 'Preversion checks passed. Your branch name is correct format.' && yarn lint-staged

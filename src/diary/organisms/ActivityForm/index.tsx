@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
 import { DateTimePicker } from '../../../common/atoms/DatePicker';
 import { ActivityFormModel } from '../../types';
 import Textarea from '../../../common/atoms/Textarea';
@@ -14,6 +15,7 @@ import LoadingButton from '../../../common/atoms/LoadingButton';
 import ActivityTagSelect from '../../containers/ActivityTagSelect';
 import { emptyStringOrNumber } from '../../../common/utils';
 import { useFormErrorHandler } from '../../../error';
+import { getTotalAmounts } from './utils';
 
 const schema = yup.object().shape({
   content: yup.string().required('This field is required'),
@@ -34,6 +36,8 @@ const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit })
     handleSubmit,
     formState: { isSubmitting, errors },
     setError,
+    watch,
+    setValue,
   } = useForm<ActivityFormModel>({
     defaultValues,
     resolver: yupResolver(schema),
@@ -49,6 +53,23 @@ const ActivityForm: React.VFC<ActivityFormProps> = ({ defaultValues, onSubmit })
     },
     [onSubmit, handleFormError, setError],
   );
+
+  // auto set income and outcome value base on amount in note content
+  const noteContent = watch('content');
+  React.useEffect(() => {
+    const [income, outcome] = getTotalAmounts(noteContent);
+    if (income === 0) {
+      setValue('income', '');
+    } else {
+      setValue('income', income);
+    }
+
+    if (outcome === 0) {
+      setValue('outcome', '');
+    } else {
+      setValue('outcome', outcome);
+    }
+  }, [noteContent, setValue]);
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
