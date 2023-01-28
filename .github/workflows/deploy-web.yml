@@ -2,59 +2,28 @@ name: Deploy
 
 on:
   push:
-    tags:
-      - v*
+    # tags:
+    #   - v*
+    branches:
+      - master
 
 jobs:
-  deploy_to_test:
-    name: Deploy to Test
-    environment: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js 14
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14.x'
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn
-
-      - name: Build
-        run: yarn build
-
-      - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
-          projectId: '${{ secrets.PROJECT_ID }}'
-          channelId: live
-
-      - name: Create deploy tag
-        run: |-
-          git tag -f test
-          git push -f --tags
-
   deploy_to_production:
     name: Deploy to Production
     environment: prod
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js 14
-        uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: 16
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
 
       - name: Build
         run: yarn build
