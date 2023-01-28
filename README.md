@@ -115,8 +115,42 @@ yarn release
 
 ## Deploy manually
 
-To deploy application to any environments, follow this [guide](https://support.atlassian.com/bitbucket-cloud/docs/pipeline-triggers/#Run-pipelines-steps-manually), the pipeline to run are `deploy-to-test`, `deploy-to-production`.
+In case Github Action doesn't work, please follow below instructions to manually deploy to Firebase:
 
+1. Install [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli):
+
+```bash
+curl -sL https://firebase.tools | bash
+```
+
+2. Update the project ID in `.firebaserc`:
+
+```json
+{
+  "projects": {
+    "default": "project-xxxx"
+  }
+}
+```
+
+3. Login to Firebase:
+
+```bash
+firebase login
+```
+
+4. Build the web:
+
+```bash
+yarn install
+yarn build
+```
+
+5. Deploy to Firebase:
+
+```bash
+firebase deploy
+```
 
 ## Technologies
 
