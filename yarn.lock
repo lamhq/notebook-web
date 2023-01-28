@@ -2479,7 +2479,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/core@npm:^26.6.3":
+"@jest/core@npm:^26.1.0, @jest/core@npm:^26.6.3":
   version: 26.6.3
   resolution: "@jest/core@npm:26.6.3"
   dependencies:
@@ -3796,7 +3796,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-essentials@npm:^6.3.1":
+"@storybook/addon-essentials@npm:6.3.1":
   version: 6.3.1
   resolution: "@storybook/addon-essentials@npm:6.3.1"
   dependencies:
@@ -4470,7 +4470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react@npm:^6.3.1":
+"@storybook/react@npm:6.3.1":
   version: 6.3.1
   resolution: "@storybook/react@npm:6.3.1"
   dependencies:
@@ -8644,7 +8644,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-minimizer-webpack-plugin@npm:^3.0.2":
+"css-minimizer-webpack-plugin@npm:3.0.2":
   version: 3.0.2
   resolution: "css-minimizer-webpack-plugin@npm:3.0.2"
   dependencies:
@@ -13217,7 +13217,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-cli@npm:^26.6.3":
+"jest-cli@npm:^26.1.0":
   version: 26.6.3
   resolution: "jest-cli@npm:26.6.3"
   dependencies:
@@ -13651,16 +13651,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^26.1.0":
-  version: 26.6.3
-  resolution: "jest@npm:26.6.3"
+"jest@npm:26.1.0":
+  version: 26.1.0
+  resolution: "jest@npm:26.1.0"
   dependencies:
-    "@jest/core": ^26.6.3
+    "@jest/core": ^26.1.0
     import-local: ^3.0.2
-    jest-cli: ^26.6.3
+    jest-cli: ^26.1.0
   bin:
     jest: bin/jest.js
-  checksum: 3a9b4c70e9bd5391e7367a0036045c1d3545c2a39e1439a71fb4b59b1748bc34e2ccb324faa1046b99bffc8dc2ed7b3c59016c462255b2646f5fa9300351f914
+  checksum: 318ea7271ab9c8b5196680a9e37204e13e33e902eec33d0fc9bb4d09405c817a709b030dc7541e63c5c1b65bda14c857f084587ebc3e34c16cec4a37da218a9d
   languageName: node
   linkType: hard
 
@@ -15409,9 +15409,9 @@ __metadata:
     "@mui/lab": ^5.0.0-alpha.75
     "@mui/material": ^5.2.1
     "@storybook/addon-actions": ^6.3.1
-    "@storybook/addon-essentials": ^6.3.1
+    "@storybook/addon-essentials": 6.3.1
     "@storybook/addon-links": ^6.3.1
-    "@storybook/react": ^6.3.1
+    "@storybook/react": 6.3.1
     "@testing-library/jest-dom": ^5.11.1
     "@testing-library/react": ^10.4.7
     "@testing-library/react-hooks": ^3.4.1
@@ -15428,7 +15428,7 @@ __metadata:
     babel-loader: ^8.2.2
     chromatic: ^6.5.3
     css-loader: ^3.5.3
-    css-minimizer-webpack-plugin: ^3.0.2
+    css-minimizer-webpack-plugin: 3.0.2
     date-fns: ^2.28.0
     eslint: ^7.1.0
     eslint-config-airbnb: 18.2.0
@@ -15444,7 +15444,7 @@ __metadata:
     git-branch-is: ^4.0.0
     html-webpack-plugin: ^5.5.0
     husky: ^7.0.0
-    jest: ^26.1.0
+    jest: 26.1.0
     lint-staged: ^10.2.11
     mini-css-extract-plugin: ^1.6.2
     notistack: ^2.0.3
@@ -15459,14 +15459,14 @@ __metadata:
     react-test-renderer: ^17.0.2
     recoil: ^0.3.1
     source-map-loader: ^1.0.1
-    standard-version: ^9.3.2
+    standard-version: 9.3.2
     style-loader: ^1.2.1
     ts-jest: ^26.1.3
     ts-loader: ^9.2.3
     typescript: ^4.6.4
     webpack: ^5.41.0
     webpack-cli: ^4.7.2
-    webpack-dev-server: ^3.11.2
+    webpack-dev-server: 3.11.2
     webpack-merge: ^5.8.0
     webpack-pwa-manifest: ^4.3.0
     yup: ^0.32.9
@@ -19304,7 +19304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"standard-version@npm:^9.3.2":
+"standard-version@npm:9.3.2":
   version: 9.3.2
   resolution: "standard-version@npm:9.3.2"
   dependencies:
@@ -21264,7 +21264,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-server@npm:^3.11.2":
+"webpack-dev-server@npm:3.11.2":
   version: 3.11.2
   resolution: "webpack-dev-server@npm:3.11.2"
   dependencies:
