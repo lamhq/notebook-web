@@ -1,0 +1,40 @@
+{
+  "name": "react-template",
+  "description": "Starter code for React SPA",
+  "packageManager": "pnpm@9.15.1",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rsbuild build",
+    "check": "biome check --write",
+    "dev": "rsbuild dev --port 3030",
+    "format": "biome format --write",
+    "preview": "rsbuild preview",
+    "lint": "biome lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-redux": "^9.2.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@chromatic-com/storybook": "^3.2.2",
+    "@rsbuild/core": "^1.1.9",
+    "@rsbuild/plugin-react": "^1.1.0",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/preview-api": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/test": "^8.4.7",
+    "@types/react": "^18.3.16",
+    "@types/react-dom": "^18.3.5",
+    "storybook": "^8.4.7",
+    "storybook-react-rsbuild": "^0.1.6",
+    "typescript": "^5.7.2"
+  }
+}
