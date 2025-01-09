@@ -2,7 +2,7 @@ import MobileDateTimePicker, {
   type MobileDateTimePickerProps as MuiDateTimePickerProps,
 } from '@mui/lab/MobileDateTimePicker';
 import TextField from '@mui/material/TextField';
-import React from 'react';
+import { forwardRef } from 'react';
 
 interface InputFieldProps {
   error?: boolean;
@@ -15,7 +15,7 @@ export type DateTimePickerProps = Omit<
 > &
   InputFieldProps;
 
-const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
+const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(
   function DateTimePicker({ error, helperText, ...props }, ref) {
     return (
       <MobileDateTimePicker
