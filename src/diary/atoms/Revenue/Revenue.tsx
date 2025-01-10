@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import React from 'react';
+import { type MouseEventHandler, useCallback, useState } from 'react';
 import AmountBadge from '../../../common/atoms/AmountBadge/AmountBadge';
+import Typography from '../../../common/atoms/Typography/Typography';
 import { formatNumber } from '../../../common/utils';
 
 export interface RevenueProps {
@@ -10,17 +10,16 @@ export interface RevenueProps {
   outcome: number;
 }
 
-const Revenue: React.VFC<RevenueProps> = (props) => {
-  const { income, outcome } = props;
+export default function Revenue({ income, outcome }: RevenueProps) {
   const it = formatNumber(income);
   const ot = formatNumber(outcome);
-  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
   const id = open ? 'revenue-popover' : undefined;
-  const handleClick: React.MouseEventHandler = React.useCallback((event) => {
+  const handleClick: MouseEventHandler = useCallback((event) => {
     setAnchorEl(event.currentTarget);
   }, []);
-  const handleClose = React.useCallback(() => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
   }, []);
 
@@ -57,6 +56,4 @@ const Revenue: React.VFC<RevenueProps> = (props) => {
       </Popover>
     </>
   );
-};
-
-export default Revenue;
+}

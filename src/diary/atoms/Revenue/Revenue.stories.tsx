@@ -10,9 +10,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Positive: Story = {
   args: {
-    income: 0,
-    outcome: 0,
+    income: 500,
+    outcome: 200,
+  },
+};
+
+export const Negative: Story = {
+  args: {
+    income: 100,
+    outcome: 200,
   },
 };
