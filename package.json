@@ -17,14 +17,14 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@fontsource/roboto": "^5.1.1",
     "@mui/icons-material": "^6.3.1",
     "@mui/material": "^6.3.1",
     "@mui/x-date-pickers": "^7.23.6",
     "date-fns": "^4.1.0",
     "numeral": "^2.0.6",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-router": "^7.1.1"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

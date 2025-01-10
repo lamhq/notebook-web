@@ -1,18 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import type {} from '@mui/x-date-pickers/themeAugmentation';
 
-const fontFamily = [
-  '"Nunito Sans"',
-  '-apple-system',
-  'BlinkMacSystemFont',
-  'Roboto',
-  'Oxygen-Sans',
-  'Ubuntu',
-  'Cantarell',
-  '"Helvetica Neue"',
-  'sans-serif',
-].join(',');
-
 export const theme = createTheme({
   palette: {
     success: {
@@ -29,31 +17,17 @@ export const theme = createTheme({
     borderRadius: 0,
   },
   typography: {
-    fontFamily,
-    // htmlFontSize: 16,
-    // fontSize: 16,
-    // h1: {
-    //   fontSize: '1.3125rem',
-    //   fontWeight: 'bold',
-    // },
-    // h2: {
-    //   fontSize: '1.375rem',
-    //   marginBottom: '1.5625rem',
-    //   fontWeight: 'bold',
-    // },
-    // h3: {
-    //   fontSize: '1.25rem',
-    // },
-    // h4: {
-    //   fontSize: '1.0625rem',
-    //   fontWeight: 'bold',
-    // },
-    // body1: {
-    //   fontSize: '1rem',
-    // },
-    // body2: {
-    //   fontSize: '0.75rem',
-    // },
+    fontFamily: [
+      '"Nunito Sans"',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      'Roboto',
+      'Oxygen-Sans',
+      'Ubuntu',
+      'Cantarell',
+      '"Helvetica Neue"',
+      'sans-serif',
+    ].join(','),
   },
   components: {
     MuiFormControl: {
