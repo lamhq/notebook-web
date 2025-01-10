@@ -1,9 +1,18 @@
-import React from 'react';
-import reactDom from 'react-dom';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
-reactDom.render(
-  <React.StrictMode>
-    <p>index</p>
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
+import React from 'react';
+import reactDom from 'react-dom/client';
+import App from './App';
+
+const rootEl = document.getElementById('root');
+if (rootEl) {
+  const root = reactDom.createRoot(rootEl);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  );
+}
