@@ -1,7 +1,7 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { format } from 'date-fns';
+import Typography from '../../../common/atoms/Typography/Typography';
 
 export interface TimeLabelProps {
   time: string;

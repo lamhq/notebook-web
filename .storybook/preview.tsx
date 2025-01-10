@@ -22,7 +22,7 @@ const customEnLocale: Locale = {
 
 const preview: Preview = {
   parameters: {
-    layout: 'fullscreen',
+    // layout: 'fullscreen',
     controls: {
       matchers: {
         color: /(background|color)$/i,
