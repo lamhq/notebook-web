@@ -1,7 +1,7 @@
-import MobileDatePicker, {
+import {
+  MobileDatePicker,
   type MobileDatePickerProps as MuiDatePickerProps,
-} from '@mui/lab/MobileDatePicker';
-import TextField from '@mui/material/TextField';
+} from '@mui/x-date-pickers/MobileDatePicker';
 import { forwardRef } from 'react';
 
 interface InputFieldProps {
@@ -16,11 +16,9 @@ const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
   function DatePicker({ error, helperText, ...props }, ref) {
     return (
       <MobileDatePicker
-        inputFormat="dd/MM/yyyy"
+        format="dd/MM/yyyy"
         inputRef={ref}
-        renderInput={(inputProps) => (
-          <TextField error={error} helperText={helperText} {...inputProps} />
-        )}
+        slotProps={{ textField: { error, helperText } }}
         {...props}
       />
     );

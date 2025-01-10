@@ -1,5 +1,5 @@
-import type {} from '@mui/lab/themeAugmentation';
 import { createTheme } from '@mui/material/styles';
+import type {} from '@mui/x-date-pickers/themeAugmentation';
 
 const fontFamily = [
   '"Nunito Sans"',
@@ -29,31 +29,31 @@ export const theme = createTheme({
     borderRadius: 0,
   },
   typography: {
-    htmlFontSize: 16,
-    fontSize: 16,
     fontFamily,
-    h1: {
-      fontSize: '1.3125rem',
-      fontWeight: 'bold',
-    },
-    h2: {
-      fontSize: '1.375rem',
-      marginBottom: '1.5625rem',
-      fontWeight: 'bold',
-    },
-    h3: {
-      fontSize: '1.25rem',
-    },
-    h4: {
-      fontSize: '1.0625rem',
-      fontWeight: 'bold',
-    },
-    body1: {
-      fontSize: '1rem',
-    },
-    body2: {
-      fontSize: '0.75rem',
-    },
+    // htmlFontSize: 16,
+    // fontSize: 16,
+    // h1: {
+    //   fontSize: '1.3125rem',
+    //   fontWeight: 'bold',
+    // },
+    // h2: {
+    //   fontSize: '1.375rem',
+    //   marginBottom: '1.5625rem',
+    //   fontWeight: 'bold',
+    // },
+    // h3: {
+    //   fontSize: '1.25rem',
+    // },
+    // h4: {
+    //   fontSize: '1.0625rem',
+    //   fontWeight: 'bold',
+    // },
+    // body1: {
+    //   fontSize: '1rem',
+    // },
+    // body2: {
+    //   fontSize: '0.75rem',
+    // },
   },
   components: {
     MuiFormControl: {
@@ -107,6 +107,16 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           padding: '6px 24px',
+        },
+      },
+    },
+    MuiDateTimePickerToolbar: {
+      styleOverrides: {
+        ampmLabel: {
+          color: 'lightgray',
+          '&.Mui-selected': {
+            color: 'rgba(0, 0, 0, 0.6)',
+          },
         },
       },
     },

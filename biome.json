@@ -32,6 +32,7 @@
       "style": {
         "noDefaultExport": "off",
         "useFilenamingConvention": "off",
+        "useNamingConvention": "off",
         "noImplicitBoolean": "off"
       },
       "suspicious": {
