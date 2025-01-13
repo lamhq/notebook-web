@@ -78,11 +78,7 @@ export default function MainLayout({ title, children }: MainLayoutProps) {
       </Drawer>
       <ContentContainer>{children}</ContentContainer>
       <ScrollOnClick anchorSelector="#back-to-top-anchor">
-        <Fab
-          color="inherit"
-          size="small"
-          sx={{ backgroundColor: 'transparent' }}
-        >
+        <Fab color="inherit" size="small" sx={{ backgroundColor: 'transparent' }}>
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollOnClick>

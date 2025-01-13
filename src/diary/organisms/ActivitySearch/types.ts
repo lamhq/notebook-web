@@ -1,4 +1,4 @@
-import type { TimeRange } from "../../types";
+import type { TimeRange } from '../../types';
 
 export interface ActivityFilterModel {
   text: string;

@@ -40,11 +40,7 @@ export default function ActivityItem({ model }: ActivityItemProps) {
         </Box>
         <Box sx={{ display: 'flex', columnGap: 1 }}>
           {model.tags.map((tag) => (
-            <Typography
-              key={tag}
-              variant="body2"
-              sx={{ color: 'primary.main' }}
-            >
+            <Typography key={tag} variant="body2" sx={{ color: 'primary.main' }}>
               {`#${tag}`}
             </Typography>
           ))}

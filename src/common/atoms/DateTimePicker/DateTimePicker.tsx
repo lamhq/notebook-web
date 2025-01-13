@@ -9,10 +9,7 @@ interface InputFieldProps {
   helperText?: string;
 }
 
-export type DateTimePickerProps = Omit<
-  MuiDateTimePickerProps<Date>,
-  'renderInput'
-> &
+export type DateTimePickerProps = Omit<MuiDateTimePickerProps<Date>, 'renderInput'> &
   InputFieldProps;
 
 const DateTimePicker = forwardRef<HTMLInputElement, DateTimePickerProps>(

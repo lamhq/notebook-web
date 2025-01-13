@@ -1,5 +1,4 @@
-// biome-ignore lint/style/noNamespaceImport: avoid duplicated with primitive types
-import * as yup from "yup";
+import * as yup from 'yup';
 
 /**
  * Calculate total amount of a transaction
@@ -9,18 +8,14 @@ import * as yup from "yup";
  * @returns {number} total amount, negative if it is an outcome
  */
 function getTransAmounts(transContent: string): number {
-  const isIncome = transContent.match("nhận");
-  const regex = /(\d+)k/g;
-  let amt = 0;
-  let match: RegExpExecArray | null = null;
-  do {
-    match = regex.exec(transContent);
-    if (!match) {
-      break;
-    }
+  const isIncome = /nhận/.exec(transContent);
+  const matches = transContent.match(/(\d+)[kK]/g);
+  if (matches === null) return 0;
+
+  const amt = matches.reduce<number>((total, match) => {
     const val = Number.parseFloat(match[1]);
-    amt += Number.isNaN(val) ? 0 : val;
-  } while (match);
+    return Number.isNaN(val) ? total : total + val;
+  }, 0);
   return isIncome ? amt : -amt;
 }
 
@@ -34,7 +29,7 @@ function getTransAmounts(transContent: string): number {
 export function getTotalAmounts(content: string): [number, number] {
   let income = 0;
   let outcome = 0;
-  for (const trans of content.split("\n")) {
+  for (const trans of content.split('\n')) {
     const amt = getTransAmounts(trans);
     if (amt > 0) {
       income += amt;
@@ -47,7 +42,7 @@ export function getTotalAmounts(content: string): [number, number] {
 
 export const yupSchema = yup.object().shape({
   time: yup.date().required(),
-  content: yup.string().required("This field is required"),
+  content: yup.string().required('This field is required'),
   tags: yup.array(yup.string().required()).required(),
   income: yup.number(),
   outcome: yup.number(),

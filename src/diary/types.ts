@@ -13,10 +13,10 @@ export interface Revenue {
 }
 
 export enum TimeRange {
-  All = "all",
-  ThisWeek = "this-week",
-  ThisMonth = "this-month",
-  ThisYear = "this-year",
-  LastMonth = "last-month",
-  Custom = "custom",
+  All = 'all',
+  ThisWeek = 'this-week',
+  ThisMonth = 'this-month',
+  ThisYear = 'this-year',
+  LastMonth = 'last-month',
+  Custom = 'custom',
 }

@@ -16,8 +16,8 @@ export default function AmountBadge({
   return (
     <Chip
       label={formatNumber(amount)}
-      size="small"
       onClick={onClick}
+      size="small"
       sx={{
         bgcolor: income ? 'success.main' : 'error.main',
         color: '#fff',

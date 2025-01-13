@@ -22,10 +22,7 @@ export interface ActivitySearchProps {
   onSubmit: SubmitHandler<ActivityFilterModel>;
 }
 
-export default function ActivitySearch({
-  values,
-  onSubmit,
-}: ActivitySearchProps) {
+export default function ActivitySearch({ values, onSubmit }: ActivitySearchProps) {
   const [open, setOpen] = useState(false);
   const { control, handleSubmit, watch, reset } = useForm<ActivityFilterModel>({
     defaultValues: values,
@@ -56,10 +53,7 @@ export default function ActivitySearch({
       <Dialog open={open} onClose={handleCloseDialog} keepMounted>
         <DialogTitle>Search activities</DialogTitle>
         <DialogContent>
-          <form
-            id="activitySearchForm"
-            onSubmit={handleSubmit(handleFormSubmit)}
-          >
+          <form id="activitySearchForm" onSubmit={handleSubmit(handleFormSubmit)}>
             <Grid container spacing={1}>
               <Grid size={{ xs: 12 }}>
                 <Controller
@@ -96,18 +90,14 @@ export default function ActivitySearch({
                     <Controller
                       name="from"
                       control={control}
-                      render={({ field }) => (
-                        <DatePicker label="From" {...field} />
-                      )}
+                      render={({ field }) => <DatePicker label="From" {...field} />}
                     />
                   </Grid>
                   <Grid size={{ xs: 12, sm: 6 }}>
                     <Controller
                       name="to"
                       control={control}
-                      render={({ field }) => (
-                        <DatePicker label="To" {...field} />
-                      )}
+                      render={({ field }) => <DatePicker label="To" {...field} />}
                     />
                   </Grid>
                 </>

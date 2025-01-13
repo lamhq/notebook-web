@@ -12,17 +12,18 @@ interface InputFieldProps {
 export type DatePickerProps = Omit<MuiDatePickerProps<Date>, 'renderInput'> &
   InputFieldProps;
 
-const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
-  function DatePicker({ error, helperText, ...props }, ref) {
-    return (
-      <MobileDatePicker
-        format="dd/MM/yyyy"
-        inputRef={ref}
-        slotProps={{ textField: { error, helperText } }}
-        {...props}
-      />
-    );
-  },
-);
+const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function DatePicker(
+  { error, helperText, ...props },
+  ref,
+) {
+  return (
+    <MobileDatePicker
+      format="dd/MM/yyyy"
+      inputRef={ref}
+      slotProps={{ textField: { error, helperText } }}
+      {...props}
+    />
+  );
+});
 
 export default DatePicker;

@@ -8,16 +8,13 @@ export interface ScrollToProps {
   children: ReactNode;
 }
 
-export default function ScrollOnClick({
-  children,
-  anchorSelector,
-}: ScrollToProps) {
+export default function ScrollOnClick({ children, anchorSelector }: ScrollToProps) {
   const trigger = useScrollTrigger();
   const handleClick: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      const anchor = (
-        event.currentTarget.ownerDocument || document
-      ).querySelector(anchorSelector);
+      const anchor = (event.currentTarget.ownerDocument || document).querySelector(
+        anchorSelector,
+      );
       if (anchor) {
         anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }

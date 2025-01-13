@@ -125,12 +125,7 @@ export default function ActivityForm({
         </Grid>
       </Grid>
       <ButtonsContainer>
-        <Button
-          variant="contained"
-          color="secondary"
-          component={RouterLink}
-          to="/"
-        >
+        <Button variant="contained" color="secondary" component={RouterLink} to="/">
           Cancel
         </Button>
         <LoadingButton

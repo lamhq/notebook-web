@@ -19,9 +19,9 @@ export const Default: Story = {
         {[...new Array(12)].map((_, idx) => (
           <Typography variant="body1" key={idx.toString()}>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-            magna, vel scelerisque nisl consectetur et.
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+            consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel
+            scelerisque nisl consectetur et.
           </Typography>
         ))}
       </>

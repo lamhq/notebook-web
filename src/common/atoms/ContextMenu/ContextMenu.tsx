@@ -1,9 +1,5 @@
-import MuiListItemIcon, {
-  type ListItemIconProps,
-} from '@mui/material/ListItemIcon';
-import MuiListItemText, {
-  type ListItemTextProps,
-} from '@mui/material/ListItemText';
+import MuiListItemIcon, { type ListItemIconProps } from '@mui/material/ListItemIcon';
+import MuiListItemText, { type ListItemTextProps } from '@mui/material/ListItemText';
 import MuiMenu, { type MenuProps } from '@mui/material/Menu';
 import MuiMenuItem, { type MenuItemProps } from '@mui/material/MenuItem';
 

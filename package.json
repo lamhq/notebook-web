@@ -6,13 +6,15 @@
   "version": "1.0.0",
   "scripts": {
     "build": "rsbuild build",
-    "check": "biome check --write",
     "dev": "rsbuild dev --port 3030",
-    "format": "biome format --write",
     "preview": "rsbuild preview",
-    "lint": "biome lint",
+    "lint": "eslint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -23,15 +25,15 @@
     "@mui/x-date-pickers": "^7.23.6",
     "date-fns": "^4.1.0",
     "numeral": "^2.0.6",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-router": "^7.1.1",
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@chromatic-com/storybook": "^3.2.2",
+    "@chromatic-com/storybook": "^3.2.3",
+    "@eslint/js": "^9.17.0",
     "@rsbuild/core": "^1.1.9",
     "@rsbuild/plugin-react": "^1.1.0",
     "@storybook/addon-essentials": "^8.4.7",
@@ -41,11 +43,21 @@
     "@storybook/preview-api": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/test": "^8.4.7",
+    "@types/eslint__js": "^8.42.3",
     "@types/numeral": "^2.0.1",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19.0.4",
+    "@types/react-dom": "^19.0.2",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.3",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "storybook": "^8.4.7",
     "storybook-react-rsbuild": "^0.1.6",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.19.0"
   }
 }
