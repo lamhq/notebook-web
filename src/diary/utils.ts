@@ -1,19 +1,15 @@
 import * as yup from 'yup';
 
 /**
- * Calculate total amount of a transaction
- * a transaction is an imcome if it has the word "nhận"
- *
- * @param {string} content transaction note
- * @returns {number} total amount, negative if it is an outcome
+ * Calculate total amount of a transaction from a note
  */
-function getTransAmounts(transContent: string): number {
-  const isIncome = /nhận/.exec(transContent);
-  const matches = transContent.match(/(\d+)[kK]/g);
+export function getTransAmounts(line: string): number {
+  const isIncome = /nhận/.exec(line);
+  const matches = line.match(/(\d+)[kK]/g);
   if (matches === null) return 0;
 
   const amt = matches.reduce<number>((total, match) => {
-    const val = Number.parseFloat(match[1]);
+    const val = Number.parseFloat(match.replace(/k/i, ''));
     return Number.isNaN(val) ? total : total + val;
   }, 0);
   return isIncome ? amt : -amt;
@@ -23,13 +19,12 @@ function getTransAmounts(transContent: string): number {
  * Calculate income and outcome from transaction amount in a note
  * each line in the note will be a transaction
  *
- * @param {string} content transaction note
- * @returns {[number, number]} an array of income and outcome
+ * @returns {[number, number]} income and outcome
  */
-export function getTotalAmounts(content: string): [number, number] {
+export function getTotalAmounts(note: string): [number, number] {
   let income = 0;
   let outcome = 0;
-  for (const trans of content.split('\n')) {
+  for (const trans of note.split('\n')) {
     const amt = getTransAmounts(trans);
     if (amt > 0) {
       income += amt;
