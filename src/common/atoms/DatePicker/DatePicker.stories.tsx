@@ -1,0 +1,32 @@
+import { useArgs } from '@storybook/preview-api';
+import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
+import DatePicker, { type DatePickerProps } from './DatePicker';
+
+const meta = {
+  component: DatePicker,
+  argTypes: {
+    value: { control: 'date' },
+  },
+} satisfies Meta<typeof DatePicker>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    value: new Date(),
+    onChange: fn(),
+  },
+  render: function Render(args) {
+    const [{ value, onChange: sbOnChange }, updateArgs] = useArgs();
+
+    const onChange: DatePickerProps['onChange'] = (newVal) => {
+      updateArgs({ value: newVal });
+      sbOnChange(newVal);
+    };
+
+    return <DatePicker {...args} onChange={onChange} value={value} />;
+  },
+};

@@ -1,10 +1,10 @@
-import { defineConfig } from "@rsbuild/core";
-import { pluginReact } from "@rsbuild/plugin-react";
+import { defineConfig } from '@rsbuild/core';
+import { pluginReact } from '@rsbuild/plugin-react';
 
 export default defineConfig({
   source: {
     entry: {
-      index: "./src/index.tsx",
+      index: './src/index.tsx',
     },
   },
   plugins: [pluginReact()],
