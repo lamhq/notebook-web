@@ -1,12 +1,14 @@
 // @ts-check
 import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import pluginJest from 'eslint-plugin-jest';
 import reactPlugin from 'eslint-plugin-react';
 import globals from 'globals';
 import React from 'react';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  // ESLint recommended
   {
     name: '@eslint/js/recommended',
     ...eslint.configs.recommended,
@@ -49,7 +51,14 @@ export default tseslint.config(
     },
   },
 
-  // turns off all rules that are unnecessary or might conflict with Prettier.
+  // Jest test files
+  {
+    name: 'eslint-plugin-jest',
+    files: ['**/*.spec.ts', '**/*.test.ts'],
+    ...pluginJest.configs['flat/all'],
+  },
+
+  // Prettier: turns off all rules that are unnecessary or might conflict with Prettier.
   {
     name: 'eslint-config-prettier',
     ...eslintConfigPrettier,

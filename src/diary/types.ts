@@ -20,3 +20,13 @@ export enum TimeRange {
   LastMonth = 'last-month',
   Custom = 'custom',
 }
+
+export interface ActivityFilterModel {
+  text: string;
+  tags: string[];
+  timeRange: TimeRange;
+  page: number;
+  pageSize: number;
+  from?: Date;
+  to?: Date;
+}

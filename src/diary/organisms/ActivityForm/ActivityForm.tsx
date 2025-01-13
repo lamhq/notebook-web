@@ -12,7 +12,7 @@ import DateTimePicker from '../../../common/atoms/DateTimePicker/DateTimePicker'
 import LoadingButton from '../../../common/atoms/LoadingButton/LoadingButton';
 import Textarea from '../../../common/atoms/Textarea/Textarea';
 // import ActivityTagSelect from '../../containers/ActivityTagSelect';
-import { getTotalAmounts, yupSchema } from './utils';
+import { getTotalAmounts, yupSchema } from '../../utils';
 
 export interface ActivityFormModel extends yup.InferType<typeof yupSchema> {}
 

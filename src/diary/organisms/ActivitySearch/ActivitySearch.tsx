@@ -14,8 +14,8 @@ import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import DatePicker from '../../../common/atoms/DatePicker/DatePicker';
 import TimeRangeSelect from '../../atoms/TimeRangeSelect/TimeRangeSelect';
 // import ActivityTagSelect from '../../containers/ActivityTagSelect';
+import type { ActivityFilterModel } from '../../types';
 import { TimeRange } from '../../types';
-import type { ActivityFilterModel } from './types';
 
 export interface ActivitySearchProps {
   values: ActivityFilterModel;
