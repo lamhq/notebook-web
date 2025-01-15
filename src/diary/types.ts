@@ -21,7 +21,7 @@ export enum TimeRange {
   Custom = 'custom',
 }
 
-export interface ActivityFilterModel {
+export interface ActivityFilter {
   text: string;
   tags: string[];
   timeRange: TimeRange;
@@ -29,4 +29,25 @@ export interface ActivityFilterModel {
   pageSize: number;
   from?: Date;
   to?: Date;
+}
+
+export interface ActivityForm {
+  content: string;
+  time: Date;
+  tags: string[];
+  income: number | '';
+  outcome: number | '';
+}
+
+export interface ApiClient {
+  /* activity */
+  searchActivities: (filter: ActivityFilter) => Promise<[Activity[], number]>;
+  addActivity: (data: ActivityForm) => Promise<Activity>;
+  updateActivity: (id: string, data: ActivityForm) => Promise<Activity>;
+  deleteActivity: (id: string) => Promise<void>;
+  getActivity: (id: string) => Promise<Activity>;
+
+  /* tag */
+  getTags: () => Promise<string[]>;
+  getRevenue: (filter: ActivityFilter) => Promise<Revenue>;
 }
