@@ -1,16 +1,16 @@
-export interface Activity {
+export type Activity = {
   id: string;
   content: string;
   time: string;
   tags: string[];
   income?: number;
   outcome?: number;
-}
+};
 
-export interface Revenue {
+export type Revenue = {
   income: number;
   outcome: number;
-}
+};
 
 export enum TimeRange {
   All = 'all',
@@ -21,7 +21,7 @@ export enum TimeRange {
   Custom = 'custom',
 }
 
-export interface ActivityFilter {
+export type ActivityFilter = {
   text: string;
   tags: string[];
   timeRange: TimeRange;
@@ -29,17 +29,17 @@ export interface ActivityFilter {
   pageSize: number;
   from?: Date;
   to?: Date;
-}
+};
 
-export interface ActivityForm {
+export type ActivityForm = {
   content: string;
   time: Date;
   tags: string[];
   income: number | '';
   outcome: number | '';
-}
+};
 
-export interface ApiClient {
+export type ApiClient = {
   /* activity */
   searchActivities: (filter: ActivityFilter) => Promise<[Activity[], number]>;
   addActivity: (data: ActivityForm) => Promise<Activity>;
@@ -50,4 +50,4 @@ export interface ApiClient {
   /* tag */
   getTags: () => Promise<string[]>;
   getRevenue: (filter: ActivityFilter) => Promise<Revenue>;
-}
+};

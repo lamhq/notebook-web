@@ -7,6 +7,10 @@ import globals from 'globals';
 import React from 'react';
 import tseslint from 'typescript-eslint';
 
+const stylisticTypeChecked = tseslint.configs.stylisticTypeChecked.filter(
+  (config) => config.name === 'typescript-eslint/stylistic-type-checked',
+);
+
 export default tseslint.config(
   // ESLint recommended
   {
@@ -16,9 +20,7 @@ export default tseslint.config(
 
   // normal Typescript
   ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked.filter(
-    (config) => config.name === 'typescript-eslint/stylistic-type-checked',
-  ),
+  ...stylisticTypeChecked,
   {
     // enable linting with type information
     name: 'typescript-parser-options',
@@ -28,6 +30,10 @@ export default tseslint.config(
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
+    },
+    rules: {
+      // use `type` instead of `interface`
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     },
   },
 

@@ -52,16 +52,6 @@ export const yupSchema = yup.object().shape({
   tags: yup.array(yup.string().required()).required(),
   income: yup.number(),
   outcome: yup.number(),
-  // income: yup.lazy((value) =>
-  //   value === ''
-  //     ? yup.string()
-  //     : yup.number().positive().integer('This field must be integer'),
-  // ),
-  // outcome: yup.lazy((value) =>
-  //   value === ''
-  //     ? yup.string()
-  //     : yup.number().positive().integer('This field must be integer'),
-  // ),
 });
 
 function getTimeRangeFromFilter(filter: ActivityFilter): [Date?, Date?] {
