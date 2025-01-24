@@ -1,26 +1,27 @@
+import type { AxiosHeaderValue } from 'axios';
 import { createMutation, createQuery } from '../common/api';
-import type { AxiosRequestFn } from '../common/request';
-import { request } from '../common/request';
 import { removeEmptyFields } from '../common/utils';
 import type { Activity, ActivityFilter, ActivityForm, Revenue } from './types';
 import { buildQueryFromFilter } from './utils';
 
-export const useGetActivitiesQuery = createQuery({
-  request: request as AxiosRequestFn<Activity[], void>,
-  params: (filter: ActivityFilter) => ({
+export const useGetActivitiesQuery = createQuery(
+  (filter?: ActivityFilter) => ({
     url: '/diary/activities',
     method: 'GET',
     params: buildQueryFromFilter(filter),
   }),
-  transformResponse: (resp, filter) => {
-    const total = parseInt(resp.headers['x-total-count'] as string, 10);
-    return [resp.data, Math.ceil(total / filter.pageSize)] as const;
+  (resp: {
+    data: Activity[];
+    headers: Record<string, AxiosHeaderValue | undefined>;
+  }) => {
+    const hVal = resp.headers['x-total-count'];
+    const total = typeof hVal === 'string' ? parseInt(hVal, 10) : 0;
+    return [resp.data, total] as const;
   },
-});
+);
 
-export const useGetRevenueQuery = createQuery({
-  request: request as AxiosRequestFn<Revenue, void>,
-  params: (filter: ActivityFilter) => {
+export const useGetRevenueQuery = createQuery(
+  (filter: ActivityFilter) => {
     const params = buildQueryFromFilter(filter);
     if (!params.from || !params.to) {
       const now = new Date();
@@ -33,52 +34,47 @@ export const useGetRevenueQuery = createQuery({
       params: params,
     };
   },
-  transformResponse: (resp) => resp.data,
-});
+  (resp: { data: Revenue }) => resp.data,
+);
 
-export const useGetActivityQuery = createQuery({
-  request: request as AxiosRequestFn<Activity, void>,
-  params: (id: string) => ({
+export const useGetActivityQuery = createQuery(
+  (id: string) => ({
     url: `/diary/activities/${id}`,
     method: 'GET',
   }),
-  transformResponse: (resp) => resp.data,
-});
+  (resp: { data: Activity }) => resp.data,
+);
 
-export const useAddActivityMutation = createMutation({
-  request: request as AxiosRequestFn<Activity, ActivityForm>,
-  params: (data: ActivityForm) => ({
+export const useAddActivityMutation = createMutation(
+  (data: ActivityForm) => ({
     url: `/diary/activities`,
     method: 'POST',
     data: removeEmptyFields(data),
   }),
-  transformResponse: (resp) => resp.data,
-});
+  (resp: { data: Activity }) => resp.data,
+);
 
-export const useUpdateActivityMutation = createMutation({
-  request: request as AxiosRequestFn<Activity, ActivityForm>,
-  params: ({ id, data }: { id: string; data: ActivityForm }) => ({
+export const useUpdateActivityMutation = createMutation(
+  ({ id, data }: { id: string; data: ActivityForm }) => ({
     url: `/diary/activities/${id}`,
     method: 'PUT',
     data: removeEmptyFields(data),
   }),
-  transformResponse: (resp) => resp.data,
-});
+  (resp: { data: Activity }) => resp.data,
+);
 
-export const useDeleteActivityMutation = createMutation({
-  request: request as AxiosRequestFn<void, string>,
-  params: (id: string) => ({
+export const useDeleteActivityMutation = createMutation(
+  (id: string) => ({
     url: `/diary/activities/${id}`,
     method: 'DELETE',
   }),
-  transformResponse: (resp) => resp.data,
-});
+  (resp: { data: null }) => resp.data,
+);
 
-export const useGetTagsQuery = createQuery({
-  request: request as AxiosRequestFn<string[], void>,
-  params: () => ({
+export const useGetTagsQuery = createQuery(
+  () => ({
     url: `/diary/tags`,
     method: 'GET',
   }),
-  transformResponse: (resp) => resp.data,
-});
+  (resp: { data: string[] }) => resp.data,
+);

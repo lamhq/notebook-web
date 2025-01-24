@@ -1,25 +1,11 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
-import type { RequestFn } from './api';
+import type { AsyncFn } from './types';
 
-/**
- * Response: type of response.body
- * Request: type of request.body
- */
-export type AxiosRequestFn<Response, Request> = RequestFn<
-  AxiosRequestConfig<Request>,
-  AxiosResponse<Response, Request>
->;
-
-export function requestFactory<Response, Request>(
-  baseParams?: AxiosRequestConfig<Request>,
-): AxiosRequestFn<Response, Request> {
-  return async (args: AxiosRequestConfig<Request>) => {
-    const result: AxiosResponse<Response, Request> = await axios({
+export function createAxiosRequest(baseParams?: AxiosRequestConfig) {
+  const requestFn: AsyncFn<AxiosRequestConfig, AxiosResponse> = async (args) =>
+    axios({
       ...baseParams,
       ...args,
     });
-    return result;
-  };
+  return requestFn;
 }
-
-export const request = requestFactory({ baseURL: '/api' });

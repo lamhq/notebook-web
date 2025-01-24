@@ -1,16 +1,28 @@
-type Fn<ArgumentType, ReturnType> = (arg: ArgumentType) => ReturnType;
+import type { Fn } from './types';
 
-export function cache<Arg, Ret>(fn: Fn<Arg, Ret>, duration: number): Fn<Arg, Ret> {
-  const cacheStore = new Map<Arg, { timestamp: number; result: Ret }>();
-  return (arg: Arg): Ret => {
-    const now = Date.now();
-    const cached = cacheStore.get(arg);
-    if (cached !== undefined && now - cached.timestamp < duration) {
-      return cached.result;
-    }
+export type CacheApi = {
+  cache: <Arg, Result>(arg: Fn<Arg, Result>) => Fn<Arg, Result>;
+};
 
-    const result = fn(arg);
-    cacheStore.set(arg, { timestamp: now, result });
-    return result;
+type CacheOptions = {
+  duration: number;
+};
+
+export function createMemCache(options: CacheOptions): CacheApi {
+  const cache = <Arg, Result>(fn: Fn<Arg, Result>): Fn<Arg, Result> => {
+    const cacheStore = new Map<string, { timestamp: number; result: Result }>();
+    return (arg: Arg): Result => {
+      const now = Date.now();
+      const cacheKey = JSON.stringify(arg);
+      const cached = cacheStore.get(cacheKey);
+      if (cached !== undefined && now - cached.timestamp < options.duration) {
+        return cached.result;
+      }
+
+      const result = fn(arg);
+      cacheStore.set(cacheKey, { timestamp: now, result });
+      return result;
+    };
   };
+  return { cache };
 }

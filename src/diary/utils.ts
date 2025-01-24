@@ -9,7 +9,8 @@ import { startOfYear } from 'date-fns/startOfYear';
 import { subMonths } from 'date-fns/subMonths';
 import * as yup from 'yup';
 
-import { ActivityFilter, TimeRange } from './types';
+import type { ActivityFilter } from './types';
+import { TimeRange } from './types';
 
 /**
  * Calculate total amount of a transaction from a note
@@ -55,8 +56,8 @@ export const yupSchema = yup.object().shape({
 });
 
 function getTimeRangeFromFilter(filter: ActivityFilter): [Date?, Date?] {
-  let from: Date | undefined;
-  let to: Date | undefined;
+  let from: Date | undefined = undefined;
+  let to: Date | undefined = undefined;
   switch (filter.timeRange) {
     case TimeRange.ThisWeek:
       from = startOfWeek(new Date(), { weekStartsOn: 1 });
@@ -87,6 +88,7 @@ function getTimeRangeFromFilter(filter: ActivityFilter): [Date?, Date?] {
       to = endOfDay(filter.to);
       break;
 
+    case TimeRange.All:
     default:
       break;
   }
@@ -94,9 +96,11 @@ function getTimeRangeFromFilter(filter: ActivityFilter): [Date?, Date?] {
 }
 
 export function buildQueryFromFilter(
-  filter: ActivityFilter,
+  filter?: ActivityFilter,
 ): Record<string, string | string[] | number> {
   const params: ReturnType<typeof buildQueryFromFilter> = {};
+  if (!filter) return params;
+
   if (filter.text) {
     params.text = filter.text;
   }

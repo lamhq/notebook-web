@@ -1,111 +1,102 @@
 import { use, useEffect, useReducer, useRef } from 'react';
-import { cache } from './cache';
 
-export type RequestParamFn<Arg, ReqParams> = (arg: Arg) => ReqParams;
+import type { CacheApi } from './cache';
+import { createMemCache } from './cache';
+import { createAxiosRequest } from './request';
+import type { AsyncFn, Fn } from './types';
 
-export type RequestFn<ReqParams, Response> = (
-  params: ReqParams,
-) => Promise<Response>;
-
-export type TransformResponseFn<Response, Arg, Result> = (
-  resp: Response,
-  arg: Arg,
-) => Result;
-
-export type CreateQueryConfig<Arg, ReqParams, Response, Result> = {
-  params: RequestParamFn<Arg, ReqParams>;
-  request: RequestFn<ReqParams, Response>;
-  transformResponse: TransformResponseFn<Response, Arg, Result>;
-};
-
-export type QueryHook<Arg, Result> = (arg: Arg) => Result;
-
-export function createQuery<Arg, ReqParams, Response, Result>(
-  options: CreateQueryConfig<Arg, ReqParams, Response, Result>,
-): QueryHook<Arg, Result> {
-  const cachedFn = cache(async (arg: Arg) => {
-    const axiosConfig = options.params(arg);
-    const response = await options.request(axiosConfig);
-    return options.transformResponse(response, arg);
-  }, 5000);
-  return (arg: Arg) => use(cachedFn(arg));
-}
-
-export type MutationState<Result, Er> = {
+type MutationState<Result> = {
   data?: Result;
-  error?: Er;
   isLoading: boolean;
 };
 
-export type MutationHook<Arg, Result, Er> = () => [
+type MutationHook<Arg, Result> = () => [
   (arg: Arg) => Promise<void>,
-  MutationState<Result, Er>,
+  MutationState<Result>,
 ];
 
-type ReducerAction<Result, Er> =
+type ReducerAction<Result> =
   | {
       type: 'FETCH_INIT';
     }
   | {
-      type: 'FETCH_SUCCESS';
-      payload: Result;
-    }
-  | {
-      type: 'FETCH_FAILURE';
-      payload: Er;
+      type: 'FETCH_COMPLETED';
+      payload?: Result;
     };
 
-function reducer<Result, Er>(
-  state: MutationState<Result, Er>,
-  action: ReducerAction<Result, Er>,
-): MutationState<Result, Er> {
+function reducer<T>(state: MutationState<T>, action: ReducerAction<T>) {
   switch (action.type) {
     case 'FETCH_INIT':
-      return { ...state, isLoading: true, error: undefined };
-    case 'FETCH_SUCCESS':
+      return { ...state, isLoading: true };
+    case 'FETCH_COMPLETED':
       return { ...state, isLoading: false, data: action.payload };
-    case 'FETCH_FAILURE':
-      return { ...state, isLoading: false, error: action.payload };
     default:
-      throw new Error();
+      throw new Error('Invalid reducer action');
   }
 }
 
-export function createMutation<Arg, ReqParams, Response, Result, Er>(
-  options: CreateQueryConfig<Arg, ReqParams, Response, Result>,
-): MutationHook<Arg, Result, Er> {
-  const hook: MutationHook<Arg, Result, Er> = () => {
-    const [state, dispatch] = useReducer(reducer, {
-      isLoading: true,
-    } as MutationState<Result, Er>);
-    const isMounted = useRef(false);
-    const request = async (arg: Arg) => {
-      dispatch({ type: 'FETCH_INIT' });
-
-      try {
-        const axiosConfig = options.params(arg);
-        const response = await options.request(axiosConfig);
-        const result = options.transformResponse(response, arg);
-        if (isMounted.current) {
-          dispatch({ type: 'FETCH_SUCCESS', payload: result });
-        }
-      } catch (error) {
-        const err = error as Er;
-        if (isMounted.current) {
-          dispatch({ type: 'FETCH_FAILURE', payload: err });
-        }
-      }
+function createApi<RequestArg, Response>(
+  request: AsyncFn<RequestArg, Response>,
+  { cache }: CacheApi,
+) {
+  const createQuery = <Arg, Result>(
+    transformParams: Fn<Arg, RequestArg>,
+    transformResponse: Fn<Response, Result>,
+  ): Fn<Arg, Result> => {
+    const asyncRequestFn: AsyncFn<Arg, Result> = async (arg) => {
+      const p = transformParams(arg);
+      const r = await request(p);
+      return transformResponse(r);
     };
-
-    // mechanism to skip state set if component is unmounted
-    useEffect(() => {
-      isMounted.current = true;
-      return () => {
-        isMounted.current = false;
-      };
-    }, []);
-
-    return [request, state];
+    const cachedRequestFn = cache(asyncRequestFn);
+    const requestFn: Fn<Arg, Result> = (arg) => use(cachedRequestFn(arg));
+    return requestFn;
   };
-  return hook;
+
+  const createMutation = <Arg, Result>(
+    transformParams: Fn<Arg, RequestArg>,
+    transformResponse: Fn<Response, Result>,
+  ): MutationHook<Arg, Result> => {
+    return () => {
+      const initialState: MutationState<Result> = {
+        isLoading: false,
+      };
+      const [state, dispatch] = useReducer(reducer, initialState);
+      const isMounted = useRef(false);
+      const requestFn = async (arg: Arg) => {
+        dispatch({ type: 'FETCH_INIT' });
+
+        try {
+          const p = transformParams(arg);
+          const r = await request(p);
+          const result = transformResponse(r);
+          if (isMounted.current) {
+            dispatch({ type: 'FETCH_COMPLETED', payload: result });
+          }
+        } catch (err) {
+          if (isMounted.current) {
+            dispatch({ type: 'FETCH_COMPLETED' });
+          }
+          throw err;
+        }
+      };
+
+      // skip state set if component is unmounted
+      useEffect(() => {
+        isMounted.current = true;
+        return () => {
+          isMounted.current = false;
+        };
+      }, []);
+
+      return [requestFn, state];
+    };
+  };
+
+  return { createQuery, createMutation };
 }
+
+export const { createQuery, createMutation } = createApi(
+  createAxiosRequest({ baseURL: '/api' }),
+  createMemCache({ duration: 5000 }),
+);
