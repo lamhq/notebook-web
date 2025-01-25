@@ -14,17 +14,17 @@ import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import DatePicker from '../../../common/atoms/DatePicker/DatePicker';
 import TimeRangeSelect from '../../atoms/TimeRangeSelect/TimeRangeSelect';
 // import ActivityTagSelect from '../../containers/ActivityTagSelect';
-import type { ActivityFilterModel } from '../../types';
+import type { ActivityFilter } from '../../types';
 import { TimeRange } from '../../types';
 
 export interface ActivitySearchProps {
-  values: ActivityFilterModel;
-  onSubmit: SubmitHandler<ActivityFilterModel>;
+  values: ActivityFilter;
+  onSubmit: SubmitHandler<ActivityFilter>;
 }
 
 export default function ActivitySearch({ values, onSubmit }: ActivitySearchProps) {
   const [open, setOpen] = useState(false);
-  const { control, handleSubmit, watch, reset } = useForm<ActivityFilterModel>({
+  const { control, handleSubmit, watch, reset } = useForm<ActivityFilter>({
     defaultValues: values,
   });
   const timeRange = watch('timeRange');
@@ -34,7 +34,7 @@ export default function ActivitySearch({ values, onSubmit }: ActivitySearchProps
   const handleCloseDialog = useCallback(() => {
     setOpen(false);
   }, []);
-  const handleFormSubmit: SubmitHandler<ActivityFilterModel> = useCallback(
+  const handleFormSubmit: SubmitHandler<ActivityFilter> = useCallback(
     (data) => {
       onSubmit(data);
       setOpen(false);

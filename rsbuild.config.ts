@@ -8,4 +8,14 @@ export default defineConfig({
     },
   },
   plugins: [pluginReact()],
+  server: {
+    proxy: {
+      // http://localhost:3030/api -> http://localhost:3000/
+      // http://localhost:3030/api/foo -> http://localhost:3000/foo
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': '' },
+      },
+    },
+  },
 });
