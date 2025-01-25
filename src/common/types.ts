@@ -1,3 +1,4 @@
 export type Fn<Arg, Result> = (arg: Arg) => Result;
 
-export type AsyncFn<Arg, Result> = (params: Arg) => Promise<Result>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AsyncFn<Arg = any, Result = any> = (params: Arg) => Promise<Result>;

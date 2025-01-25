@@ -24,6 +24,11 @@ type ReducerAction<Result> =
       payload?: Result;
     };
 
+type CreateApiOptions = {
+  request: AsyncFn;
+  cacheClient: CacheApi;
+};
+
 function reducer<T>(state: MutationState<T>, action: ReducerAction<T>) {
   switch (action.type) {
     case 'FETCH_INIT':
@@ -35,27 +40,26 @@ function reducer<T>(state: MutationState<T>, action: ReducerAction<T>) {
   }
 }
 
-function createApi<RequestArg, Response>(
-  request: AsyncFn<RequestArg, Response>,
-  { cache }: CacheApi,
-) {
-  const createQuery = <Arg, Result>(
-    transformParams: Fn<Arg, RequestArg>,
-    transformResponse: Fn<Response, Result>,
+function createApi({ request, cacheClient: cacheApi }: CreateApiOptions) {
+  const createQuery = <Arg, Result, ApiRequest, ApiResponse>(
+    transformParams: Fn<Arg, ApiRequest>,
+    transformResponse: Fn<ApiResponse, Result>,
   ): Fn<Arg, Result> => {
     const asyncRequestFn: AsyncFn<Arg, Result> = async (arg) => {
-      const p = transformParams(arg);
-      const r = await request(p);
-      return transformResponse(r);
+      const requestArg = transformParams(arg);
+      const response = await (request as AsyncFn<ApiRequest, ApiResponse>)(
+        requestArg,
+      );
+      return transformResponse(response);
     };
-    const cachedRequestFn = cache(asyncRequestFn);
+    const cachedRequestFn = cacheApi.cache(asyncRequestFn);
     const requestFn: Fn<Arg, Result> = (arg) => use(cachedRequestFn(arg));
     return requestFn;
   };
 
-  const createMutation = <Arg, Result>(
-    transformParams: Fn<Arg, RequestArg>,
-    transformResponse: Fn<Response, Result>,
+  const createMutation = <Arg, Result, ApiRequest, ApiResponse>(
+    transformParams: Fn<Arg, ApiRequest>,
+    transformResponse: Fn<ApiResponse, Result>,
   ): MutationHook<Arg, Result> => {
     return () => {
       const initialState: MutationState<Result> = {
@@ -67,9 +71,10 @@ function createApi<RequestArg, Response>(
         dispatch({ type: 'FETCH_INIT' });
 
         try {
-          const p = transformParams(arg);
-          const r = await request(p);
-          const result = transformResponse(r);
+          const requestArg = transformParams(arg);
+          // prettier-ignore
+          const response = await (request as AsyncFn<ApiRequest, ApiResponse>)(requestArg);
+          const result = transformResponse(response);
           if (isMounted.current) {
             dispatch({ type: 'FETCH_COMPLETED', payload: result });
           }
@@ -96,7 +101,7 @@ function createApi<RequestArg, Response>(
   return { createQuery, createMutation };
 }
 
-export const { createQuery, createMutation } = createApi(
-  createAxiosRequest({ baseURL: '/api' }),
-  createMemCache({ duration: 5000 }),
-);
+export const { createQuery, createMutation } = createApi({
+  request: createAxiosRequest({ baseURL: '/api' }),
+  cacheClient: createMemCache({ duration: 5000 }),
+});
