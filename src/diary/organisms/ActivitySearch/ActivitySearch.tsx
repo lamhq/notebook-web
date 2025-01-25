@@ -17,7 +17,7 @@ import TimeRangeSelect from '../../atoms/TimeRangeSelect/TimeRangeSelect';
 import type { ActivityFilter } from '../../types';
 import { TimeRange } from '../../types';
 
-export interface ActivitySearchProps {
+export type ActivitySearchProps = {
   values: ActivityFilter;
   onSubmit: SubmitHandler<ActivityFilter>;
 }

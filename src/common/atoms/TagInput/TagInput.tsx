@@ -8,10 +8,9 @@ import { type ReactNode, forwardRef } from 'react';
 
 const filter = createFilterOptions<string>();
 
-export interface TagInputProps
-  extends Omit<AutocompleteProps<string, true, false, true>, 'renderInput'> {
+export type TagInputProps = {
   label?: ReactNode;
-}
+} & Omit<AutocompleteProps<string, true, false, true>, 'renderInput'>;
 
 const TagInput = forwardRef<unknown, TagInputProps>(
   function TagInputRef(props, ref) {
@@ -49,14 +48,15 @@ const TagInput = forwardRef<unknown, TagInputProps>(
           <TextField
             label={label}
             {...params}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: (
-                <>
-                  {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                  {params.InputProps.endAdornment}
-                </>
-              ),
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <>
+                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              },
             }}
           />
         )}

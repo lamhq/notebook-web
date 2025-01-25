@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { format } from 'date-fns';
 import Typography from '../../../common/atoms/Typography/Typography';
 
-export interface TimeLabelProps {
+export type TimeLabelProps = {
   time: string;
 }
 

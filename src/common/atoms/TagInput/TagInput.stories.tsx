@@ -17,10 +17,12 @@ const Template: Story = {
     options: [],
   },
   render: () => {
-    const [{ onChange: sbOnChange, options, ...rest }, updateArgs] = useArgs();
+    const [{ onChange: sbOnChange, options, ...rest }, updateArgs] =
+      useArgs<TagInputProps>();
 
-    const onChange: TagInputProps['onChange'] = (_, newVal) => {
+    const onChange: TagInputProps['onChange'] = (event, newVal, reason, details) => {
       updateArgs({ value: newVal });
+      sbOnChange?.(event, newVal, reason, details);
     };
 
     return <TagInput onChange={onChange} options={options} {...rest} />;

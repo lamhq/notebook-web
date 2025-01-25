@@ -3,9 +3,9 @@ import TextareaAutosize, {
 } from '@mui/material/TextareaAutosize';
 import React from 'react';
 
-interface TextareaProps extends TextareaAutosizeProps {
+type TextareaProps = {
   inputRef?: React.Ref<HTMLTextAreaElement>;
-}
+} & TextareaAutosizeProps
 
 /**
  * Customized TextareaAutosize to be used with TextField

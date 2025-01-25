@@ -5,7 +5,7 @@ import AmountBadge from '../../../common/atoms/AmountBadge/AmountBadge';
 import Typography from '../../../common/atoms/Typography/Typography';
 import { formatNumber } from '../../../common/utils';
 
-export interface RevenueProps {
+export type RevenueProps = {
   income: number;
   outcome: number;
 }

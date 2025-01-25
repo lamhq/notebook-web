@@ -21,7 +21,7 @@ const UnstyledLink = styled(Link)<LinkProps>(() => ({
   color: 'inherit',
 }));
 
-export interface ActivityMenuProps {
+export type ActivityMenuProps = {
   activity: Activity;
 }
 

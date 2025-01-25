@@ -2,7 +2,7 @@ import Chip from '@mui/material/Chip';
 import type { MouseEventHandler } from 'react';
 import { formatNumber } from '../../utils';
 
-export interface AmountProps {
+export type AmountProps = {
   isIncome: boolean;
   amount: number;
   onClick?: MouseEventHandler;

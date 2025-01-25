@@ -14,12 +14,12 @@ import Textarea from '../../../common/atoms/Textarea/Textarea';
 // import ActivityTagSelect from '../../containers/ActivityTagSelect';
 import { getTotalAmounts, yupSchema } from '../../utils';
 
-export interface ActivityFormModel extends yup.InferType<typeof yupSchema> {}
+export type ActivityFormModel = {} & yup.InferType<typeof yupSchema>;
 
-export interface ActivityFormProps {
+export type ActivityFormProps = {
   defaultValues: ActivityFormModel;
   onSubmit: SubmitHandler<ActivityFormModel>;
-}
+};
 
 export default function ActivityForm({
   defaultValues,
@@ -57,8 +57,10 @@ export default function ActivityForm({
                 required
                 error={!!errors.content}
                 helperText={errors.content?.message}
-                InputProps={{
-                  inputComponent: Textarea,
+                slotProps={{
+                  input: {
+                    inputComponent: Textarea,
+                  },
                 }}
                 {...field}
               />

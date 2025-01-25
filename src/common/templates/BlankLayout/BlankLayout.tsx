@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import ContentContainer from '../../atoms/ContentContainer';
 import Typography from '../../atoms/Typography/Typography';
 
-export interface BlankLayoutProps {
+export type BlankLayoutProps = {
   title: string;
   children: ReactNode;
 }

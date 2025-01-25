@@ -2,7 +2,7 @@ import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import type { ReactElement } from 'react';
 
-export interface HideOnScrollProps {
+export type HideOnScrollProps = {
   children: ReactElement;
 }
 

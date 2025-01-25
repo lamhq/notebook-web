@@ -16,7 +16,7 @@ import ScrollOnClick from '../../atoms/ScrollOnClick/ScrollOnClick';
 import Typography from '../../atoms/Typography/Typography';
 import Sidebar from './Sidebar/Sidebar';
 
-export interface MainLayoutProps {
+export type MainLayoutProps = {
   title: string;
   children: ReactNode;
 }

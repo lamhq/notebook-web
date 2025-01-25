@@ -6,15 +6,15 @@ import Typography from '../../../common/atoms/Typography/Typography';
 import ActivityItem from '../../molecules/ActivityItem/ActivityItem';
 import type { Activity } from '../../types';
 
-export interface ActivityListProps {
+export type ActivityListProps = {
   models: Activity[];
-}
+};
 
 export default function ActivityList({ models }: ActivityListProps) {
   const dates = models.reduce<Record<string, Activity[]>>((current, item) => {
     const date = format(new Date(item.time), 'EEE, d LLL, yyyy');
     const res = current;
-    res[date] = res[date] || [];
+    res[date] ??= [];
     res[date].push(item);
     return res;
   }, {});

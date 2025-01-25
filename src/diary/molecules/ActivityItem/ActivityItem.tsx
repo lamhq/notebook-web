@@ -6,7 +6,7 @@ import TimeLabel from '../../atoms/TimeLabel/TimeLabel';
 import type { Activity } from '../../types';
 import ActivityMenu from '../ActivityMenu/ActivityMenu';
 
-export interface ActivityItemProps {
+export type ActivityItemProps = {
   model: Activity;
 }
 

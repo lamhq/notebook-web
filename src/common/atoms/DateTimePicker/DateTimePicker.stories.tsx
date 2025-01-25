@@ -20,11 +20,12 @@ export const Default: Story = {
     onChange: fn(),
   },
   render: function Render(args) {
-    const [{ value, onChange: sbOnChange }, updateArgs] = useArgs();
+    const [{ value, onChange: sbOnChange }, updateArgs] =
+      useArgs<DateTimePickerProps>();
 
-    const onChange: DateTimePickerProps['onChange'] = (newVal) => {
+    const onChange: DateTimePickerProps['onChange'] = (newVal, context) => {
       updateArgs({ value: newVal });
-      sbOnChange(newVal);
+      sbOnChange?.(newVal, context);
     };
 
     return <DateTimePicker {...args} onChange={onChange} value={value} />;

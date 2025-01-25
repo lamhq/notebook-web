@@ -4,7 +4,7 @@ import {
 } from '@mui/x-date-pickers/MobileDatePicker';
 import { forwardRef } from 'react';
 
-interface InputFieldProps {
+type InputFieldProps = {
   error?: boolean;
   helperText?: string;
 }

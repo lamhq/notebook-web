@@ -17,11 +17,12 @@ export const Default: Story = {
     onChange: fn(),
   },
   render: function Render() {
-    const [{ onChange: sbOnChange, ...rest }, updateArgs] = useArgs();
+    const [{ onChange: sbOnChange, ...rest }, updateArgs] =
+      useArgs<PaginationProps>();
 
-    const onChange: PaginationProps['onChange'] = (newVal) => {
-      updateArgs({ value: newVal });
-      sbOnChange(newVal);
+    const onChange: PaginationProps['onChange'] = (event, page) => {
+      updateArgs({ page });
+      sbOnChange?.(event, page);
     };
 
     return <Pagination {...rest} onChange={onChange} />;
