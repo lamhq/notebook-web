@@ -7,10 +7,6 @@ import globals from 'globals';
 import React from 'react';
 import tseslint from 'typescript-eslint';
 
-const stylisticTypeChecked = tseslint.configs.stylisticTypeChecked.filter(
-  (config) => config.name === 'typescript-eslint/stylistic-type-checked',
-);
-
 export default tseslint.config(
   // ESLint recommended
   {
@@ -18,9 +14,8 @@ export default tseslint.config(
     ...eslint.configs.recommended,
   },
 
-  // normal Typescript
-  ...tseslint.configs.strictTypeChecked,
-  ...stylisticTypeChecked,
+  // normal Typescript code
+  ...tseslint.configs.all,
   {
     // enable linting with type information
     name: 'typescript-parser-options',
@@ -34,6 +29,42 @@ export default tseslint.config(
     rules: {
       // use `type` instead of `interface`
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+
+      // allow PascalCase for React components
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'function',
+          format: ['camelCase', 'PascalCase'],
+        },
+      ],
+
+      // allow async functions to be used for React event handler
+      '@typescript-eslint/no-misused-promises': [
+        'error',
+        {
+          checksVoidReturn: false,
+        },
+      ],
+
+      // no need because most of functions are short than 100 lines
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+      // all parameters are readonly already
+      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+
+      // prefer simple truthy check
+      '@typescript-eslint/strict-boolean-expressions': 'off',
+
+      // this will be done through code review
+      '@typescript-eslint/no-magic-numbers': 'off',
+
+      // a default case is enough
+      '@typescript-eslint/switch-exhaustiveness-check': 'off',
+
+      // a lot of third party libraries violate this rule
+      '@typescript-eslint/max-params': 'off',
     },
   },
 
