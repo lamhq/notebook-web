@@ -1,12 +1,16 @@
 import { describe, expect, it, jest } from '@jest/globals';
-import { cache } from './cache';
+import { createMemCache } from './cache';
+
+const { cache } = createMemCache({
+  duration: 10,
+});
 
 describe('cache function', () => {
   it('should cache the result of the function', () => {
     expect.hasAssertions();
 
     const fn = jest.fn((x: number) => x * 2);
-    const cachedFn = cache(fn, 1000);
+    const cachedFn = cache(fn);
 
     expect(cachedFn(2)).toBe(4);
     expect(fn).toHaveBeenCalledTimes(1);
@@ -19,7 +23,7 @@ describe('cache function', () => {
     expect.hasAssertions();
 
     const fn = jest.fn((x: number) => x * 2);
-    const cachedFn = cache(fn, 10);
+    const cachedFn = cache(fn);
 
     expect(cachedFn(2)).toBe(4);
     expect(fn).toHaveBeenCalledTimes(1);
@@ -38,7 +42,7 @@ describe('cache function', () => {
     expect.hasAssertions();
 
     const fn = jest.fn((x: number) => x * 2);
-    const cachedFn = cache(fn, 1000);
+    const cachedFn = cache(fn);
 
     expect(cachedFn(2)).toBe(4);
     expect(fn).toHaveBeenCalledTimes(1);
