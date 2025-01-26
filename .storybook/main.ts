@@ -11,5 +11,7 @@ const config: StorybookConfig = {
     name: 'storybook-react-rsbuild',
     options: {},
   },
+  staticDirs: ['../public'],
 };
+
 export default config;

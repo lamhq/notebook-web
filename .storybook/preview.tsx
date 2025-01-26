@@ -1,16 +1,19 @@
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
-import type { Preview } from '@storybook/react';
-
 import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import type { Preview } from '@storybook/react';
 import type { Locale } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
-import { theme } from '../src/theme';
-
+import { initialize, mswLoader } from 'msw-storybook-addon';
 import { BrowserRouter } from 'react-router';
 
+import { handlers } from '../src/msw/handlers';
 import '../src/styles.css';
+import { theme } from '../src/theme';
+
+// Initialize MSW
+initialize();
 
 const customEnLocale: Locale = {
   ...enUS,
@@ -33,6 +36,9 @@ const preview: Preview = {
       viewports: MINIMAL_VIEWPORTS,
       default: 'mobile',
     },
+    msw: {
+      handlers,
+    },
   },
   decorators: [
     (Story) => (
@@ -48,6 +54,7 @@ const preview: Preview = {
       </ThemeProvider>
     ),
   ],
+  loaders: [mswLoader],
 };
 
 export default preview;
