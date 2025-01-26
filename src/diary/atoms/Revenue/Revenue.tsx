@@ -1,40 +1,33 @@
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
-import { type MouseEventHandler, useCallback, useState } from 'react';
 import AmountBadge from '../../../common/atoms/AmountBadge/AmountBadge';
 import Typography from '../../../common/atoms/Typography/Typography';
 import { formatNumber } from '../../../common/utils';
+import { useGetRevenueQuery } from '../../hooks';
+import useRevenueProps from './hooks';
 
-export type RevenueProps = {
+export type RevenueViewProps = {
   income: number;
   outcome: number;
-}
+};
 
-export default function Revenue({ income, outcome }: RevenueProps) {
+export function RevenueView({ income, outcome }: RevenueViewProps) {
+  const { popupId, isPopupVisible, popupAnchor, showDetails, closeDetails } =
+    useRevenueProps();
   const it = formatNumber(income);
   const ot = formatNumber(outcome);
-  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-  const open = Boolean(anchorEl);
-  const id = open ? 'revenue-popover' : undefined;
-  const handleClick: MouseEventHandler = useCallback((event) => {
-    setAnchorEl(event.currentTarget);
-  }, []);
-  const handleClose = useCallback(() => {
-    setAnchorEl(null);
-  }, []);
-
   return (
     <>
       <AmountBadge
         isIncome={income > outcome}
         amount={Math.abs(income - outcome)}
-        onClick={handleClick}
+        onClick={showDetails}
       />
       <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
+        id={popupId}
+        open={isPopupVisible}
+        anchorEl={popupAnchor}
+        onClose={closeDetails}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',
@@ -56,4 +49,9 @@ export default function Revenue({ income, outcome }: RevenueProps) {
       </Popover>
     </>
   );
+}
+
+export default function Revenue() {
+  const data = useGetRevenueQuery();
+  return <RevenueView {...data} />;
 }

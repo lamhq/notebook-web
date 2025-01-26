@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button } from '@mui/material';
+import { Button, TextareaAutosize } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
 import { useEffect } from 'react';
@@ -10,7 +10,7 @@ import type * as yup from 'yup';
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import DateTimePicker from '../../../common/atoms/DateTimePicker/DateTimePicker';
 import LoadingButton from '../../../common/atoms/LoadingButton/LoadingButton';
-import Textarea from '../../../common/atoms/Textarea/Textarea';
+
 // import ActivityTagSelect from '../../containers/ActivityTagSelect';
 import { getTotalAmounts, yupSchema } from '../../utils';
 
@@ -59,7 +59,7 @@ export default function ActivityForm({
                 helperText={errors.content?.message}
                 slotProps={{
                   input: {
-                    inputComponent: Textarea,
+                    inputComponent: TextareaAutosize,
                   },
                 }}
                 {...field}

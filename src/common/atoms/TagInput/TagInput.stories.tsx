@@ -10,30 +10,34 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const Template: Story = {
+export const Default: Story = {
   args: {
     label: 'Tags',
-    value: [],
-    options: [],
+    value: ['abc', 'def'],
+    options: ['abc', 'def', 'ghi'],
   },
   render: () => {
     const [{ onChange: sbOnChange, options, ...rest }, updateArgs] =
       useArgs<TagInputProps>();
 
-    const onChange: TagInputProps['onChange'] = (event, newVal, reason, details) => {
+    const handleChange: TagInputProps['onChange'] = (
+      event,
+      newVal,
+      reason,
+      details,
+    ) => {
       updateArgs({ value: newVal });
       sbOnChange?.(event, newVal, reason, details);
     };
 
-    return <TagInput onChange={onChange} options={options} {...rest} />;
+    return <TagInput onChange={handleChange} options={options} {...rest} />;
   },
 };
 
-export const Default: Story = {
-  ...Template,
+export const AllowAdding: Story = {
+  ...Default,
   args: {
-    label: 'Tags',
-    value: ['abc', 'def'],
-    options: ['abc', 'def', 'ghi'],
+    ...Default.args,
+    freeSolo: true,
   },
 };

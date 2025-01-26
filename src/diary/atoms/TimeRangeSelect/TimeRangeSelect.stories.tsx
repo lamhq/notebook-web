@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { TimeRange } from '../../types';
 import TimeRangeSelect from './TimeRangeSelect';
 
 const meta = {
@@ -11,5 +12,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    value: TimeRange.All,
+  },
 };

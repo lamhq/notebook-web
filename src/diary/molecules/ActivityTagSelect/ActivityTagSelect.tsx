@@ -1,4 +1,9 @@
+import RefreshIcon from '@mui/icons-material/Refresh';
+import IconButton from '@mui/material/IconButton';
 import { Suspense } from 'react';
+import type { ErrorBoundaryPropsWithRender } from 'react-error-boundary';
+import { ErrorBoundary } from 'react-error-boundary';
+
 import type { TagInputProps } from '../../../common/atoms/TagInput/TagInput';
 import TagInput from '../../../common/atoms/TagInput/TagInput';
 import { useGetTagsQuery } from '../../hooks';
@@ -16,9 +21,26 @@ function DataFetchingSelect(props: ActivityTagSelectProps) {
 
 export default function ActivityTagSelect(props: ActivityTagSelectProps) {
   const loadingFallback = LoadingSelect(props);
+  const renderErrorFallback: ErrorBoundaryPropsWithRender['fallbackRender'] = ({
+    resetErrorBoundary,
+  }) => {
+    return (
+      <TagInput
+        {...props}
+        options={[]}
+        endAdornment={
+          <IconButton aria-label="delete" size="small" onClick={resetErrorBoundary}>
+            <RefreshIcon color="inherit" />
+          </IconButton>
+        }
+      />
+    );
+  };
   return (
-    <Suspense fallback={loadingFallback}>
-      <DataFetchingSelect {...props} />
-    </Suspense>
+    <ErrorBoundary fallbackRender={renderErrorFallback}>
+      <Suspense fallback={loadingFallback}>
+        <DataFetchingSelect {...props} />
+      </Suspense>
+    </ErrorBoundary>
   );
 }

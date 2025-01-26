@@ -1,14 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Revenue from './Revenue';
+import Revenue, { RevenueView } from './Revenue';
 
 const meta = {
-  component: Revenue,
-} satisfies Meta<typeof Revenue>;
+  component: RevenueView,
+} satisfies Meta<typeof RevenueView>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
+export const Default = {
+  render: () => <Revenue />,
+};
 
 export const Positive: Story = {
   args: {

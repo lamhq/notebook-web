@@ -13,7 +13,14 @@ import '../src/styles.css';
 import { theme } from '../src/theme';
 
 // Initialize MSW
-initialize();
+initialize({
+  serviceWorker: {
+    options: {
+      // only mock API requests
+      scope: '/api',
+    },
+  },
+});
 
 const customEnLocale: Locale = {
   ...enUS,
