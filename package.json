@@ -26,6 +26,7 @@
     "@mui/x-date-pickers": "^7.23.6",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
+    "jotai": "^2.11.1",
     "numeral": "^2.0.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

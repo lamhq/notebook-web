@@ -14,15 +14,11 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const Template: Story = {
+export const Default: Story = {
   args: {
     value: new Date(),
     onChange: fn(),
   },
-};
-
-export const Default: Story = {
-  ...Template,
   render: (args) => {
     const [{ value, onChange: sbOnChange }, updateArgs] =
       useArgs<DateTimePickerProps>();
