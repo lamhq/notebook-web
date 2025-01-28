@@ -4,6 +4,12 @@ export type AlertItem = {
   timestamp: number;
 };
 
-export type AlertTemplateProps = {
+export type AlertViewProps = {
   items: (AlertItem & { remove: () => void })[];
+};
+
+export type AlertHook = {
+  showSuccess: (msg: string) => void;
+  showError: (msg: string) => void;
+  showWarning: (msg: string) => void;
 };

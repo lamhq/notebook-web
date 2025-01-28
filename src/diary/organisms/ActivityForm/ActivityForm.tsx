@@ -1,15 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, TextareaAutosize } from '@mui/material';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 import TextField from '@mui/material/TextField';
 import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router';
 import type * as yup from 'yup';
-
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import DateTimePicker from '../../../common/atoms/DateTimePicker/DateTimePicker';
-import LoadingButton from '../../../common/atoms/LoadingButton/LoadingButton';
 
 // import ActivityTagSelect from '../../containers/ActivityTagSelect';
 import { getTotalAmounts, yupSchema } from '../../utils';
@@ -130,14 +129,14 @@ export default function ActivityForm({
         <Button variant="contained" color="secondary" component={RouterLink} to="/">
           Cancel
         </Button>
-        <LoadingButton
+        <Button
           loading={isSubmitting}
           type="submit"
           variant="contained"
           color="primary"
         >
           Submit
-        </LoadingButton>
+        </Button>
       </ButtonsContainer>
     </form>
   );

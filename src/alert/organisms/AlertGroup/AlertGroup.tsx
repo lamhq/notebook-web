@@ -1,7 +1,7 @@
-import AlertTemplate from '../../atoms/AlertTemplate/AlertTemplate';
+import AlertView from '../../atoms/AlertView/AlertView';
 import { useAlertProps } from '../../hooks';
 
 export default function AlertGroup() {
   const { items } = useAlertProps();
-  return <AlertTemplate items={items} />;
+  return <AlertView items={items} />;
 }

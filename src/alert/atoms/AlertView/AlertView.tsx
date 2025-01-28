@@ -1,8 +1,8 @@
 import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import type { AlertTemplateProps } from '../../types';
+import type { AlertViewProps } from '../../types';
 
-export default function AlertTemplate({ items }: AlertTemplateProps) {
+export default function AlertView({ items }: AlertViewProps) {
   return (
     <Stack spacing={1}>
       {items.map(({ type, message, remove, timestamp }) => (

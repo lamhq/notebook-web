@@ -1,7 +1,8 @@
 import { useAtom, useSetAtom } from 'jotai';
 import { alertAtom } from './atoms';
+import type { AlertHook, AlertViewProps } from './types';
 
-export function useAlert() {
+export function useAlert(): AlertHook {
   const setState = useSetAtom(alertAtom);
   const addSuccess = (msg: string) => {
     setState((alerts) => [
@@ -28,7 +29,7 @@ export function useAlert() {
   };
 }
 
-export function useAlertProps() {
+export function useAlertProps(): AlertViewProps {
   const [alerts, setAlerts] = useAtom(alertAtom);
   const items = alerts.map((item) => {
     const remove = () => {

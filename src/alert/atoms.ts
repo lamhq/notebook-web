@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import type { AlertItem } from './types';
 
-const initializeState: AlertItem[] = [];
+const initialState: AlertItem[] = [];
 
-export const alertAtom = atom(initializeState);
+export const alertAtom = atom(initialState);
