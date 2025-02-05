@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { fn } from '@storybook/test';
 import { TimeRange } from '../../types';
-import ActivitySearch from './ActivitySearch';
+import SearchDialog from './SearchDialog';
 
 const meta = {
-  component: ActivitySearch,
-} satisfies Meta<typeof ActivitySearch>;
+  component: SearchDialog,
+} satisfies Meta<typeof SearchDialog>;
 
 export default meta;
 

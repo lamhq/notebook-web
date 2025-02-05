@@ -8,21 +8,24 @@ import Grid from '@mui/material/Grid2';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { useCallback, useState } from 'react';
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
+import { useAtom } from 'jotai';
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
 import DatePicker from '../../../common/atoms/DatePicker';
-import TimeRangeSelect from '../../atoms/TimeRangeSelect/TimeRangeSelect';
-// import ActivityTagSelect from '../../containers/ActivityTagSelect';
+import { activityFilterAtom } from '../../atoms';
+import TimeRangeSelect from '../../atoms/TimeRangeSelect';
+import ActivityTagSelect from '../../molecules/ActivityTagSelect';
 import type { ActivityFilter } from '../../types';
 import { TimeRange } from '../../types';
 
-export type ActivitySearchProps = {
+export type SearchDialogViewProps = {
   values: ActivityFilter;
   onSubmit: SubmitHandler<ActivityFilter>;
 };
 
-export default function ActivitySearch({ values, onSubmit }: ActivitySearchProps) {
+export function SearchDialogView({ values, onSubmit }: SearchDialogViewProps) {
   const [open, setOpen] = useState(false);
   const { control, handleSubmit, watch, reset } = useForm<ActivityFilter>({
     defaultValues: values,
@@ -34,7 +37,7 @@ export default function ActivitySearch({ values, onSubmit }: ActivitySearchProps
   const handleCloseDialog = useCallback(() => {
     setOpen(false);
   }, []);
-  const handleFormSubmit: SubmitHandler<ActivityFilter> = useCallback(
+  const handleFormSubmit = useCallback<SubmitHandler<ActivityFilter>>(
     (data) => {
       onSubmit(data);
       setOpen(false);
@@ -63,17 +66,19 @@ export default function ActivitySearch({ values, onSubmit }: ActivitySearchProps
                 />
               </Grid>
               <Grid size={{ xs: 12, sm: 6 }}>
-                {/* <Controller
+                <Controller
                   name="tags"
                   control={control}
                   render={({ field: { onChange, ...rest } }) => (
                     <ActivityTagSelect
                       label="Tags"
-                      onChange={(e, v) => onChange(v)}
+                      onChange={(e, v) => {
+                        onChange(v);
+                      }}
                       {...rest}
                     />
                   )}
-                /> */}
+                />
               </Grid>
               <Grid size={{ xs: 12, sm: 6 }}>
                 <Controller
@@ -130,4 +135,15 @@ export default function ActivitySearch({ values, onSubmit }: ActivitySearchProps
       </Dialog>
     </>
   );
+}
+
+export default function SearchDialog() {
+  const [filter, setFilter] = useAtom(activityFilterAtom);
+  const handleSearch = useCallback<SubmitHandler<ActivityFilter>>(
+    (data) => {
+      setFilter({ ...data, page: 1 });
+    },
+    [setFilter],
+  );
+  return <SearchDialogView values={filter} onSubmit={handleSearch} />;
 }

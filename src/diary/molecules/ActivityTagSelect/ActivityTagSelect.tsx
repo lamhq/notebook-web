@@ -14,7 +14,7 @@ function LoadingSelect(props: ActivityTagSelectProps) {
   return <TagInput {...props} options={[]} loading />;
 }
 
-function DataFetchingSelect(props: ActivityTagSelectProps) {
+function FetchActivitySelect(props: ActivityTagSelectProps) {
   const tags = useGetTagsQuery();
   return <TagInput {...props} options={tags} />;
 }
@@ -39,7 +39,7 @@ export default function ActivityTagSelect(props: ActivityTagSelectProps) {
   return (
     <ErrorBoundary fallbackRender={renderErrorFallback}>
       <Suspense fallback={loadingFallback}>
-        <DataFetchingSelect {...props} />
+        <FetchActivitySelect {...props} />
       </Suspense>
     </ErrorBoundary>
   );

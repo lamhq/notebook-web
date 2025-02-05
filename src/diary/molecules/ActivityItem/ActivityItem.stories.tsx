@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    model: {
+    activity: {
       id: '1',
       time: '2021-06-15T01:21:03.368Z',
       tags: ['play', 'gog'],
