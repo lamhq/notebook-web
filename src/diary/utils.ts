@@ -7,7 +7,6 @@ import { startOfMonth } from 'date-fns/startOfMonth';
 import { startOfWeek } from 'date-fns/startOfWeek';
 import { startOfYear } from 'date-fns/startOfYear';
 import { subMonths } from 'date-fns/subMonths';
-import * as yup from 'yup';
 
 import type { ActivityFilter } from './types';
 import { TimeRange } from './types';
@@ -46,14 +45,6 @@ export function getTotalAmounts(note: string): [number, number] {
   }
   return [income, outcome];
 }
-
-export const yupSchema = yup.object().shape({
-  time: yup.date().required(),
-  content: yup.string().required('This field is required'),
-  tags: yup.array(yup.string().required()).required(),
-  income: yup.number(),
-  outcome: yup.number(),
-});
 
 function getTimeRangeFromFilter(filter: ActivityFilter): [Date?, Date?] {
   let from: Date | undefined = undefined;

@@ -8,7 +8,7 @@ import {
   ItemText,
   Menu,
   MenuItem,
-} from '../../../common/atoms/ContextMenu/ContextMenu';
+} from '../../../common/atoms/ContextMenu';
 // import DeleteActivityMenuItem from '../../containers/DeleteActivityMenuItem';
 import type { Activity } from '../../types';
 
@@ -23,7 +23,7 @@ const UnstyledLink = styled(Link)<LinkProps>(() => ({
 
 export type ActivityMenuProps = {
   activity: Activity;
-}
+};
 
 export default function ActivityMenu({ activity }: ActivityMenuProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { format } from 'date-fns';
 import { Fragment } from 'react';
-import Typography from '../../../common/atoms/Typography/Typography';
+import Typography from '../../../common/atoms/Typography';
+import { formatDate } from '../../../common/utils';
 import ActivityItem from '../../molecules/ActivityItem/ActivityItem';
 import type { Activity } from '../../types';
 
@@ -12,7 +12,7 @@ export type ActivityListProps = {
 
 export default function ActivityList({ models }: ActivityListProps) {
   const dates = models.reduce<Record<string, Activity[]>>((current, item) => {
-    const date = format(new Date(item.time), 'EEE, d LLL, yyyy');
+    const date = formatDate(item.time);
     const res = current;
     res[date] ??= [];
     res[date].push(item);

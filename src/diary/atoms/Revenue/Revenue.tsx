@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
-import AmountBadge from '../../../common/atoms/AmountBadge/AmountBadge';
-import Typography from '../../../common/atoms/Typography/Typography';
+import AmountBadge from '../../../common/atoms/AmountBadge';
+import Typography from '../../../common/atoms/Typography';
 import { formatNumber } from '../../../common/utils';
 import { useGetRevenueQuery } from '../../hooks';
 import useRevenueProps from './hooks';

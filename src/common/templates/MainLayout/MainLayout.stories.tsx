@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Typography from '../../atoms/Typography/Typography';
+import Typography from '../../atoms/Typography';
 import MainLayout from './MainLayout';
 
 const meta = {

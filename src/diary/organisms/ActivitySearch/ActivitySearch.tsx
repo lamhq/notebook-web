@@ -11,7 +11,7 @@ import { useCallback, useState } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
-import DatePicker from '../../../common/atoms/DatePicker/DatePicker';
+import DatePicker from '../../../common/atoms/DatePicker';
 import TimeRangeSelect from '../../atoms/TimeRangeSelect/TimeRangeSelect';
 // import ActivityTagSelect from '../../containers/ActivityTagSelect';
 import type { ActivityFilter } from '../../types';
@@ -20,7 +20,7 @@ import { TimeRange } from '../../types';
 export type ActivitySearchProps = {
   values: ActivityFilter;
   onSubmit: SubmitHandler<ActivityFilter>;
-}
+};
 
 export default function ActivitySearch({ values, onSubmit }: ActivitySearchProps) {
   const [open, setOpen] = useState(false);

@@ -1,7 +1,7 @@
 import type { AxiosHeaderValue } from 'axios';
 import { createMutation, createQuery } from '../common/api';
 import { removeEmptyFields } from '../common/utils';
-import type { Activity, ActivityFilter, ActivityForm, Revenue } from './types';
+import type { Activity, ActivityFilter, ActivityFormData, Revenue } from './types';
 import { buildQueryFromFilter } from './utils';
 
 export const useGetActivitiesQuery = createQuery(
@@ -23,11 +23,6 @@ export const useGetActivitiesQuery = createQuery(
 export const useGetRevenueQuery = createQuery(
   (filter: ActivityFilter) => {
     const params = buildQueryFromFilter(filter);
-    if (!params.from || !params.to) {
-      const now = new Date();
-      params.from = now.toISOString();
-      params.to = now.toISOString();
-    }
     return {
       url: '/diary/stat/revenue',
       method: 'GET',
@@ -46,7 +41,7 @@ export const useGetActivityQuery = createQuery(
 );
 
 export const useAddActivityMutation = createMutation(
-  (data: ActivityForm) => ({
+  (data: ActivityFormData) => ({
     url: `/diary/activities`,
     method: 'POST',
     data: removeEmptyFields(data),
@@ -55,7 +50,7 @@ export const useAddActivityMutation = createMutation(
 );
 
 export const useUpdateActivityMutation = createMutation(
-  ({ id, data }: { id: string; data: ActivityForm }) => ({
+  ({ id, data }: { id: string; data: ActivityFormData }) => ({
     url: `/diary/activities/${id}`,
     method: 'PUT',
     data: removeEmptyFields(data),

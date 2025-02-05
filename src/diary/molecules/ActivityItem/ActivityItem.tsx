@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
-import Typography from '../../../common/atoms/Typography/Typography';
+import Typography from '../../../common/atoms/Typography';
 import { formatNumber } from '../../../common/utils';
 import TimeLabel from '../../atoms/TimeLabel/TimeLabel';
 import type { Activity } from '../../types';
@@ -8,7 +8,7 @@ import ActivityMenu from '../ActivityMenu/ActivityMenu';
 
 export type ActivityItemProps = {
   model: Activity;
-}
+};
 
 export default function ActivityItem({ model }: ActivityItemProps) {
   const html = model.content.replace(/\n/g, '<br/>');
