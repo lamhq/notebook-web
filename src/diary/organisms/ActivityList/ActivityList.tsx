@@ -6,6 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import type { PaginationProps } from '../../../common/atoms/Pagination';
 import Pagination from '../../../common/atoms/Pagination';
 import Typography from '../../../common/atoms/Typography';
+import ErrorFallback from '../../../common/organism/ErrorFallback';
 import LoadingFallback from '../../../common/organism/LoadingFallback';
 import { formatDate } from '../../../common/utils';
 import { activityFilterAtom } from '../../atoms';
@@ -97,7 +98,7 @@ function FetchActivitySelect() {
 
 export default function ActivityList() {
   return (
-    <ErrorBoundary fallbackRender={renderErrorFallback}>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Suspense fallback={<LoadingFallback />}>
         <FetchActivitySelect />
       </Suspense>

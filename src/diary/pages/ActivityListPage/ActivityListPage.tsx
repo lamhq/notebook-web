@@ -4,7 +4,6 @@ import { Link as RouterLink } from 'react-router';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
-import MainLayout from '../../../common/templates/MainLayout';
 import Revenue from '../../atoms/Revenue';
 import ActivityList from '../../organisms/ActivityList';
 import SearchDialog from '../../organisms/SearchDialog';
@@ -17,9 +16,10 @@ const ToolBar = styled('div')(({ theme }) => ({
 
 export default function ActivityListPage() {
   return (
-    <MainLayout title="Activities">
+    <>
       <ToolBar>
         <ButtonsContainer>
+          {/* Add Activity */}
           <IconButton
             color="primary"
             size="small"
@@ -28,11 +28,15 @@ export default function ActivityListPage() {
           >
             <AddCircleIcon />
           </IconButton>
+          {/* Search Activity */}
           <SearchDialog />
         </ButtonsContainer>
+
+        {/* Monthly Spend */}
         <Revenue />
       </ToolBar>
+
       <ActivityList />
-    </MainLayout>
+    </>
   );
 }

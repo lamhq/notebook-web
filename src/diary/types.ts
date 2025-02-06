@@ -7,7 +7,13 @@ export type Activity = {
   outcome?: number;
 };
 
-export type ActivityFormData = Omit<Activity, 'id'>;
+export type ActivityFormData = {
+  content: string;
+  time: Date;
+  tags: string[];
+  income?: string;
+  outcome?: string;
+};
 
 export type Revenue = {
   income: number;

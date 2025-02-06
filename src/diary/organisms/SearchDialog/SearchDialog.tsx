@@ -53,7 +53,7 @@ export function SearchDialogView({ values, onSubmit }: SearchDialogViewProps) {
       <IconButton color="default" size="small" onClick={handleOpenDialog}>
         <FilterListIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleCloseDialog} keepMounted>
+      <Dialog open={open} onClose={handleCloseDialog} keepMounted={false}>
         <DialogTitle>Search activities</DialogTitle>
         <DialogContent>
           <form id="activitySearchForm" onSubmit={handleSubmit(handleFormSubmit)}>

@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import reactDom from 'react-dom/client';
+import { BrowserRouter } from 'react-router';
 
 import App from './App';
 
@@ -8,7 +9,9 @@ if (rootEl) {
   const root = reactDom.createRoot(rootEl);
   root.render(
     <StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </StrictMode>,
   );
 }

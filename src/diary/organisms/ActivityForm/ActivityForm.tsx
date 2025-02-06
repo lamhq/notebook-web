@@ -18,8 +18,8 @@ const activityFormSchema = yup.object().shape({
   time: yup.date().required(),
   content: yup.string().required('This field is required'),
   tags: yup.array(yup.string().required()).required(),
-  income: yup.number(),
-  outcome: yup.number(),
+  income: yup.string(),
+  outcome: yup.string(),
 });
 
 export type ActivityFormProps = {
@@ -46,8 +46,8 @@ export default function ActivityForm({
   const noteContent = watch('content');
   useEffect(() => {
     const [income, outcome] = calcAmounts(noteContent);
-    setValue('income', income !== 0 ? income : undefined);
-    setValue('outcome', outcome !== 0 ? outcome : undefined);
+    setValue('income', income !== 0 ? income.toString() : '');
+    setValue('outcome', outcome !== 0 ? outcome.toString() : '');
   }, [noteContent, setValue]);
 
   return (
