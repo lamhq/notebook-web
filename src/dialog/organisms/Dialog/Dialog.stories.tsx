@@ -3,11 +3,11 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { useDialogs } from '../../hooks';
-import DialogProvider from './DialogProvider';
+import Dialog from './Dialog';
 
 const meta = {
-  component: DialogProvider,
-} satisfies Meta<typeof DialogProvider>;
+  component: Dialog,
+} satisfies Meta<typeof Dialog>;
 
 export default meta;
 
@@ -53,7 +53,7 @@ export const Default: Story = {
         {selected !== undefined && <p>you select: {selected ? 'Ok' : 'Cancel'}</p>}
         {input !== undefined && <p>you enter: {input}</p>}
 
-        <DialogProvider />
+        <Dialog />
       </>
     );
   },

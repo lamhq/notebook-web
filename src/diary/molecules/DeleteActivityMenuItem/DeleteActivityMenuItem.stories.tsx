@@ -1,18 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { MemoryRouter } from 'react-router';
-import ActivityItem from './ActivityItem';
+import { fn } from '@storybook/test';
+import { Dialog } from '../../../dialog';
+import DeleteActivityMenuItem from './DeleteActivityMenuItem';
 
 const meta = {
-  component: ActivityItem,
+  component: DeleteActivityMenuItem,
   decorators: [
     (Story) => (
-      <MemoryRouter>
+      <>
+        <Dialog />
         <Story />
-      </MemoryRouter>
+      </>
     ),
   ],
-} satisfies Meta<typeof ActivityItem>;
+} satisfies Meta<typeof DeleteActivityMenuItem>;
 
 export default meta;
 
@@ -28,5 +29,6 @@ export const Default: Story = {
       outcome: 230.0,
       content: 'abc\ndef\nghi',
     },
+    onDeleted: () => fn(),
   },
 };

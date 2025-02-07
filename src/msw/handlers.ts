@@ -67,4 +67,35 @@ export const handlers = [
       outcome: 225,
     });
   }),
+
+  http.put('/api/diary/activities/:id', async ({ params }) => {
+    const { id } = params;
+    await delay();
+    return HttpResponse.json({
+      tags: ['play', 'gog'],
+      id: id,
+      content:
+        'Lorem ipsum dolor sit amet\nconsectetur adipiscing elit\nmagnam aliquam quaerat voluptatem',
+      time: '2025-02-04T10:12:57.687Z',
+      outcome: 225,
+    });
+  }),
+
+  http.get('/api/diary/activities/:id', async ({ params }) => {
+    const { id } = params;
+    await delay();
+    return HttpResponse.json({
+      tags: ['play', 'gog'],
+      id: id,
+      content:
+        'Lorem ipsum dolor sit amet\nconsectetur adipiscing elit\nmagnam aliquam quaerat voluptatem',
+      time: '2025-02-04T10:12:57',
+      outcome: 225,
+    });
+  }),
+
+  http.delete('/api/diary/activities/:id', async () => {
+    await delay();
+    return new HttpResponse();
+  }),
 ];

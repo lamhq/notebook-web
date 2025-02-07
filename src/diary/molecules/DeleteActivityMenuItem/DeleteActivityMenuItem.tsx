@@ -1,8 +1,9 @@
 import DeleteIcon from '@mui/icons-material/Delete';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useCallback } from 'react';
 import { ItemIcon, ItemText, MenuItem } from '../../../common/atoms/ContextMenu';
 import { formatDate } from '../../../common/utils';
-import { useDialogs } from '../../../dialog/hooks';
+import { useDialogs } from '../../../dialog';
 import { useDeleteActivityMutation } from '../../hooks';
 import type { Activity } from '../../types';
 
@@ -15,8 +16,9 @@ export default function DeleteActivityMenuItem({
   activity,
   onDeleted,
 }: DeleteActivityMenuItemProps) {
-  const [deleteActivity] = useDeleteActivityMutation();
+  const [deleteActivity, { isLoading }] = useDeleteActivityMutation();
   const { confirm, alert } = useDialogs();
+
   const handleDelete = useCallback(async () => {
     try {
       const isOk = await confirm(
@@ -35,9 +37,13 @@ export default function DeleteActivityMenuItem({
   }, [deleteActivity, onDeleted]);
 
   return (
-    <MenuItem onClick={handleDelete}>
+    <MenuItem onClick={handleDelete} disabled={isLoading}>
       <ItemIcon>
-        <DeleteIcon fontSize="small" />
+        {isLoading ? (
+          <CircularProgress size="15px" color="primary" />
+        ) : (
+          <DeleteIcon fontSize="small" />
+        )}
       </ItemIcon>
       <ItemText primary="Delete" />
     </MenuItem>

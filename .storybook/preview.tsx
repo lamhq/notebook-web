@@ -6,7 +6,6 @@ import type { Preview } from '@storybook/react';
 import type { Locale } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
 import { initialize, mswLoader } from 'msw-storybook-addon';
-import { MemoryRouter } from 'react-router';
 
 import { handlers } from '../src/msw/handlers';
 import '../src/styles.css';
@@ -54,9 +53,7 @@ const preview: Preview = {
           dateAdapter={AdapterDateFns}
           adapterLocale={customEnLocale}
         >
-          <MemoryRouter>
-            <Story />
-          </MemoryRouter>
+          <Story />
         </LocalizationProvider>
       </ThemeProvider>
     ),

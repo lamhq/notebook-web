@@ -63,7 +63,7 @@ export default function AlertDialog({
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'center' }}>
         <Button
-          variant="outlined"
+          variant="contained"
           color={severity}
           disabled={!isOpen}
           {...okButtonProps}

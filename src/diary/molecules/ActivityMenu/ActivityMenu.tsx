@@ -1,6 +1,7 @@
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
 import type { MouseEventHandler } from 'react';
 import { useCallback, useState } from 'react';
 import { Link, type LinkProps } from 'react-router';
@@ -10,10 +11,7 @@ import {
   Menu,
   MenuItem,
 } from '../../../common/atoms/ContextMenu';
-// import DeleteActivityMenuItem from '../../containers/DeleteActivityMenuItem';
 import type { Activity } from '../../types';
-
-import { styled } from '@mui/material/styles';
 import DeleteActivityMenuItem from '../DeleteActivityMenuItem/DeleteActivityMenuItem';
 
 const UnstyledLink = styled(Link)<LinkProps>(() => ({

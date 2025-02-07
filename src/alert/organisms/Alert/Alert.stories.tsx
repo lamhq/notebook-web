@@ -3,16 +3,16 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { useAlert } from '../../hooks';
-import AlertProvider from './AlertProvider';
+import Alert from './Alert';
 
 const meta = {
-  component: AlertProvider,
+  component: Alert,
   argTypes: {
     message: {
       control: { type: 'text' },
     },
   },
-} satisfies Meta<typeof AlertProvider>;
+} satisfies Meta<typeof Alert>;
 
 export default meta;
 
@@ -61,7 +61,7 @@ export const Default: Story = {
             Add Warning
           </Button>
         </ButtonGroup>
-        <AlertProvider />
+        <Alert />
       </>
     );
   },
