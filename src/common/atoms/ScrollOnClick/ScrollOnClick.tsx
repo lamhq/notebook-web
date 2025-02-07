@@ -3,18 +3,16 @@ import Zoom from '@mui/material/Zoom';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { type MouseEventHandler, type ReactNode, useCallback } from 'react';
 
-export interface ScrollToProps {
+export type ScrollToProps = {
   anchorSelector: string;
   children: ReactNode;
-}
+};
 
 export default function ScrollOnClick({ children, anchorSelector }: ScrollToProps) {
   const trigger = useScrollTrigger();
   const handleClick: MouseEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      const anchor = (event.currentTarget.ownerDocument || document).querySelector(
-        anchorSelector,
-      );
+      const anchor = event.currentTarget.ownerDocument.querySelector(anchorSelector);
       if (anchor) {
         anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }

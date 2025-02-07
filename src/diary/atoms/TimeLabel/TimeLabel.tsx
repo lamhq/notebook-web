@@ -1,11 +1,11 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Box from '@mui/material/Box';
-import { format } from 'date-fns';
-import Typography from '../../../common/atoms/Typography/Typography';
+import Typography from '../../../common/atoms/Typography';
+import { formatTime } from '../../../common/utils';
 
-export interface TimeLabelProps {
-  time: string;
-}
+export type TimeLabelProps = {
+  time: Date;
+};
 
 export default function TimeLabel({ time }: TimeLabelProps) {
   return (
@@ -14,7 +14,7 @@ export default function TimeLabel({ time }: TimeLabelProps) {
         sx={{ fontSize: '1.125rem', color: 'grey.500', marginRight: '4px' }}
       />
       <Typography variant="body2" sx={{ color: 'grey.500' }}>
-        {format(new Date(time), 'h:mm aaa')}
+        {formatTime(time)}
       </Typography>
     </Box>
   );

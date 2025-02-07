@@ -19,14 +19,12 @@ export const Default: Story = {
     value: new Date(),
     onChange: fn(),
   },
-  render: function Render(args) {
-    const [{ value, onChange: sbOnChange }, updateArgs] = useArgs();
-
-    const onChange: DatePickerProps['onChange'] = (newVal) => {
+  render: (args) => {
+    const [{ value, onChange: sbOnChange }, updateArgs] = useArgs<DatePickerProps>();
+    const onChange: DatePickerProps['onChange'] = (newVal, context) => {
       updateArgs({ value: newVal });
-      sbOnChange(newVal);
+      sbOnChange?.(newVal, context);
     };
-
     return <DatePicker {...args} onChange={onChange} value={value} />;
   },
 };

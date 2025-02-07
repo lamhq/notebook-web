@@ -1,10 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Typography from '../../atoms/Typography/Typography';
+import { MemoryRouter } from 'react-router';
+import Typography from '../../atoms/Typography';
 import MainLayout from './MainLayout';
 
 const meta = {
   component: MainLayout,
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
 } satisfies Meta<typeof MainLayout>;
 
 export default meta;
@@ -16,7 +24,7 @@ export const Default: Story = {
     title: 'Test Page',
     children: (
       <>
-        {[...new Array(12)].map((_, idx) => (
+        {Array(12).map((_, idx) => (
           <Typography variant="body1" key={idx.toString()}>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac

@@ -1,23 +1,23 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
-import Typography from '../../../common/atoms/Typography/Typography';
+import Typography from '../../../common/atoms/Typography';
 import { formatNumber } from '../../../common/utils';
 import TimeLabel from '../../atoms/TimeLabel/TimeLabel';
 import type { Activity } from '../../types';
-import ActivityMenu from '../ActivityMenu/ActivityMenu';
+import ActivityMenu from '../ActivityMenu';
 
-export interface ActivityItemProps {
-  model: Activity;
-}
+export type ActivityItemProps = {
+  activity: Activity;
+};
 
-export default function ActivityItem({ model }: ActivityItemProps) {
-  const html = model.content.replace(/\n/g, '<br/>');
+export default function ActivityItem({ activity }: ActivityItemProps) {
+  const html = activity.content.replace(/\n/g, '<br/>');
 
   return (
     <>
       <Grid container spacing={0} justifyContent="space-between">
-        <TimeLabel time={model.time} />
-        <ActivityMenu activity={model} />
+        <TimeLabel time={activity.time} />
+        <ActivityMenu activity={activity} />
       </Grid>
       <Typography
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
@@ -27,19 +27,19 @@ export default function ActivityItem({ model }: ActivityItemProps) {
       />
       <Grid container spacing={0} justifyContent="space-between">
         <Box sx={{ display: 'flex', columnGap: 1 }}>
-          {Boolean(model.income && model.income > 0) && (
+          {Boolean(activity.income && activity.income > 0) && (
             <Typography variant="body2" sx={{ color: 'success.main' }}>
-              {formatNumber(model.income)}
+              {formatNumber(activity.income)}
             </Typography>
           )}
-          {Boolean(model.outcome && model.outcome > 0) && (
+          {Boolean(activity.outcome && activity.outcome > 0) && (
             <Typography variant="body2" sx={{ color: 'error.main' }}>
-              {formatNumber(model.outcome)}
+              {formatNumber(activity.outcome)}
             </Typography>
           )}
         </Box>
         <Box sx={{ display: 'flex', columnGap: 1 }}>
-          {model.tags.map((tag) => (
+          {activity.tags.map((tag) => (
             <Typography key={tag} variant="body2" sx={{ color: 'primary.main' }}>
               {`#${tag}`}
             </Typography>

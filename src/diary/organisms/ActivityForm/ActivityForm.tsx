@@ -1,25 +1,31 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 import TextField from '@mui/material/TextField';
 import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router';
-import type * as yup from 'yup';
+import * as yup from 'yup';
 
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
-import DateTimePicker from '../../../common/atoms/DateTimePicker/DateTimePicker';
-import LoadingButton from '../../../common/atoms/LoadingButton/LoadingButton';
-import Textarea from '../../../common/atoms/Textarea/Textarea';
-// import ActivityTagSelect from '../../containers/ActivityTagSelect';
-import { getTotalAmounts, yupSchema } from '../../utils';
+import DateTimePicker from '../../../common/atoms/DateTimePicker';
+import ActivityTagSelect from '../../molecules/ActivityTagSelect';
+import type { ActivityFormData } from '../../types';
+import { getTotalAmounts as calcAmounts } from '../../utils';
 
-export interface ActivityFormModel extends yup.InferType<typeof yupSchema> {}
+const activityFormSchema = yup.object().shape({
+  time: yup.date().required(),
+  content: yup.string().required('This field is required'),
+  tags: yup.array(yup.string().required()).required(),
+  income: yup.string(),
+  outcome: yup.string(),
+});
 
-export interface ActivityFormProps {
-  defaultValues: ActivityFormModel;
-  onSubmit: SubmitHandler<ActivityFormModel>;
-}
+export type ActivityFormProps = {
+  defaultValues: ActivityFormData;
+  onSubmit: SubmitHandler<ActivityFormData>;
+};
 
 export default function ActivityForm({
   defaultValues,
@@ -31,17 +37,17 @@ export default function ActivityForm({
     formState: { isSubmitting, errors },
     watch,
     setValue,
-  } = useForm<ActivityFormModel>({
+  } = useForm<ActivityFormData>({
     defaultValues,
-    resolver: yupResolver(yupSchema),
+    resolver: yupResolver(activityFormSchema),
   });
 
-  // auto set income and outcome value base on amount in note content
+  // auto set income and outcome value base on activity's note
   const noteContent = watch('content');
   useEffect(() => {
-    const [income, outcome] = getTotalAmounts(noteContent);
-    setValue('income', income !== 0 ? income : undefined);
-    setValue('outcome', outcome !== 0 ? outcome : undefined);
+    const [income, outcome] = calcAmounts(noteContent);
+    setValue('income', income !== 0 ? income.toString() : '');
+    setValue('outcome', outcome !== 0 ? outcome.toString() : '');
   }, [noteContent, setValue]);
 
   return (
@@ -57,8 +63,10 @@ export default function ActivityForm({
                 required
                 error={!!errors.content}
                 helperText={errors.content?.message}
-                InputProps={{
-                  inputComponent: Textarea,
+                slotProps={{
+                  input: {
+                    inputComponent: TextareaAutosize,
+                  },
                 }}
                 {...field}
               />
@@ -66,18 +74,20 @@ export default function ActivityForm({
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
-          {/* <Controller
+          <Controller
             name="tags"
             control={control}
             render={({ field: { onChange, ...rest } }) => (
               <ActivityTagSelect
                 label="Tags"
-                onChange={(e, v) => onChange(v)}
+                onChange={(_, v) => {
+                  onChange(v);
+                }}
                 freeSolo
                 {...rest}
               />
             )}
-          /> */}
+          />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
           <Controller
@@ -128,14 +138,14 @@ export default function ActivityForm({
         <Button variant="contained" color="secondary" component={RouterLink} to="/">
           Cancel
         </Button>
-        <LoadingButton
+        <Button
           loading={isSubmitting}
           type="submit"
           variant="contained"
           color="primary"
         >
           Submit
-        </LoadingButton>
+        </Button>
       </ButtonsContainer>
     </form>
   );

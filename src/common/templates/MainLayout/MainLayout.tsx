@@ -13,13 +13,13 @@ import Toolbar from '@mui/material/Toolbar';
 import ContentContainer from '../../atoms/ContentContainer';
 import HideOnScroll from '../../atoms/HideOnScroll/HideOnScroll';
 import ScrollOnClick from '../../atoms/ScrollOnClick/ScrollOnClick';
-import Typography from '../../atoms/Typography/Typography';
+import Typography from '../../atoms/Typography';
 import Sidebar from './Sidebar/Sidebar';
 
-export interface MainLayoutProps {
+export type MainLayoutProps = {
   title: string;
   children: ReactNode;
-}
+};
 
 export default function MainLayout({ title, children }: MainLayoutProps) {
   const [isDrawerOpen, setDrawerOpen] = useState(false);

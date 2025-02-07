@@ -1,10 +1,18 @@
 export type Activity = {
   id: string;
   content: string;
-  time: string;
+  time: Date;
   tags: string[];
   income?: number;
   outcome?: number;
+};
+
+export type ActivityFormData = {
+  content: string;
+  time: Date;
+  tags: string[];
+  income?: string;
+  outcome?: string;
 };
 
 export type Revenue = {
@@ -29,25 +37,4 @@ export type ActivityFilter = {
   pageSize: number;
   from?: Date;
   to?: Date;
-};
-
-export type ActivityForm = {
-  content: string;
-  time: Date;
-  tags: string[];
-  income: number | '';
-  outcome: number | '';
-};
-
-export type ApiClient = {
-  /* activity */
-  searchActivities: (filter: ActivityFilter) => Promise<[Activity[], number]>;
-  addActivity: (data: ActivityForm) => Promise<Activity>;
-  updateActivity: (id: string, data: ActivityForm) => Promise<Activity>;
-  deleteActivity: (id: string) => Promise<void>;
-  getActivity: (id: string) => Promise<Activity>;
-
-  /* tag */
-  getTags: () => Promise<string[]>;
-  getRevenue: (filter: ActivityFilter) => Promise<Revenue>;
 };

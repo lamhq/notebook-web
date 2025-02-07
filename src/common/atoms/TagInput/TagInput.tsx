@@ -3,66 +3,76 @@ import Autocomplete, {
   createFilterOptions,
 } from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
+import type { TextFieldProps } from '@mui/material/TextField';
 import TextField from '@mui/material/TextField';
-import { type ReactNode, forwardRef } from 'react';
+import type { ReactNode } from 'react';
 
 const filter = createFilterOptions<string>();
 
-export interface TagInputProps
-  extends Omit<AutocompleteProps<string, true, false, true>, 'renderInput'> {
+export type TagInputProps = Omit<
+  AutocompleteProps<string, true, false, true>,
+  'renderInput'
+> & {
+  // display input as a field
   label?: ReactNode;
-}
+  // focus input on errors
+  inputRef?: TextFieldProps['inputRef'];
+  // custom actions
+  endAdornment?: ReactNode;
+};
 
-const TagInput = forwardRef<unknown, TagInputProps>(
-  function TagInputRef(props, ref) {
-    const { loading, freeSolo, onChange, label, ...rest } = props;
-    return (
-      <Autocomplete<string, true, false, true>
-        {...rest}
-        ref={ref}
-        multiple
-        clearOnBlur
-        loading={loading}
-        freeSolo={freeSolo}
-        filterOptions={(opts, params) => {
-          const filtered = filter(opts, params);
-          // suggest the creation of a new value
-          if (
-            freeSolo &&
-            params.inputValue !== '' &&
-            !opts.includes(params.inputValue)
-          ) {
-            filtered.unshift(`Add "${params.inputValue}"`);
-          }
-          return filtered;
-        }}
-        onChange={(event, newValue, reason, details) => {
-          if (onChange) {
-            // remove mark text from newly created item
-            const modifiedValue = newValue.map((val) =>
-              val.replace(/^Add "/, '').replace(/"$/, ''),
-            );
-            onChange(event, modifiedValue, reason, details);
-          }
-        }}
-        renderInput={(params) => (
-          <TextField
-            label={label}
-            {...params}
-            InputProps={{
+export default function TagInput(props: TagInputProps) {
+  const { loading, freeSolo, onChange, label, inputRef, endAdornment, ...rest } =
+    props;
+  return (
+    <Autocomplete
+      {...rest}
+      multiple
+      clearOnBlur
+      loading={loading}
+      freeSolo={freeSolo}
+      getOptionLabel={(option) => option}
+      filterOptions={(opts, params) => {
+        const filtered = filter(opts, params);
+        // add an option for adding new item
+        if (
+          freeSolo &&
+          params.inputValue !== '' &&
+          !opts.includes(params.inputValue)
+        ) {
+          filtered.unshift(`Add "${params.inputValue}"`);
+        }
+        return filtered;
+      }}
+      onChange={(event, newValue, reason, details) => {
+        if (onChange) {
+          // convert the fake option `Add {text}` to the real item
+          const modifiedValue = newValue.map((val) =>
+            val.replace(/^Add "/, '').replace(/"$/, ''),
+          );
+          onChange(event, modifiedValue, reason, details);
+        }
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          slotProps={{
+            input: {
               ...params.InputProps,
+              inputRef: inputRef, // allow setting focus on error
               endAdornment: (
+                // render a spinner when fetching options
                 <>
                   {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {endAdornment}
                   {params.InputProps.endAdornment}
                 </>
               ),
-            }}
-          />
-        )}
-      />
-    );
-  },
-);
-
-export default TagInput;
+            },
+          }}
+        />
+      )}
+    />
+  );
+}
