@@ -4,7 +4,7 @@ import Typography from '../../../common/atoms/Typography';
 import { formatNumber } from '../../../common/utils';
 import TimeLabel from '../../atoms/TimeLabel/TimeLabel';
 import type { Activity } from '../../types';
-import ActivityMenu from '../ActivityMenu/ActivityMenu';
+import ActivityMenu from '../ActivityMenu';
 
 export type ActivityItemProps = {
   activity: Activity;

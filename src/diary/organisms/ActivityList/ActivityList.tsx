@@ -11,7 +11,7 @@ import LoadingFallback from '../../../common/organism/LoadingFallback';
 import { formatDate } from '../../../common/utils';
 import { activityFilterAtom } from '../../atoms';
 import { useGetActivitiesQuery } from '../../hooks';
-import ActivityItem from '../../molecules/ActivityItem/ActivityItem';
+import ActivityItem from '../../molecules/ActivityItem';
 import type { Activity } from '../../types';
 
 export type ActivityListViewProps = {

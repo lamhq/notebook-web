@@ -9,7 +9,7 @@ import { Link as RouterLink } from 'react-router';
 import * as yup from 'yup';
 
 import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
-import DateTimePicker from '../../../common/atoms/DateTimePicker/DateTimePicker';
+import DateTimePicker from '../../../common/atoms/DateTimePicker';
 import ActivityTagSelect from '../../molecules/ActivityTagSelect';
 import type { ActivityFormData } from '../../types';
 import { getTotalAmounts as calcAmounts } from '../../utils';

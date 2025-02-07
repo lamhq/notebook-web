@@ -26,7 +26,7 @@ export const NetworkError: Story = {
   },
 };
 
-export const Notfound: Story = {
+export const NotFound: Story = {
   args: {
     error: new AxiosError(
       'Not found',
@@ -57,6 +57,27 @@ export const Unauthorized: Story = {
       {
         status: 403,
         statusText: 'Unauthorized',
+        headers: {},
+        config: {
+          headers: new AxiosHeaders(),
+        },
+        data: {},
+      },
+    ),
+    resetErrorBoundary: fn(),
+  },
+};
+
+export const ServerError: Story = {
+  args: {
+    error: new AxiosError(
+      'Internal Server Error',
+      '',
+      undefined,
+      {},
+      {
+        status: 500,
+        statusText: 'Internal Server Error',
         headers: {},
         config: {
           headers: new AxiosHeaders(),
