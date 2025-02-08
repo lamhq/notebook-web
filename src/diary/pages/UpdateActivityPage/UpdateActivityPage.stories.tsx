@@ -1,17 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter, Route, Routes } from 'react-router';
+import { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router';
 import UpdateActivityPage from './UpdateActivityPage';
 
 const meta = {
   component: UpdateActivityPage,
   decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={['/diary/activities/1']}>
+    (Story) => {
+      const navigate = useNavigate();
+
+      useEffect(() => {
+        void navigate('/diary/activities/1');
+      }, []);
+
+      return (
         <Routes>
           <Route path="/diary/activities/:id" element={<Story />} />
         </Routes>
-      </MemoryRouter>
-    ),
+      );
+    },
   ],
 } satisfies Meta<typeof UpdateActivityPage>;
 

@@ -41,7 +41,7 @@ export const handlers = [
         {
           tags: [],
           id: '67a1cc257754780017ae273f',
-          content: 'mùng 5 tết\nở nhà chơi game',
+          content: 'Lorem ipsum dolor sit amet',
           time: '2025-02-02T08:07:10.000Z',
         },
         {

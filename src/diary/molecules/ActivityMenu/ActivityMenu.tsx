@@ -40,7 +40,7 @@ export default function ActivityMenu({ activity }: ActivityMenuProps) {
       </IconButton>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
         <MenuItem>
-          <UnstyledLink to={`/activities/edit/${activity.id}`}>
+          <UnstyledLink to={`/activities/${activity.id}`}>
             <ItemIcon>
               <BorderColorIcon fontSize="small" />
             </ItemIcon>

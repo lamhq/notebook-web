@@ -1,18 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { MemoryRouter } from 'react-router';
 import Typography from '../../atoms/Typography';
 import MainLayout from './MainLayout';
 
 const meta = {
   component: MainLayout,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
 } satisfies Meta<typeof MainLayout>;
 
 export default meta;

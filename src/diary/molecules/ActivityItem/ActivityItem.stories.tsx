@@ -1,17 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { MemoryRouter } from 'react-router';
 import ActivityItem from './ActivityItem';
 
 const meta = {
   component: ActivityItem,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
 } satisfies Meta<typeof ActivityItem>;
 
 export default meta;

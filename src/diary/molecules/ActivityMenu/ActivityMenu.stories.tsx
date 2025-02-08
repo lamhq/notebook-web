@@ -1,19 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { MemoryRouter } from 'react-router';
-import { Dialog } from '../../../dialog';
 import ActivityMenu from './ActivityMenu';
 
 const meta = {
   component: ActivityMenu,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Dialog />
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
 } satisfies Meta<typeof ActivityMenu>;
 
 export default meta;
