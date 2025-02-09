@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [pluginReact()],
   html: {
     title: 'Notebook',
-    favicon: 'public/favicon.svg',
+    favicon: 'src/favicon.svg',
   },
   server: {
     proxy: {
