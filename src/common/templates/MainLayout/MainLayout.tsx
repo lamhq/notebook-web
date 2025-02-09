@@ -1,27 +1,28 @@
-import { type ReactNode, useCallback, useState } from 'react';
-
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
+import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import Fab from '@mui/material/Fab';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
-
-import ContentContainer from '../../atoms/ContentContainer';
+import { useAtomValue, useSetAtom } from 'jotai';
+import type { ReactNode } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Outlet } from 'react-router';
+import { Alert } from '../../../alert';
 import HideOnScroll from '../../atoms/HideOnScroll/HideOnScroll';
 import ScrollOnClick from '../../atoms/ScrollOnClick/ScrollOnClick';
 import Typography from '../../atoms/Typography';
-import Sidebar from './Sidebar/Sidebar';
+import ErrorFallback from '../../organism/ErrorFallback';
+import { pageTitleAtom } from './atoms';
+import Sidebar from './Sidebar';
 
-export type MainLayoutProps = {
-  title: string;
-  children: ReactNode;
-};
-
-export default function MainLayout({ title, children }: MainLayoutProps) {
+export default function MainLayout() {
+  const title = useAtomValue(pageTitleAtom);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const handleDrawerToggle = useCallback(() => {
     setDrawerOpen(!isDrawerOpen);
@@ -76,7 +77,12 @@ export default function MainLayout({ title, children }: MainLayoutProps) {
         <Divider />
         <Sidebar />
       </Drawer>
-      <ContentContainer>{children}</ContentContainer>
+      <Container sx={{ py: 2 }}>
+        <Alert />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Outlet />
+        </ErrorBoundary>
+      </Container>
       <ScrollOnClick anchorSelector="#back-to-top-anchor">
         <Fab color="inherit" size="small" sx={{ backgroundColor: 'transparent' }}>
           <KeyboardArrowUpIcon />
@@ -84,4 +90,15 @@ export default function MainLayout({ title, children }: MainLayoutProps) {
       </ScrollOnClick>
     </>
   );
+}
+
+export function Title({ children }: { children: ReactNode }) {
+  const setTitle = useSetAtom(pageTitleAtom);
+  useEffect(() => {
+    setTitle(children);
+    return () => {
+      setTitle('');
+    };
+  }, [children, setTitle]);
+  return null;
 }

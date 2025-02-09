@@ -12,7 +12,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
 
 import { useAtom } from 'jotai';
-import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
+import Actions from '../../../common/atoms/Actions';
 import DatePicker from '../../../common/atoms/DatePicker';
 import { activityFilterAtom } from '../../atoms';
 import TimeRangeSelect from '../../atoms/TimeRangeSelect';
@@ -111,7 +111,7 @@ export function SearchDialogView({ values, onSubmit }: SearchDialogViewProps) {
           </form>
         </DialogContent>
         <DialogActions>
-          <ButtonsContainer>
+          <Actions>
             <Button
               onClick={handleReset}
               size="small"
@@ -130,7 +130,7 @@ export function SearchDialogView({ values, onSubmit }: SearchDialogViewProps) {
             >
               Search
             </Button>
-          </ButtonsContainer>
+          </Actions>
         </DialogActions>
       </Dialog>
     </>

@@ -8,7 +8,7 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router';
 import * as yup from 'yup';
 
-import ButtonsContainer from '../../../common/atoms/ButtonsContainer';
+import Actions from '../../../common/atoms/Actions';
 import DateTimePicker from '../../../common/atoms/DateTimePicker';
 import ActivityTagSelect from '../../molecules/ActivityTagSelect';
 import type { ActivityFormData } from '../../types';
@@ -134,7 +134,7 @@ export default function ActivityForm({
           />
         </Grid>
       </Grid>
-      <ButtonsContainer>
+      <Actions>
         <Button variant="contained" color="secondary" component={RouterLink} to="/">
           Cancel
         </Button>
@@ -146,7 +146,7 @@ export default function ActivityForm({
         >
           Submit
         </Button>
-      </ButtonsContainer>
+      </Actions>
     </form>
   );
 }

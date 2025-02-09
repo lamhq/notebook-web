@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { Title } from '../../../common/templates/MainLayout';
 import { useAddActivityMutation } from '../../hooks';
 import ActivityForm from '../../organisms/ActivityForm';
 import type { ActivityFormData } from '../../types';
@@ -24,5 +25,10 @@ export default function AddActivityPage() {
     [addActivity, navigate],
   );
 
-  return <ActivityForm defaultValues={defaultValues} onSubmit={handleSubmit} />;
+  return (
+    <>
+      <Title>Add Activity</Title>
+      <ActivityForm defaultValues={defaultValues} onSubmit={handleSubmit} />
+    </>
+  );
 }
