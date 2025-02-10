@@ -1,6 +1,7 @@
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
+import { Title } from '../../../common/templates/MainLayout';
 import { useGetActivityQuery, useUpdateActivityMutation } from '../../hooks';
 import ActivityForm from '../../organisms/ActivityForm';
 import type { ActivityFormData } from '../../types';
@@ -27,5 +28,10 @@ export default function UpdateActivityPage() {
     [activityId, updateActivity, navigate],
   );
 
-  return <ActivityForm defaultValues={formValues} onSubmit={handleSubmit} />;
+  return (
+    <>
+      <Title>Update Activity</Title>
+      <ActivityForm defaultValues={formValues} onSubmit={handleSubmit} />
+    </>
+  );
 }

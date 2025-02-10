@@ -8,6 +8,10 @@ export default defineConfig({
     },
   },
   plugins: [pluginReact()],
+  html: {
+    title: 'Notebook',
+    favicon: 'src/favicon.svg',
+  },
   server: {
     proxy: {
       // http://localhost:3030/api -> http://localhost:3000/

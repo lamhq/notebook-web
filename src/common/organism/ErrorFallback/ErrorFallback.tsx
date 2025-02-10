@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { AxiosError } from 'axios';
 import type { FallbackProps } from 'react-error-boundary';
 import { Navigate } from 'react-router';
-import ButtonsContainer from '../../atoms/ButtonsContainer';
+import Actions from '../../atoms/Actions';
 
 export default function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const iconStyle = { fontSize: '5rem' };
@@ -57,11 +57,11 @@ export default function ErrorFallback({ error, resetErrorBoundary }: FallbackPro
       <Typography align="center" variant="body1">
         {message}
       </Typography>
-      <ButtonsContainer>
+      <Actions>
         <Button color="primary" variant="contained" onClick={resetErrorBoundary}>
           Try again
         </Button>
-      </ButtonsContainer>
+      </Actions>
     </Stack>
   );
 }
