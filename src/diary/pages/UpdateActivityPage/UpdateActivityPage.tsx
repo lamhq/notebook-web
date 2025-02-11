@@ -11,7 +11,7 @@ export default function UpdateActivityPage() {
   if (!activityId) {
     throw new Error('Missing activity ID');
   }
-  const activity = useGetActivityQuery(activityId);
+  const [activity] = useGetActivityQuery(activityId);
   const [updateActivity] = useUpdateActivityMutation();
   const navigate = useNavigate();
   const formValues: ActivityFormData = {

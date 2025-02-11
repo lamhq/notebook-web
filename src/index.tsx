@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import reactDom from 'react-dom/client';
 import App from './App';
 import Provider from './Provider';
+import './styles.css';
 
 async function enableHttpMocking() {
   if (process.env.NODE_ENV !== 'development') {

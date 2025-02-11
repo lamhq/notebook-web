@@ -52,6 +52,6 @@ export function RevenueView({ income, outcome }: RevenueViewProps) {
 }
 
 export default function Revenue() {
-  const data = useGetRevenueQuery();
+  const [data] = useGetRevenueQuery();
   return <RevenueView {...data} />;
 }

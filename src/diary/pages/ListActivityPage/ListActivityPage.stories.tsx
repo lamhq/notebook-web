@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import ActivityListPage from './ActivityListPage';
+import ListActivityPage from './ListActivityPage';
 
 const meta = {
-  component: ActivityListPage,
-} satisfies Meta<typeof ActivityListPage>;
+  component: ListActivityPage,
+} satisfies Meta<typeof ListActivityPage>;
 
 export default meta;
 

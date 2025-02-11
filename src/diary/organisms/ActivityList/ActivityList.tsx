@@ -66,7 +66,7 @@ export function ActivityListView({ activities }: ActivityListViewProps) {
 
 function FetchActivitySelect() {
   const [filter, setFilter] = useAtom(activityFilterAtom);
-  const [activities, totalItemCount] = useGetActivitiesQuery(filter);
+  const [[activities, totalItemCount]] = useGetActivitiesQuery(filter);
   const pageCount = Math.ceil(totalItemCount / filter.pageSize);
   const handlePageChange = useCallback<NonNullable<PaginationProps['onChange']>>(
     (_, newPage: number) => {

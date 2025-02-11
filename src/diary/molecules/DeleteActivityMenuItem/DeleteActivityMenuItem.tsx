@@ -26,13 +26,16 @@ export default function DeleteActivityMenuItem({
       );
       if (!isOk) return;
       await deleteActivity(activity.id);
-      onDeleted();
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message).catch(console.error);
+        alert(error.message, { title: 'Error', severity: 'error' }).catch(
+          console.error,
+        );
       } else {
         console.error('Unexpected error', error);
       }
+    } finally {
+      onDeleted();
     }
   }, [deleteActivity, onDeleted]);
 

@@ -72,7 +72,7 @@ export function SearchDialogView({ values, onSubmit }: SearchDialogViewProps) {
                   render={({ field: { onChange, ...rest } }) => (
                     <ActivityTagSelect
                       label="Tags"
-                      onChange={(e, v) => {
+                      onChange={(_, v) => {
                         onChange(v);
                       }}
                       {...rest}

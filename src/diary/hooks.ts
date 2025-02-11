@@ -4,6 +4,14 @@ import { removeEmptyFields } from '../common/utils';
 import type { Activity, ActivityFilter, ActivityFormData, Revenue } from './types';
 import { buildQueryFromFilter } from './utils';
 
+export const useGetTagsQuery = createQuery(
+  () => ({
+    url: `/diary/tags`,
+    method: 'GET',
+  }),
+  (resp: { data: string[] }) => resp.data,
+);
+
 export const useGetActivitiesQuery = createQuery(
   (filter?: ActivityFilter) => ({
     url: '/diary/activities',
@@ -64,12 +72,4 @@ export const useDeleteActivityMutation = createMutation(
     method: 'DELETE',
   }),
   (resp: { data: null }) => resp.data,
-);
-
-export const useGetTagsQuery = createQuery(
-  () => ({
-    url: `/diary/tags`,
-    method: 'GET',
-  }),
-  (resp: { data: string[] }) => resp.data,
 );
