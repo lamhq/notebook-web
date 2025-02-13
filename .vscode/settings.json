@@ -6,5 +6,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
-  "jest.runMode": "on-demand"
+  "jest.runMode": "on-demand",
+  "liveServer.settings.root": "/dist"
 }

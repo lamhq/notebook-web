@@ -2,8 +2,9 @@ import { StrictMode } from 'react';
 import reactDom from 'react-dom/client';
 import App from './App';
 import Provider from './Provider';
+import './styles.css';
 
-async function enableHttpMocking() {
+async function enableNetworkMock() {
   if (process.env.NODE_ENV !== 'development') {
     return;
   }
@@ -18,7 +19,7 @@ async function enableHttpMocking() {
 const rootEl = document.getElementById('root');
 if (rootEl) {
   const root = reactDom.createRoot(rootEl);
-  enableHttpMocking()
+  enableNetworkMock()
     .then(() => {
       root.render(
         <StrictMode>

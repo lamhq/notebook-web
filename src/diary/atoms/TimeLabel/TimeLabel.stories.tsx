@@ -12,6 +12,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    time: '2021-06-15T01:21:03.368Z',
+    time: new Date('2021-06-15T01:21:03.368Z'),
   },
 };

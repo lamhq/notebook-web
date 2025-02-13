@@ -15,7 +15,7 @@ const ToolBar = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-export default function ActivityListPage() {
+export default function ListActivityPage() {
   return (
     <>
       <Title>Activities</Title>

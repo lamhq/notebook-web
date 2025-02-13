@@ -1,33 +1,7 @@
-import { use, useEffect, useReducer, useRef } from 'react';
-
-import type { CacheApi } from './cache';
-import { createMemCache } from './cache';
+import { use, useEffect, useReducer, useRef, useState } from 'react';
+import cache from './cache';
 import { createAxiosRequest } from './request';
 import type { AsyncFn, Fn } from './types';
-
-type MutationState<Result> = {
-  data?: Result;
-  isLoading: boolean;
-};
-
-type MutationHook<Arg, Result> = () => [
-  (arg: Arg) => Promise<void>,
-  MutationState<Result>,
-];
-
-type ReducerAction<Result> =
-  | {
-      type: 'FETCH_INIT';
-    }
-  | {
-      type: 'FETCH_COMPLETED';
-      payload?: Result;
-    };
-
-type CreateApiOptions = {
-  request: AsyncFn;
-  cacheClient: CacheApi;
-};
 
 function reducer<T>(state: MutationState<T>, action: ReducerAction<T>) {
   switch (action.type) {
@@ -40,11 +14,18 @@ function reducer<T>(state: MutationState<T>, action: ReducerAction<T>) {
   }
 }
 
-function createApi({ request, cacheClient: cacheApi }: CreateApiOptions) {
+type CreateApiOptions = {
+  request: AsyncFn;
+};
+
+function createApi({ request }: CreateApiOptions) {
+  /**
+   * Query hook creator
+   */
   const createQuery = <Arg, Result, ApiRequest, ApiResponse>(
     transformParams: Fn<Arg, ApiRequest>,
     transformResponse: Fn<ApiResponse, Result>,
-  ): Fn<Arg, Result> => {
+  ): QueryHook<Arg, Result> => {
     const asyncRequestFn: AsyncFn<Arg, Result> = async (arg) => {
       const requestArg = transformParams(arg);
       const response = await (request as AsyncFn<ApiRequest, ApiResponse>)(
@@ -52,11 +33,22 @@ function createApi({ request, cacheClient: cacheApi }: CreateApiOptions) {
       );
       return transformResponse(response);
     };
-    const cachedRequestFn = cacheApi.cache(asyncRequestFn);
-    const requestFn: Fn<Arg, Result> = (arg) => use(cachedRequestFn(arg));
-    return requestFn;
+    const { cachedFn, clearCache } = cache(asyncRequestFn);
+    const queryHook: QueryHook<Arg, Result> = (arg) => {
+      const data = use(cachedFn(arg));
+      const [, setFlag] = useState(false);
+      const refetch = () => {
+        clearCache();
+        setFlag((prev) => !prev);
+      };
+      return [data, { refetch }];
+    };
+    return queryHook;
   };
 
+  /**
+   * Mutation hook creator
+   */
   const createMutation = <Arg, Result, ApiRequest, ApiResponse>(
     transformParams: Fn<Arg, ApiRequest>,
     transformResponse: Fn<ApiResponse, Result>,
@@ -67,7 +59,7 @@ function createApi({ request, cacheClient: cacheApi }: CreateApiOptions) {
       };
       const [state, dispatch] = useReducer(reducer, initialState);
       const isMounted = useRef(false);
-      const requestFn = async (arg: Arg) => {
+      const requestFn: Fn<Arg, Promise<void>> = async (arg) => {
         dispatch({ type: 'FETCH_INIT' });
 
         try {
@@ -103,5 +95,25 @@ function createApi({ request, cacheClient: cacheApi }: CreateApiOptions) {
 
 export const { createQuery, createMutation } = createApi({
   request: createAxiosRequest({ baseURL: '/api' }),
-  cacheClient: createMemCache({ duration: 5000 }),
 });
+
+type QueryHook<Arg, Result> = Fn<Arg, [Result, { refetch: () => void }]>;
+
+type MutationHook<Arg, Result> = () => [
+  Fn<Arg, Promise<void>>,
+  MutationState<Result>,
+];
+
+type MutationState<Result> = {
+  data?: Result;
+  isLoading: boolean;
+};
+
+type ReducerAction<Result> =
+  | {
+      type: 'FETCH_INIT';
+    }
+  | {
+      type: 'FETCH_COMPLETED';
+      payload?: Result;
+    };

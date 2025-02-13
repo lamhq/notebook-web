@@ -62,7 +62,9 @@ export function SearchDialogView({ values, onSubmit }: SearchDialogViewProps) {
                 <Controller
                   name="text"
                   control={control}
-                  render={({ field }) => <TextField label="Text" {...field} />}
+                  render={({ field }) => (
+                    <TextField label="Text" {...field} autoFocus />
+                  )}
                 />
               </Grid>
               <Grid size={{ xs: 12, sm: 6 }}>
@@ -72,7 +74,7 @@ export function SearchDialogView({ values, onSubmit }: SearchDialogViewProps) {
                   render={({ field: { onChange, ...rest } }) => (
                     <ActivityTagSelect
                       label="Tags"
-                      onChange={(e, v) => {
+                      onChange={(_, v) => {
                         onChange(v);
                       }}
                       {...rest}

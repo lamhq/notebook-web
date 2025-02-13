@@ -15,7 +15,7 @@ function LoadingSelect(props: ActivityTagSelectProps) {
 }
 
 function FetchActivitySelect(props: ActivityTagSelectProps) {
-  const tags = useGetTagsQuery();
+  const [tags] = useGetTagsQuery();
   return <TagInput {...props} options={tags} />;
 }
 

@@ -1,18 +1,17 @@
-import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Routes } from 'react-router';
-import ErrorFallback from './common/organism/ErrorFallback';
 import NotFoundPage from './common/pages/NotFoundPage';
 import MainLayout from './common/templates/MainLayout';
-import ActivityListPage from './diary/pages/ActivityListPage';
 import AddActivityPage from './diary/pages/AddActivityPage';
+import ListActivityPage from './diary/pages/ListActivityPage';
 import UpdateActivityPage from './diary/pages/UpdateActivityPage';
+import { ErrorBoundary } from './error';
 
 export default function App() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <ErrorBoundary>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<ActivityListPage />} />
+          <Route path="/" element={<ListActivityPage />} />
           <Route path="/activities/new" element={<AddActivityPage />} />
           <Route path="/activities/:id" element={<UpdateActivityPage />} />
         </Route>
