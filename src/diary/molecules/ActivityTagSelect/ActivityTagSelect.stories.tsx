@@ -27,7 +27,6 @@ export const Default: Story = {
       updateArgs({ value: newVal });
       sbOnChange?.(event, newVal, reason, details);
     };
-    console.log(rest);
     return <ActivityTagSelect onChange={handleChange} {...rest} />;
   },
 };
