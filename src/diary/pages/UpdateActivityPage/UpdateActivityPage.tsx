@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai';
-import React from 'react';
+import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 import { Title } from '../../../common/templates/MainLayout';
@@ -23,7 +23,7 @@ export default function UpdateActivityPage() {
     ...activity,
     time: new Date(activity.time),
   };
-  const handleSubmit: SubmitHandler<ActivityFormData> = React.useCallback(
+  const handleSubmit: SubmitHandler<ActivityFormData> = useCallback(
     async (data) => {
       try {
         await updateActivity({ id: activityId, ...data });

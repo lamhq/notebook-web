@@ -3,6 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import type { Locale } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
+import type { ReactNode } from 'react';
 import { BrowserRouter, MemoryRouter } from 'react-router';
 import { Dialog } from './dialog';
 import { theme } from './theme';
@@ -15,7 +16,7 @@ const customEnLocale: Locale = {
   },
 };
 
-export default function Provider({ children }: { children: React.ReactNode }) {
+export default function Provider({ children }: { children: ReactNode }) {
   return (
     // Material UI
     <ThemeProvider theme={theme}>
@@ -35,7 +36,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
 }
 
 export type MockProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export function MockProvider({ children }: MockProviderProps) {
