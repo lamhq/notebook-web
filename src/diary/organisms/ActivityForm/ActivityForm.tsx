@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import TextField from '@mui/material/TextField';
+import type { FocusEventHandler } from 'react';
 import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router';
@@ -44,7 +45,7 @@ export default function ActivityForm({
   const noteContent = watch('content');
 
   // auto select text on focus
-  const handleFocus: React.FocusEventHandler<HTMLInputElement> = (event) => {
+  const handleFocus: FocusEventHandler<HTMLInputElement> = (event) => {
     event.target.select();
   };
 
