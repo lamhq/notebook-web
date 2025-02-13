@@ -8,7 +8,9 @@ import Typography from '@mui/material/Typography';
 import { AxiosError } from 'axios';
 import type { FallbackProps } from 'react-error-boundary';
 import { Navigate } from 'react-router';
-import Actions from '../../atoms/Actions';
+import Actions from '../../common/atoms/Actions';
+
+const LOGIN_URL = '/login';
 
 export default function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const iconStyle = { fontSize: '5rem' };
@@ -27,8 +29,12 @@ export default function ErrorFallback({ error, resetErrorBoundary }: FallbackPro
         icon = <CloudOffIcon style={iconStyle} />;
         break;
 
+      case 400:
+        message = 'Unknown error occurred.';
+        break;
+
       case 401:
-        return <Navigate to="/login" />;
+        return <Navigate to={LOGIN_URL} />;
 
       case 404:
         message = 'Resource not found.';
@@ -36,12 +42,12 @@ export default function ErrorFallback({ error, resetErrorBoundary }: FallbackPro
         break;
 
       case 403:
-        message = 'Your cannot access this section right now.';
+        message = "You're not allowed to access this section.";
         icon = <BlockIcon style={iconStyle} />;
         break;
 
       case 500:
-        message = 'Server has an error. Please try again later';
+        message = 'Our server has an error. Please try again later.';
         break;
 
       default:

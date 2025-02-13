@@ -1,9 +1,11 @@
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
-import type { MouseEventHandler } from 'react';
-import { useCallback, useState } from 'react';
+import type { MouseEvent } from 'react';
+import { useState } from 'react';
 import { Link, type LinkProps } from 'react-router';
 import {
   ItemIcon,
@@ -12,7 +14,7 @@ import {
   MenuItem,
 } from '../../../common/atoms/ContextMenu';
 import type { Activity } from '../../types';
-import DeleteActivityMenuItem from '../DeleteActivityMenuItem/DeleteActivityMenuItem';
+import { useDeleteActivityItemProps } from './hooks';
 
 const UnstyledLink = styled(Link)<LinkProps>(() => ({
   display: 'flex',
@@ -27,18 +29,29 @@ export type ActivityMenuProps = {
 
 export default function ActivityMenu({ activity }: ActivityMenuProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const showMenu = useCallback<MouseEventHandler<HTMLButtonElement>>((event) => {
-    setAnchorEl(event.currentTarget);
-  }, []);
-  const closeMenu = useCallback(() => {
+  const { handleDelete, isDeleting } = useDeleteActivityItemProps(activity);
+  const showMenu = (anchor: HTMLButtonElement) => {
+    setAnchorEl(anchor);
+  };
+  const closeMenu = () => {
     setAnchorEl(null);
-  }, []);
+  };
+  const handleMenuButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
+    showMenu(event.currentTarget);
+  };
+  const handleDeleteMenuItemClick = async () => {
+    await handleDelete();
+    closeMenu();
+  };
+
   return (
     <>
-      <IconButton size="small" onClick={showMenu}>
+      <IconButton size="small" onClick={handleMenuButtonClick}>
         <MoreHorizIcon />
       </IconButton>
+
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
+        {/* update activity */}
         <MenuItem>
           <UnstyledLink to={`/activities/${activity.id}`}>
             <ItemIcon>
@@ -47,7 +60,18 @@ export default function ActivityMenu({ activity }: ActivityMenuProps) {
             <ItemText primary="Update" />
           </UnstyledLink>
         </MenuItem>
-        <DeleteActivityMenuItem activity={activity} onDeleted={closeMenu} />
+
+        {/* delete activity */}
+        <MenuItem onClick={handleDeleteMenuItemClick} disabled={isDeleting}>
+          <ItemIcon>
+            {isDeleting ? (
+              <CircularProgress size="15px" color="primary" />
+            ) : (
+              <DeleteIcon fontSize="small" />
+            )}
+          </ItemIcon>
+          <ItemText primary="Delete" />
+        </MenuItem>
       </Menu>
     </>
   );

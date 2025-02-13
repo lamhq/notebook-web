@@ -1,7 +1,10 @@
+import { useAtomValue } from 'jotai';
 import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Title } from '../../../common/templates/MainLayout';
+import { useErrorHandler } from '../../../error';
+import { onActivityChangedAtom } from '../../atoms';
 import { useAddActivityMutation } from '../../hooks';
 import ActivityForm from '../../organisms/ActivityForm';
 import type { ActivityFormData } from '../../types';
@@ -10,19 +13,24 @@ const defaultValues: ActivityFormData = {
   content: '',
   tags: [],
   time: new Date(),
-  income: '',
-  outcome: '',
 };
 
 export default function AddActivityPage() {
   const [addActivity] = useAddActivityMutation();
   const navigate = useNavigate();
+  const { onActivityChanged } = useAtomValue(onActivityChangedAtom);
+  const handleError = useErrorHandler();
   const handleSubmit: SubmitHandler<ActivityFormData> = useCallback(
     async (data) => {
-      await addActivity(data);
-      void navigate('/');
+      try {
+        await addActivity(data);
+        onActivityChanged();
+        void navigate('/');
+      } catch (error) {
+        handleError(error);
+      }
     },
-    [addActivity, navigate],
+    [addActivity, navigate, onActivityChanged, handleError],
   );
 
   return (

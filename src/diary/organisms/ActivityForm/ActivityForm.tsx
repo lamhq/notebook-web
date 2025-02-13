@@ -18,8 +18,8 @@ const activityFormSchema = yup.object().shape({
   time: yup.date().required(),
   content: yup.string().required('This field is required'),
   tags: yup.array(yup.string().required()).required(),
-  income: yup.string(),
-  outcome: yup.string(),
+  income: yup.number(),
+  outcome: yup.number(),
 });
 
 export type ActivityFormProps = {
@@ -41,13 +41,18 @@ export default function ActivityForm({
     defaultValues,
     resolver: yupResolver(activityFormSchema),
   });
+  const noteContent = watch('content');
+
+  // auto select text on focus
+  const handleFocus: React.FocusEventHandler<HTMLInputElement> = (event) => {
+    event.target.select();
+  };
 
   // auto set income and outcome value base on activity's note
-  const noteContent = watch('content');
   useEffect(() => {
     const [income, outcome] = calcAmounts(noteContent);
-    setValue('income', income !== 0 ? income.toString() : '');
-    setValue('outcome', outcome !== 0 ? outcome.toString() : '');
+    setValue('income', income);
+    setValue('outcome', outcome);
   }, [noteContent, setValue]);
 
   return (
@@ -63,6 +68,7 @@ export default function ActivityForm({
                 required
                 error={!!errors.content}
                 helperText={errors.content?.message}
+                autoFocus
                 slotProps={{
                   input: {
                     inputComponent: TextareaAutosize,
@@ -113,6 +119,7 @@ export default function ActivityForm({
                 type="number"
                 error={!!errors.income}
                 helperText={errors.income?.message}
+                onFocus={handleFocus}
                 {...field}
               />
             )}
@@ -128,6 +135,7 @@ export default function ActivityForm({
                 type="number"
                 error={!!errors.outcome}
                 helperText={errors.outcome?.message}
+                onFocus={handleFocus}
                 {...field}
               />
             )}

@@ -15,8 +15,7 @@ export const Default: Story = {
     defaultValues: {
       time: new Date(),
       tags: ['play', 'gog'],
-      income: '100',
-      outcome: '',
+      income: 100,
       content:
         'Lorem ipsum dolor sit amet\nconsectetur adipiscing elit\nmagnam aliquam quaerat voluptatem',
     },

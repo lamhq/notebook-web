@@ -1,15 +1,14 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { useAtom } from 'jotai';
-import { Fragment, Suspense, useCallback } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import { useAtom, useSetAtom } from 'jotai';
+import { Fragment, Suspense, useCallback, useEffect } from 'react';
 import type { PaginationProps } from '../../../common/atoms/Pagination';
 import Pagination from '../../../common/atoms/Pagination';
 import Typography from '../../../common/atoms/Typography';
-import ErrorFallback from '../../../common/organism/ErrorFallback';
 import LoadingFallback from '../../../common/organism/LoadingFallback';
 import { formatDate } from '../../../common/utils';
-import { activityFilterAtom } from '../../atoms';
+import { ErrorBoundary } from '../../../error';
+import { activityFilterAtom, onActivityChangedAtom } from '../../atoms';
 import { useGetActivitiesQuery } from '../../hooks';
 import ActivityItem from '../../molecules/ActivityItem';
 import type { Activity } from '../../types';
@@ -66,8 +65,9 @@ export function ActivityListView({ activities }: ActivityListViewProps) {
 
 function FetchActivitySelect() {
   const [filter, setFilter] = useAtom(activityFilterAtom);
-  const [[activities, totalItemCount]] = useGetActivitiesQuery(filter);
+  const [[activities, totalItemCount], { refetch }] = useGetActivitiesQuery(filter);
   const pageCount = Math.ceil(totalItemCount / filter.pageSize);
+  const setActivityChangedHandler = useSetAtom(onActivityChangedAtom);
   const handlePageChange = useCallback<NonNullable<PaginationProps['onChange']>>(
     (_, newPage: number) => {
       setFilter((curFilter) => ({
@@ -77,6 +77,19 @@ function FetchActivitySelect() {
     },
     [setFilter],
   );
+
+  // refetch activity list when an item is changed (added, updated, deleted)
+  useEffect(() => {
+    setActivityChangedHandler({ onActivityChanged: refetch });
+  }, [setActivityChangedHandler, refetch]);
+
+  // scroll to top when items change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [activities]);
 
   return activities.length ? (
     <>
@@ -98,7 +111,7 @@ function FetchActivitySelect() {
 
 export default function ActivityList() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
         <FetchActivitySelect />
       </Suspense>

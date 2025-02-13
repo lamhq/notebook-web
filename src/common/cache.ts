@@ -44,7 +44,6 @@ export default function cache<Arg, Result>(
     // if result is a rejected promise, remove it from cache
     if (result instanceof Promise) {
       result.catch(() => {
-        console.log('delete cache');
         setTimeout(() => store.delete(key), 10);
       });
     }

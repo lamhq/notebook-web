@@ -1,7 +1,10 @@
+import { useAtomValue } from 'jotai';
 import React from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 import { Title } from '../../../common/templates/MainLayout';
+import { useErrorHandler } from '../../../error';
+import { onActivityChangedAtom } from '../../atoms';
 import { useGetActivityQuery, useUpdateActivityMutation } from '../../hooks';
 import ActivityForm from '../../organisms/ActivityForm';
 import type { ActivityFormData } from '../../types';
@@ -13,17 +16,22 @@ export default function UpdateActivityPage() {
   }
   const [activity] = useGetActivityQuery(activityId);
   const [updateActivity] = useUpdateActivityMutation();
+  const { onActivityChanged } = useAtomValue(onActivityChangedAtom);
   const navigate = useNavigate();
+  const handleError = useErrorHandler();
   const formValues: ActivityFormData = {
     ...activity,
     time: new Date(activity.time),
-    income: activity.income ? activity.income.toString() : '',
-    outcome: activity.outcome ? activity.outcome.toString() : '',
   };
   const handleSubmit: SubmitHandler<ActivityFormData> = React.useCallback(
     async (data) => {
-      await updateActivity({ id: activityId, data });
-      void navigate('/');
+      try {
+        await updateActivity({ id: activityId, ...data });
+        onActivityChanged();
+        void navigate('/');
+      } catch (error) {
+        handleError(error);
+      }
     },
     [activityId, updateActivity, navigate],
   );

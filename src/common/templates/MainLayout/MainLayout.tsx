@@ -11,13 +11,12 @@ import Toolbar from '@mui/material/Toolbar';
 import { useAtomValue, useSetAtom } from 'jotai';
 import type { ReactNode } from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 import { Outlet } from 'react-router';
 import { Alert } from '../../../alert';
+import { ErrorBoundary } from '../../../error';
 import HideOnScroll from '../../atoms/HideOnScroll/HideOnScroll';
 import ScrollOnClick from '../../atoms/ScrollOnClick/ScrollOnClick';
 import Typography from '../../atoms/Typography';
-import ErrorFallback from '../../organism/ErrorFallback';
 import { pageTitleAtom } from './atoms';
 import Sidebar from './Sidebar';
 
@@ -79,7 +78,7 @@ export default function MainLayout() {
       </Drawer>
       <Container sx={{ py: 2 }}>
         <Alert />
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <ErrorBoundary>
           <Outlet />
         </ErrorBoundary>
       </Container>

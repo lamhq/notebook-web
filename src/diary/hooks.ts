@@ -58,11 +58,14 @@ export const useAddActivityMutation = createMutation(
 );
 
 export const useUpdateActivityMutation = createMutation(
-  ({ id, data }: { id: string; data: ActivityFormData }) => ({
-    url: `/diary/activities/${id}`,
-    method: 'PUT',
-    data: removeEmptyFields(data),
-  }),
+  (data: Activity) => {
+    const { id, ...rest } = data;
+    return {
+      url: `/diary/activities/${id}`,
+      method: 'PUT',
+      data: removeEmptyFields(rest),
+    };
+  },
   (resp: { data: Activity }) => resp.data,
 );
 

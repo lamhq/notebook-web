@@ -2,6 +2,8 @@ import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 
 export default defineConfig({
+  // set to 'production' to disable network mock
+  // mode: 'production',
   source: {
     entry: {
       index: './src/index.tsx',
