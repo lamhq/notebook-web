@@ -4,8 +4,12 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import type { Locale } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
 import type { ReactNode } from 'react';
+import type { AuthProviderProps } from 'react-oidc-context';
+import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter, MemoryRouter } from 'react-router';
+import { getAbsoluteURL } from './common/utils';
 import { Dialog } from './dialog';
+import { AUTH_CALLBACK_ROUTE } from './routes';
 import { theme } from './theme';
 
 const customEnLocale: Locale = {
@@ -16,7 +20,24 @@ const customEnLocale: Locale = {
   },
 };
 
+const oidcConfig: AuthProviderProps = {
+  authority: process.env.PUBLIC_OIDC_AUTHORITY ?? '',
+  client_id: process.env.PUBLIC_OIDC_CLIENT_ID ?? '',
+  redirect_uri: getAbsoluteURL(AUTH_CALLBACK_ROUTE),
+  response_type: 'code',
+  scope: 'email openid profile',
+  /**
+   * required for exchanging authorization code with access token
+   * exposing the client secret on the client side can be insecure, but let's leave it for now
+   */
+  client_authentication: 'client_secret_basic',
+  client_secret: process.env.PUBLIC_OIDC_CLIENT_SECRET,
+  // skip exchanging authorization token for non-auth callback routes
+  skipSigninCallback: window.location.pathname !== AUTH_CALLBACK_ROUTE,
+};
+
 export default function Provider({ children }: { children: ReactNode }) {
+  console.log('Provider');
   return (
     // Material UI
     <ThemeProvider theme={theme}>
@@ -27,7 +48,8 @@ export default function Provider({ children }: { children: ReactNode }) {
       >
         {/* React Router */}
         <BrowserRouter>
-          {children}
+          {/* react-oidc-context */}
+          <AuthProvider {...oidcConfig}>{children}</AuthProvider>
           <Dialog />
         </BrowserRouter>
       </LocalizationProvider>

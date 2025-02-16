@@ -2,6 +2,7 @@ import { useAtomValue } from 'jotai';
 import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
+import { requireAuth } from '../../../auth';
 import { Title } from '../../../common/templates/MainLayout';
 import { useErrorHandler } from '../../../error';
 import { onActivityChangedAtom } from '../../atoms';
@@ -9,7 +10,7 @@ import { useGetActivityQuery, useUpdateActivityMutation } from '../../hooks';
 import ActivityForm from '../../organisms/ActivityForm';
 import type { ActivityFormData } from '../../types';
 
-export default function UpdateActivityPage() {
+function UpdateActivityPage() {
   const { id: activityId } = useParams<{ id: string }>();
   if (!activityId) {
     throw new Error('Missing activity ID');
@@ -43,3 +44,5 @@ export default function UpdateActivityPage() {
     </>
   );
 }
+
+export default requireAuth(UpdateActivityPage);

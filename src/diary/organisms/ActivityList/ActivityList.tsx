@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { useAtom, useSetAtom } from 'jotai';
 import { Fragment, Suspense, useCallback, useEffect } from 'react';
+import { requireAuth } from '../../../auth';
 import type { PaginationProps } from '../../../common/atoms/Pagination';
 import Pagination from '../../../common/atoms/Pagination';
 import Typography from '../../../common/atoms/Typography';
@@ -109,7 +110,7 @@ function FetchActivitySelect() {
   );
 }
 
-export default function ActivityList() {
+function ActivityList() {
   return (
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
@@ -118,3 +119,5 @@ export default function ActivityList() {
     </ErrorBoundary>
   );
 }
+
+export default requireAuth(ActivityList);

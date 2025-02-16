@@ -19,3 +19,7 @@ export function removeEmptyFields(data: FieldValues): FieldValues {
     return value ? { ...current, [key]: value as unknown } : current;
   }, {});
 }
+
+export function getAbsoluteURL(route: string) {
+  return `${window.location.protocol}//${window.location.host}${route}`;
+}
