@@ -1,6 +1,7 @@
 import { useAuth } from 'react-oidc-context';
 import { Navigate } from 'react-router';
 import { HOME_ROUTE } from '../../routes';
+import { REDIRECT_ROUTE } from '../constants';
 
 export default function AuthCallbackPage() {
   const auth = useAuth();
@@ -10,7 +11,8 @@ export default function AuthCallbackPage() {
   }
 
   if (auth.isAuthenticated) {
-    return <Navigate to={HOME_ROUTE} />;
+    const route = window.localStorage.getItem(REDIRECT_ROUTE);
+    return <Navigate to={route ?? HOME_ROUTE} />;
   }
 
   // TODO: show a loading spinner with below text `Signing you in`
