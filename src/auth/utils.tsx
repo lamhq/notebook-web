@@ -7,6 +7,7 @@ export function requireAuth(comp: ComponentType): ComponentType {
   return withAuthenticationRequired(comp, {
     OnRedirecting: LoadingFallback,
     onBeforeSignin: () => {
+      // save the current route for going back after signin
       window.localStorage.setItem(REDIRECT_ROUTE, window.location.pathname);
     },
   });

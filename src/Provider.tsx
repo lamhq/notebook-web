@@ -3,6 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import type { Locale } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
+import { WebStorageStateStore } from 'oidc-client-ts';
 import type { ReactNode } from 'react';
 import type { AuthProviderProps } from 'react-oidc-context';
 import { AuthProvider } from 'react-oidc-context';
@@ -26,6 +27,7 @@ const oidcConfig: AuthProviderProps = {
   redirect_uri: getAbsoluteURL(AUTH_CALLBACK_ROUTE),
   response_type: 'code',
   scope: 'email openid profile',
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
   /**
    * required for exchanging authorization code with access token
    * exposing the client secret on the client side can be insecure, but let's leave it for now
