@@ -13,3 +13,4 @@ dist/
 *storybook.log
 
 coverage
+.env

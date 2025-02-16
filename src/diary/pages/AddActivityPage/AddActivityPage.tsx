@@ -2,6 +2,7 @@ import { useAtomValue } from 'jotai';
 import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { requireAuth } from '../../../auth';
 import { Title } from '../../../common/templates/MainLayout';
 import { useErrorHandler } from '../../../error';
 import { onActivityChangedAtom } from '../../atoms';
@@ -15,7 +16,7 @@ const defaultValues: ActivityFormData = {
   time: new Date(),
 };
 
-export default function AddActivityPage() {
+function AddActivityPage() {
   const [addActivity] = useAddActivityMutation();
   const navigate = useNavigate();
   const { onActivityChanged } = useAtomValue(onActivityChangedAtom);
@@ -40,3 +41,5 @@ export default function AddActivityPage() {
     </>
   );
 }
+
+export default requireAuth(AddActivityPage);
