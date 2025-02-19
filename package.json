@@ -26,6 +26,7 @@
     "@mui/x-date-pickers": "^7.24.1",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
+    "eventemitter3": "^5.0.1",
     "jotai": "^2.11.1",
     "numeral": "^2.0.6",
     "oidc-client-ts": "^3.1.0",

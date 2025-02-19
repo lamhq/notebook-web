@@ -1,11 +1,11 @@
-import { useAtomValue } from 'jotai';
 import { useCallback } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 import { requireAuth } from '../../../auth';
 import { Title } from '../../../common/templates/MainLayout';
 import { useErrorHandler } from '../../../error';
-import { onActivityChangedAtom } from '../../atoms';
+// import { useEvent } from '../../../event';
+// import { ACTIVITY_CHANGED_EVENT } from '../../constants';
 import { useGetActivityQuery, useUpdateActivityMutation } from '../../hooks';
 import ActivityForm from '../../organisms/ActivityForm';
 import type { ActivityFormData } from '../../types';
@@ -17,18 +17,15 @@ function UpdateActivityPage() {
   }
   const { data: activity } = useGetActivityQuery(activityId);
   const { executeMutation: updateActivity } = useUpdateActivityMutation();
-  const { onActivityChanged } = useAtomValue(onActivityChangedAtom);
+  // const eventEmitter = useEvent();
   const navigate = useNavigate();
   const handleError = useErrorHandler();
-  const formValues: ActivityFormData = {
-    ...activity,
-    time: new Date(activity.time),
-  };
+  const { id: _, ...defaultFormValues } = activity;
   const handleSubmit: SubmitHandler<ActivityFormData> = useCallback(
     async (data) => {
       try {
         await updateActivity(activityId, data);
-        onActivityChanged();
+        // eventEmitter.emit(ACTIVITY_CHANGED_EVENT, activity);
         void navigate('/');
       } catch (error) {
         handleError(error);
@@ -40,7 +37,7 @@ function UpdateActivityPage() {
   return (
     <>
       <Title>Update Activity</Title>
-      <ActivityForm defaultValues={formValues} onSubmit={handleSubmit} />
+      <ActivityForm defaultValues={defaultFormValues} onSubmit={handleSubmit} />
     </>
   );
 }

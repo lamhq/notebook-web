@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { use, useEffect, useReducer, useRef, useState } from 'react';
-import type { CacheFn } from './cache';
-import cache from './cache';
+import type { CacheApi, CacheOptions } from './cache';
+import { cacheUtils } from './cache';
 import { axiosRequest, type RequestFn } from './request';
 
 type QueryFn<Args extends any[], Result> = (
@@ -44,21 +44,32 @@ function mutationReducer<T>(state: MutationState<T>, action: MutationEvent<T>) {
   }
 }
 
+type CreateQueryOptions = CacheOptions;
+
+type CreateMutationOptions = {
+  invalidateTags: string[];
+};
+
 class ApiUtils {
   public constructor(
     private readonly requestFn: RequestFn,
-    private readonly cacheFn: CacheFn,
+    private readonly cacheApi: CacheApi,
   ) {}
 
-  public createQuery<Args extends any[], Result>(getData: QueryFn<Args, Result>) {
+  public createQuery<Args extends any[], Result>(
+    getData: QueryFn<Args, Result>,
+    options?: CreateQueryOptions,
+  ) {
     const execQueryFn = async (...args: Args) => getData(this.requestFn, ...args);
-    const { cachedFn: cachedQueryFn, clearCache } = this.cacheFn(execQueryFn);
+    const cachedQueryFn = this.cacheApi.cache(execQueryFn, options);
     // return a hook for data fetching
     return (...args: Args) => {
       const data = use(cachedQueryFn(...args));
       const [, setFlag] = useState(false);
       const refetch = () => {
-        clearCache();
+        if (options?.tags) {
+          this.cacheApi.clearByTags(options.tags);
+        }
         setFlag((prev) => !prev);
       };
       return { data, refetch };
@@ -67,6 +78,7 @@ class ApiUtils {
 
   public createMutation<Args extends any[], Result>(
     updateData: QueryFn<Args, Result>,
+    options?: CreateMutationOptions,
   ) {
     // return a hook for data mutation
     return () => {
@@ -79,7 +91,9 @@ class ApiUtils {
         dispatch({ type: 'FETCH_INIT' });
         try {
           const result = await updateData(this.requestFn, ...args);
-
+          if (options?.invalidateTags) {
+            this.cacheApi.clearByTags(options.invalidateTags);
+          }
           if (isMounted.current) {
             dispatch({ type: 'FETCH_COMPLETED', payload: result });
           }
@@ -105,7 +119,7 @@ class ApiUtils {
   }
 }
 
-const apiUtils = new ApiUtils(axiosRequest, cache);
+const apiUtils = new ApiUtils(axiosRequest, cacheUtils);
 
 export const createQuery = apiUtils.createQuery.bind(apiUtils);
 

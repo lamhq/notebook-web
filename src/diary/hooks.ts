@@ -4,6 +4,8 @@ import { removeEmptyFields } from '../common/utils';
 import type { Activity, ActivityFilter, ActivityFormData, Revenue } from './types';
 import { buildQueryFromFilter } from './utils';
 
+const ACTIVITY_LIST_TAG = 'ACTIVITY_LIST';
+
 function transformActivityResponse(data: Activity): Activity {
   return {
     ...data,
@@ -32,6 +34,7 @@ export const useGetActivitiesQuery = createQuery(
     const pageCount = Math.ceil(total / filter.pageSize);
     return [resp.data.map(transformActivityResponse), pageCount] as const;
   },
+  { tags: [ACTIVITY_LIST_TAG] },
 );
 
 export const useGetRevenueQuery = createQuery(
@@ -43,6 +46,7 @@ export const useGetRevenueQuery = createQuery(
     });
     return resp.data;
   },
+  { tags: [ACTIVITY_LIST_TAG] },
 );
 
 export const useGetActivityQuery = createQuery(
@@ -64,6 +68,7 @@ export const useAddActivityMutation = createMutation(
     });
     return resp.data;
   },
+  { invalidateTags: [ACTIVITY_LIST_TAG] },
 );
 
 export const useUpdateActivityMutation = createMutation(
@@ -75,6 +80,7 @@ export const useUpdateActivityMutation = createMutation(
     });
     return resp.data;
   },
+  { invalidateTags: [ACTIVITY_LIST_TAG] },
 );
 
 export const useDeleteActivityMutation = createMutation(
@@ -84,4 +90,5 @@ export const useDeleteActivityMutation = createMutation(
       method: 'DELETE',
     });
   },
+  { invalidateTags: [ACTIVITY_LIST_TAG] },
 );

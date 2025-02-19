@@ -3,6 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import type { Locale } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
+import EventEmitter from 'eventemitter3';
 import { WebStorageStateStore } from 'oidc-client-ts';
 import type { ReactNode } from 'react';
 import type { AuthProviderProps } from 'react-oidc-context';
@@ -11,6 +12,7 @@ import { BrowserRouter, MemoryRouter } from 'react-router';
 import { axiosRequest } from './api/request';
 import { getAbsoluteURL } from './common/utils';
 import { Dialog } from './dialog';
+import { EventProvider } from './event';
 import { AUTH_CALLBACK_ROUTE } from './routes';
 import { theme } from './theme';
 
@@ -48,6 +50,10 @@ const oidcConfig: AuthProviderProps = {
 };
 // #endregion
 
+// #region Event
+const eventEmitter = new EventEmitter();
+// #endregion
+
 // #region Provider
 export default function Provider({ children }: { children: ReactNode }) {
   return (
@@ -61,7 +67,10 @@ export default function Provider({ children }: { children: ReactNode }) {
         {/* React Router */}
         <BrowserRouter>
           {/* react-oidc-context */}
-          <AuthProvider {...oidcConfig}>{children}</AuthProvider>
+          <AuthProvider {...oidcConfig}>
+            {/* event emitter */}
+            <EventProvider emitter={eventEmitter}>{children}</EventProvider>
+          </AuthProvider>
           <Dialog />
         </BrowserRouter>
       </LocalizationProvider>

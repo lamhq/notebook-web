@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { Fragment, Suspense, useCallback, useEffect } from 'react';
 import { requireAuth } from '../../../auth';
 import type { PaginationProps } from '../../../common/atoms/Pagination';
@@ -9,7 +9,9 @@ import Typography from '../../../common/atoms/Typography';
 import LoadingFallback from '../../../common/organism/LoadingFallback';
 import { formatDate } from '../../../common/utils';
 import { ErrorBoundary } from '../../../error';
-import { activityFilterAtom, onActivityChangedAtom } from '../../atoms';
+import { useEvent } from '../../../event';
+import { activityFilterAtom } from '../../atoms';
+import { ACTIVITY_CHANGED_EVENT } from '../../constants';
 import { useGetActivitiesQuery } from '../../hooks';
 import ActivityItem from '../../molecules/ActivityItem';
 import type { Activity } from '../../types';
@@ -65,13 +67,12 @@ export function ActivityListView({ activities }: ActivityListViewProps) {
 }
 
 function FetchActivitySelect() {
+  const eventEmitter = useEvent();
   const [filter, setFilter] = useAtom(activityFilterAtom);
   const {
-    data: [activities, totalItemCount],
+    data: [activities, pageCount],
     refetch,
   } = useGetActivitiesQuery(filter);
-  const pageCount = Math.ceil(totalItemCount / filter.pageSize);
-  const setActivityChangedHandler = useSetAtom(onActivityChangedAtom);
   const handlePageChange = useCallback<NonNullable<PaginationProps['onChange']>>(
     (_, newPage: number) => {
       setFilter((curFilter) => ({
@@ -84,8 +85,13 @@ function FetchActivitySelect() {
 
   // refetch activity list when an item is changed (added, updated, deleted)
   useEffect(() => {
-    setActivityChangedHandler({ onActivityChanged: refetch });
-  }, [setActivityChangedHandler, refetch]);
+    const handleActivityChange = () => {
+      console.log('refetch');
+      refetch();
+    };
+    eventEmitter.on(ACTIVITY_CHANGED_EVENT, handleActivityChange);
+    return () => void eventEmitter.off(ACTIVITY_CHANGED_EVENT, handleActivityChange);
+  }, [refetch]);
 
   // scroll to top when items change
   useEffect(() => {
