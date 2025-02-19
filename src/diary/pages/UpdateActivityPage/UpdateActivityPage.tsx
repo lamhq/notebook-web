@@ -15,8 +15,8 @@ function UpdateActivityPage() {
   if (!activityId) {
     throw new Error('Missing activity ID');
   }
-  const [activity] = useGetActivityQuery(activityId);
-  const [updateActivity] = useUpdateActivityMutation();
+  const { data: activity } = useGetActivityQuery(activityId);
+  const { executeMutation: updateActivity } = useUpdateActivityMutation();
   const { onActivityChanged } = useAtomValue(onActivityChangedAtom);
   const navigate = useNavigate();
   const handleError = useErrorHandler();
@@ -27,7 +27,7 @@ function UpdateActivityPage() {
   const handleSubmit: SubmitHandler<ActivityFormData> = useCallback(
     async (data) => {
       try {
-        await updateActivity({ id: activityId, ...data });
+        await updateActivity(activityId, data);
         onActivityChanged();
         void navigate('/');
       } catch (error) {

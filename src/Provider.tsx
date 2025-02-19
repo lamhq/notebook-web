@@ -8,11 +8,13 @@ import type { ReactNode } from 'react';
 import type { AuthProviderProps } from 'react-oidc-context';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter, MemoryRouter } from 'react-router';
+import { axiosRequest } from './api/request';
 import { getAbsoluteURL } from './common/utils';
 import { Dialog } from './dialog';
 import { AUTH_CALLBACK_ROUTE } from './routes';
 import { theme } from './theme';
 
+// #region Locale
 const customEnLocale: Locale = {
   ...enUS,
   options: {
@@ -20,7 +22,9 @@ const customEnLocale: Locale = {
     weekStartsOn: 1, // Sunday = 0, Monday = 1.
   },
 };
+// #endregion
 
+// #region Auth
 const oidcConfig: AuthProviderProps = {
   authority: process.env.PUBLIC_OIDC_AUTHORITY ?? '',
   client_id: process.env.PUBLIC_OIDC_CLIENT_ID ?? '',
@@ -36,10 +40,16 @@ const oidcConfig: AuthProviderProps = {
   client_secret: process.env.PUBLIC_OIDC_CLIENT_SECRET,
   // skip exchanging authorization token for non-auth callback routes
   skipSigninCallback: window.location.pathname !== AUTH_CALLBACK_ROUTE,
+  onSigninCallback: (user) => {
+    if (!user?.id_token) return;
+    // attach access token to API requests
+    axiosRequest.defaults.headers.common.Authorization = `Bearer ${user.id_token}`;
+  },
 };
+// #endregion
 
+// #region Provider
 export default function Provider({ children }: { children: ReactNode }) {
-  console.log('Provider');
   return (
     // Material UI
     <ThemeProvider theme={theme}>
@@ -58,7 +68,9 @@ export default function Provider({ children }: { children: ReactNode }) {
     </ThemeProvider>
   );
 }
+// #endregion
 
+// #region MockProvider
 export type MockProviderProps = {
   children: ReactNode;
 };
@@ -81,3 +93,4 @@ export function MockProvider({ children }: MockProviderProps) {
     </ThemeProvider>
   );
 }
+// #endregion

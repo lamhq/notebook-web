@@ -17,7 +17,7 @@ const defaultValues: ActivityFormData = {
 };
 
 function AddActivityPage() {
-  const [addActivity] = useAddActivityMutation();
+  const { executeMutation: addActivity } = useAddActivityMutation();
   const navigate = useNavigate();
   const { onActivityChanged } = useAtomValue(onActivityChangedAtom);
   const handleError = useErrorHandler();

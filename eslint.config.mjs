@@ -65,6 +65,11 @@ export default tseslint.config(
 
       // a lot of third party libraries violate this rule
       '@typescript-eslint/max-params': 'off',
+
+      // allow class parameter properties
+      '@typescript-eslint/parameter-properties': 'off',
+
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
     },
   },
 

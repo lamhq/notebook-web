@@ -1,8 +1,10 @@
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
+import { useAtomValue } from 'jotai';
 import AmountBadge from '../../../common/atoms/AmountBadge';
 import Typography from '../../../common/atoms/Typography';
 import { formatNumber } from '../../../common/utils';
+import { activityFilterAtom } from '../../atoms';
 import { useGetRevenueQuery } from '../../hooks';
 import useRevenueProps from './hooks';
 
@@ -52,6 +54,7 @@ export function RevenueView({ income, outcome }: RevenueViewProps) {
 }
 
 export default function Revenue() {
-  const [data] = useGetRevenueQuery();
+  const filter = useAtomValue(activityFilterAtom);
+  const { data } = useGetRevenueQuery(filter);
   return <RevenueView {...data} />;
 }

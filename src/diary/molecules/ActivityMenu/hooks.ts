@@ -8,7 +8,8 @@ import { useDeleteActivityMutation } from '../../hooks';
 import type { Activity } from '../../types';
 
 export function useDeleteActivityItemProps(activity: Activity) {
-  const [deleteActivity, { isLoading: isDeleting }] = useDeleteActivityMutation();
+  const { executeMutation: deleteActivity, isLoading: isDeleting } =
+    useDeleteActivityMutation();
   const { onActivityChanged } = useAtomValue(onActivityChangedAtom);
   const { confirm } = useDialogs();
   const handleError = useErrorHandler();
