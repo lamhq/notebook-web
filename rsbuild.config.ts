@@ -19,7 +19,7 @@ export default defineConfig({
       // http://localhost:3030/api -> http://localhost:3000/
       // http://localhost:3030/api/foo -> http://localhost:3000/foo
       '/api': {
-        target: 'http://localhost:3000',
+        target: process.env.API_URL,
         pathRewrite: { '^/api': '' },
       },
     },

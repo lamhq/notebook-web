@@ -7,10 +7,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { AxiosError } from 'axios';
 import type { FallbackProps } from 'react-error-boundary';
-import { Navigate } from 'react-router';
 import Actions from '../../common/atoms/Actions';
-
-const LOGIN_URL = '/login';
 
 export default function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const iconStyle = { fontSize: '5rem' };
@@ -28,13 +25,6 @@ export default function ErrorFallback({ error, resetErrorBoundary }: FallbackPro
         message = 'Please check your network connection.';
         icon = <CloudOffIcon style={iconStyle} />;
         break;
-
-      case 400:
-        message = 'Unknown error occurred.';
-        break;
-
-      case 401:
-        return <Navigate to={LOGIN_URL} />;
 
       case 404:
         message = 'Resource not found.';

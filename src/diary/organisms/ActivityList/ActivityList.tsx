@@ -1,14 +1,11 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { useAtom } from 'jotai';
-import { Fragment, Suspense, useCallback, useEffect } from 'react';
-import { requireAuth } from '../../../auth';
+import { Fragment, useCallback, useEffect } from 'react';
 import type { PaginationProps } from '../../../common/atoms/Pagination';
 import Pagination from '../../../common/atoms/Pagination';
 import Typography from '../../../common/atoms/Typography';
-import LoadingFallback from '../../../common/organism/LoadingFallback';
 import { formatDate } from '../../../common/utils';
-import { ErrorBoundary } from '../../../error';
 import { useEvent } from '../../../event';
 import { activityFilterAtom } from '../../atoms';
 import { ACTIVITY_CHANGED_EVENT } from '../../constants';
@@ -66,7 +63,7 @@ export function ActivityListView({ activities }: ActivityListViewProps) {
   );
 }
 
-function FetchActivitySelect() {
+export default function ActivityList() {
   const eventEmitter = useEvent();
   const [filter, setFilter] = useAtom(activityFilterAtom);
   const {
@@ -111,16 +108,3 @@ function FetchActivitySelect() {
     </Typography>
   );
 }
-
-function ActivityList() {
-  return (
-    <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <FetchActivitySelect />
-      </Suspense>
-    </ErrorBoundary>
-  );
-}
-
-export default requireAuth(ActivityList);
-// export default ActivityList;
