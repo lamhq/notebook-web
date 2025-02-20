@@ -11,6 +11,7 @@ import type { AuthProviderProps } from 'react-oidc-context';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter, MemoryRouter } from 'react-router';
 import { axiosRequest } from './api/request';
+import { IndexedDBStorage } from './auth';
 import { getAbsoluteURL } from './common/utils';
 import { Dialog } from './dialog';
 import { EventProvider } from './event';
@@ -39,7 +40,7 @@ const userManager = new UserManager({
   redirect_uri: getAbsoluteURL(AUTH_CALLBACK_ROUTE),
   response_type: 'code',
   scope: 'email openid profile',
-  userStore: new WebStorageStateStore({ store: window.localStorage }),
+  userStore: new WebStorageStateStore({ store: new IndexedDBStorage() }),
   /**
    * required for exchanging authorization code with access token
    * exposing the client secret on the client side can be insecure, but let's leave it for now
