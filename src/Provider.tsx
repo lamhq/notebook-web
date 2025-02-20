@@ -95,7 +95,8 @@ export function MockProvider({ children }: MockProviderProps) {
       >
         {/* React Router */}
         <MemoryRouter>
-          {children}
+          {/* react-oidc-context */}
+          <AuthProvider>{children}</AuthProvider>
           <Dialog />
         </MemoryRouter>
       </LocalizationProvider>

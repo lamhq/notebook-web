@@ -85,20 +85,13 @@ function FetchActivitySelect() {
 
   // refetch activity list when an item is changed (added, updated, deleted)
   useEffect(() => {
-    const handleActivityChange = () => {
-      console.log('refetch');
-      refetch();
-    };
-    eventEmitter.on(ACTIVITY_CHANGED_EVENT, handleActivityChange);
-    return () => void eventEmitter.off(ACTIVITY_CHANGED_EVENT, handleActivityChange);
+    eventEmitter.on(ACTIVITY_CHANGED_EVENT, refetch);
+    return () => void eventEmitter.off(ACTIVITY_CHANGED_EVENT, refetch);
   }, [refetch]);
 
   // scroll to top when items change
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [activities]);
 
   return activities.length ? (
@@ -130,3 +123,4 @@ function ActivityList() {
 }
 
 export default requireAuth(ActivityList);
+// export default ActivityList;

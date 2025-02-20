@@ -4,8 +4,6 @@ import { useNavigate, useParams } from 'react-router';
 import { requireAuth } from '../../../auth';
 import { Title } from '../../../common/templates/MainLayout';
 import { useErrorHandler } from '../../../error';
-// import { useEvent } from '../../../event';
-// import { ACTIVITY_CHANGED_EVENT } from '../../constants';
 import { useGetActivityQuery, useUpdateActivityMutation } from '../../hooks';
 import ActivityForm from '../../organisms/ActivityForm';
 import type { ActivityFormData } from '../../types';
@@ -17,7 +15,6 @@ function UpdateActivityPage() {
   }
   const { data: activity } = useGetActivityQuery(activityId);
   const { executeMutation: updateActivity } = useUpdateActivityMutation();
-  // const eventEmitter = useEvent();
   const navigate = useNavigate();
   const handleError = useErrorHandler();
   const { id: _, ...defaultFormValues } = activity;
@@ -25,7 +22,6 @@ function UpdateActivityPage() {
     async (data) => {
       try {
         await updateActivity(activityId, data);
-        // eventEmitter.emit(ACTIVITY_CHANGED_EVENT, activity);
         void navigate('/');
       } catch (error) {
         handleError(error);

@@ -55,7 +55,7 @@ export class CacheUtils implements CacheApi {
       let fcItem: FunctionCacheItem<Result> | undefined = fnCache.get(key);
 
       // return cached value, if not expired
-      if (fcItem !== undefined && fcItem.expireAt < now) {
+      if (fcItem !== undefined && fcItem.expireAt > now) {
         return fcItem.value;
       }
 
@@ -81,10 +81,12 @@ export class CacheUtils implements CacheApi {
   }
 
   public clearByTags(tags: string[]): void {
-    for (const [key, entry] of this.globalCache.entries()) {
-      const hasTag = tags.some((tag) => entry.tags.has(tag));
+    for (const gcItem of this.globalCache.values()) {
+      // if an item of the global cache contain tags
+      const hasTag = tags.some((tag) => gcItem.tags.has(tag));
       if (hasTag) {
-        this.globalCache.delete(key);
+        // clear function cache
+        gcItem.value.clear();
       }
     }
   }
