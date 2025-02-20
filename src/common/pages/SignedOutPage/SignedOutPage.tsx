@@ -17,7 +17,7 @@ export default function SignedOutPage() {
       <Typography component="h1" variant="h2">
         You've been signed out
       </Typography>
-      <Typography>
+      <Typography component="div">
         <p>
           To sign in again, choose the <strong>Sign In</strong> button below.
         </p>
@@ -25,12 +25,12 @@ export default function SignedOutPage() {
           Or return to &nbsp;
           <Link to={HOME_ROUTE}>home page</Link>.
         </p>
+        <p>
+          <Button onClick={signIn} variant="contained">
+            sign in
+          </Button>
+        </p>
       </Typography>
-      <p>
-        <Button onClick={signIn} variant="contained">
-          sign in
-        </Button>
-      </p>
     </Container>
   );
 }
