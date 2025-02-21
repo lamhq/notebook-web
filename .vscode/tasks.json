@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "start (dev)",
       "type": "npm",
       "script": "dev",
-      "label": "npm: dev",
       "isBackground": true,
       "problemMatcher": {
         "owner": "rsbuild-dev",
@@ -16,6 +16,14 @@
           "beginsPattern": "start\\s+Building.*$",
           "endsPattern": "ready\\s+Built in.*$"
         }
+      }
+    },
+    {
+      "label": "deploy",
+      "type": "shell",
+      "command": "terraform apply -var-file=\"input.tfvars\" --auto-approve",
+      "options": {
+        "cwd": "infra"
       }
     }
   ]
