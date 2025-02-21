@@ -1,78 +1,94 @@
-import type { AxiosHeaderValue } from 'axios';
-import { createMutation, createQuery } from '../common/api';
+import type { AxiosRequest } from '../api';
+import { createMutation, createQuery } from '../api';
 import { removeEmptyFields } from '../common/utils';
 import type { Activity, ActivityFilter, ActivityFormData, Revenue } from './types';
 import { buildQueryFromFilter } from './utils';
 
-export const useGetTagsQuery = createQuery(
-  () => ({
+const ACTIVITY_LIST_TAG = 'ACTIVITY_LIST';
+
+function transformActivityResponse(data: Activity): Activity {
+  return {
+    ...data,
+    time: new Date(data.time),
+  };
+}
+
+export const useGetTagsQuery = createQuery(async (sendRequest: AxiosRequest) => {
+  const resp = await sendRequest<string[]>({
     url: `/diary/tags`,
     method: 'GET',
-  }),
-  (resp: { data: string[] }) => resp.data,
-);
+  });
+  return resp.data;
+});
 
 export const useGetActivitiesQuery = createQuery(
-  (filter?: ActivityFilter) => ({
-    url: '/diary/activities',
-    method: 'GET',
-    params: buildQueryFromFilter(filter),
-  }),
-  (resp: {
-    data: Activity[];
-    headers: Record<string, AxiosHeaderValue | undefined>;
-  }) => {
-    const hVal = resp.headers['x-total-count'];
-    const total = typeof hVal === 'string' ? parseInt(hVal, 10) : 0;
-    return [resp.data, total] as const;
+  async (sendRequest: AxiosRequest, filter: ActivityFilter) => {
+    const resp = await sendRequest<Activity[]>({
+      url: '/diary/activities',
+      method: 'GET',
+      params: buildQueryFromFilter(filter),
+    });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const value = resp.headers['x-total-count'];
+    const total = typeof value === 'string' ? parseInt(value, 10) : 0;
+    const pageCount = Math.ceil(total / filter.pageSize);
+    return [resp.data.map(transformActivityResponse), pageCount] as const;
   },
+  { tags: [ACTIVITY_LIST_TAG] },
 );
 
 export const useGetRevenueQuery = createQuery(
-  (filter: ActivityFilter) => {
-    const params = buildQueryFromFilter(filter);
-    return {
+  async (sendRequest: AxiosRequest, filter: ActivityFilter) => {
+    const resp = await sendRequest<Revenue>({
       url: '/diary/stat/revenue',
       method: 'GET',
-      params: params,
-    };
+      params: buildQueryFromFilter(filter),
+    });
+    return resp.data;
   },
-  (resp: { data: Revenue }) => resp.data,
+  { tags: [ACTIVITY_LIST_TAG] },
 );
 
 export const useGetActivityQuery = createQuery(
-  (id: string) => ({
-    url: `/diary/activities/${id}`,
-    method: 'GET',
-  }),
-  (resp: { data: Activity }) => resp.data,
+  async (sendRequest: AxiosRequest, id: string) => {
+    const resp = await sendRequest<Activity>({
+      url: `/diary/activities/${id}`,
+      method: 'GET',
+    });
+    return transformActivityResponse(resp.data);
+  },
 );
 
 export const useAddActivityMutation = createMutation(
-  (data: ActivityFormData) => ({
-    url: `/diary/activities`,
-    method: 'POST',
-    data: removeEmptyFields(data),
-  }),
-  (resp: { data: Activity }) => resp.data,
+  async (sendRequest: AxiosRequest, data: ActivityFormData) => {
+    const resp = await sendRequest<Activity, ActivityFormData>({
+      url: `/diary/activities`,
+      method: 'POST',
+      data: removeEmptyFields(data),
+    });
+    return resp.data;
+  },
+  { invalidateTags: [ACTIVITY_LIST_TAG] },
 );
 
 export const useUpdateActivityMutation = createMutation(
-  (data: Activity) => {
-    const { id, ...rest } = data;
-    return {
+  async (sendRequest: AxiosRequest, id, data: ActivityFormData) => {
+    const resp = await sendRequest<Activity, ActivityFormData>({
       url: `/diary/activities/${id}`,
       method: 'PUT',
-      data: removeEmptyFields(rest),
-    };
+      data: removeEmptyFields(data),
+    });
+    return resp.data;
   },
-  (resp: { data: Activity }) => resp.data,
+  { invalidateTags: [ACTIVITY_LIST_TAG] },
 );
 
 export const useDeleteActivityMutation = createMutation(
-  (id: string) => ({
-    url: `/diary/activities/${id}`,
-    method: 'DELETE',
-  }),
-  (resp: { data: null }) => resp.data,
+  async (sendRequest: AxiosRequest, id: string) => {
+    await sendRequest<never>({
+      url: `/diary/activities/${id}`,
+      method: 'DELETE',
+    });
+  },
+  { invalidateTags: [ACTIVITY_LIST_TAG] },
 );

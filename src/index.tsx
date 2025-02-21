@@ -4,30 +4,14 @@ import App from './App';
 import Provider from './Provider';
 import './styles.css';
 
-async function enableNetworkMock() {
-  if (process.env.NODE_ENV !== 'development') {
-    return;
-  }
-
-  const { worker } = await import('./msw/browser');
-
-  // `worker.start()` returns a Promise that resolves
-  // once the Service Worker is up and ready to intercept requests.
-  await worker.start();
-}
-
 const rootEl = document.getElementById('root');
 if (rootEl) {
   const root = reactDom.createRoot(rootEl);
-  enableNetworkMock()
-    .then(() => {
-      root.render(
-        <StrictMode>
-          <Provider>
-            <App />
-          </Provider>
-        </StrictMode>,
-      );
-    })
-    .catch(console.error);
+  root.render(
+    <StrictMode>
+      <Provider>
+        <App />
+      </Provider>
+    </StrictMode>,
+  );
 }

@@ -1,8 +1,8 @@
-import { styled } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router';
-
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router';
+import { requireAuth } from '../../../auth';
 import Actions from '../../../common/atoms/Actions';
 import { Title } from '../../../common/templates/MainLayout';
 import Revenue from '../../atoms/Revenue';
@@ -15,7 +15,7 @@ const ToolBar = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-export default function ListActivityPage() {
+function ListActivityPage() {
   return (
     <>
       <Title>Activities</Title>
@@ -42,3 +42,5 @@ export default function ListActivityPage() {
     </>
   );
 }
+
+export default requireAuth(ListActivityPage);

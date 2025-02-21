@@ -13,12 +13,3 @@ export const activityFilterAtom = atom<ActivityFilter>({
   page: 1,
   pageSize: 10,
 });
-
-/**
- * Store the event handler to notify `ActivitityList` to refetch the activities
- *
- * The `onActivityChanged` handler should be called when an activity is added, updated, or deleted
- */
-export const onActivityChangedAtom = atom<{ onActivityChanged: () => void }>({
-  onActivityChanged: () => undefined,
-});

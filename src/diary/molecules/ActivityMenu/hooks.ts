@@ -1,15 +1,16 @@
-import { useAtomValue } from 'jotai';
 import { useCallback } from 'react';
 import { formatDate } from '../../../common/utils';
 import { useDialogs } from '../../../dialog';
 import { useErrorHandler } from '../../../error';
-import { onActivityChangedAtom } from '../../atoms';
+import { useEvent } from '../../../event';
+import { ACTIVITY_CHANGED_EVENT } from '../../constants';
 import { useDeleteActivityMutation } from '../../hooks';
 import type { Activity } from '../../types';
 
 export function useDeleteActivityItemProps(activity: Activity) {
-  const [deleteActivity, { isLoading: isDeleting }] = useDeleteActivityMutation();
-  const { onActivityChanged } = useAtomValue(onActivityChangedAtom);
+  const { executeMutation: deleteActivity, isLoading: isDeleting } =
+    useDeleteActivityMutation();
+  const eventEmitter = useEvent();
   const { confirm } = useDialogs();
   const handleError = useErrorHandler();
   const handleDelete = useCallback(async () => {
@@ -20,7 +21,7 @@ export function useDeleteActivityItemProps(activity: Activity) {
       if (!isOk) return;
 
       await deleteActivity(activity.id);
-      onActivityChanged();
+      eventEmitter.emit(ACTIVITY_CHANGED_EVENT, activity);
     } catch (error) {
       handleError(error);
     }

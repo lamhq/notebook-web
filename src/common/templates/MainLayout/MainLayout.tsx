@@ -10,13 +10,14 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import { useAtomValue, useSetAtom } from 'jotai';
 import type { ReactNode } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
 import { Alert } from '../../../alert';
 import { ErrorBoundary } from '../../../error';
 import HideOnScroll from '../../atoms/HideOnScroll/HideOnScroll';
 import ScrollOnClick from '../../atoms/ScrollOnClick/ScrollOnClick';
 import Typography from '../../atoms/Typography';
+import LoadingFallback from '../../organism/LoadingFallback';
 import { pageTitleAtom } from './atoms';
 import Sidebar from './Sidebar';
 
@@ -79,7 +80,9 @@ export default function MainLayout() {
       <Container sx={{ py: 2 }}>
         <Alert />
         <ErrorBoundary>
-          <Outlet />
+          <Suspense fallback={<LoadingFallback />}>
+            <Outlet />
+          </Suspense>
         </ErrorBoundary>
       </Container>
       <ScrollOnClick anchorSelector="#back-to-top-anchor">
