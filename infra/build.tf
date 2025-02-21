@@ -5,7 +5,7 @@ module "file_extensions" {
 }
 
 # upload the build directory to s3, under `build/`
-resource "aws_s3_object" "files" {
+resource "aws_s3_object" "code_files" {
   for_each     = fileset(local.build_dir, "**")
   bucket       = aws_s3_bucket.project_bucket.id
   key          = "build/${each.value}"
