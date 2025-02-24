@@ -56,7 +56,25 @@ resource "aws_iam_policy" "code_deploy_policy" {
           "${aws_s3_bucket.web_bucket.arn}",
           "${aws_s3_bucket.web_bucket.arn}/*",
         ]
-      }
+      },
+      {
+        Effect = "Allow"
+        Action = ["cloudfront:*"]
+        Resource = [
+          "${aws_cloudfront_distribution.web_distribution.arn}",
+          "arn:aws:cloudfront::${local.aws_acc_id}:origin-access-control/${aws_cloudfront_origin_access_control.s3_oac.id}",
+          "${aws_cloudfront_function.spa_route_rewrite.arn}",
+          "${aws_cloudfront_function.remove_api_prefix.arn}"
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = ["iam:*"]
+        Resource = [
+          "arn:aws:iam::${local.aws_acc_id}:role/${local.name_prefix}-*",
+          "arn:aws:iam::${local.aws_acc_id}:policy/${local.name_prefix}-*"
+        ]
+      },
     ]
   })
 }
