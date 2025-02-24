@@ -9,4 +9,4 @@ export type AxiosRequest = <R, A = unknown>(
   arg: AxiosRequestConfig<A>,
 ) => Promise<AxiosResponse<R>>;
 
-export const axiosRequest = axios.create({ baseURL: '/api' });
+export const axiosRequest = axios.create({ baseURL: process.env.PUBLIC_API_URL });

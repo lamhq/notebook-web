@@ -1,5 +1,20 @@
+variable "api_domain" {
+  type        = string
+  description = "Domain name of the API service"
+}
+
+variable "cloudfront_domain" {
+  type        = string
+  description = "Domain name corresponding to the CloudFront distribution"
+}
+
+variable "acm_certificate_arn" {
+  type        = string
+  description = "ARN of the AWS Certificate Manager certificate that is used with CloudFront custom domain"
+}
+
 locals {
-  s3_origin_id  = "s3Origin"
+  web_origin_id = "webOrigin"
   api_origin_id = "apiOrigin"
 }
 
@@ -8,6 +23,13 @@ resource "aws_cloudfront_distribution" "web_distribution" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   price_class         = "PriceClass_200"
+  aliases             = [var.cloudfront_domain]
+
+  viewer_certificate {
+    acm_certificate_arn      = var.acm_certificate_arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
+  }
 
   restrictions {
     geo_restriction {
@@ -16,21 +38,19 @@ resource "aws_cloudfront_distribution" "web_distribution" {
     }
   }
 
-  viewer_certificate {
-    cloudfront_default_certificate = true
-  }
-
+  # S3 origin (web)
   origin {
-    origin_id                = local.s3_origin_id
+    origin_id                = local.web_origin_id
     origin_path              = "/build"
-    domain_name              = aws_s3_bucket.project_bucket.bucket_regional_domain_name
+    domain_name              = aws_s3_bucket.web_bucket.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
   }
 
+  # Amazon API Gateway origin (api)
   origin {
     origin_id   = local.api_origin_id
-    domain_name = "apmh0qv178.execute-api.ap-southeast-1.amazonaws.com"
-    # origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
+    origin_path = "/v1"
+    domain_name = var.api_domain
     custom_origin_config {
       http_port              = 80
       https_port             = 443
@@ -42,7 +62,7 @@ resource "aws_cloudfront_distribution" "web_distribution" {
   default_cache_behavior {
     allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = local.s3_origin_id
+    target_origin_id       = local.web_origin_id
     compress               = true
     viewer_protocol_policy = "allow-all"
     cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6" # CachingOptimized
@@ -56,13 +76,14 @@ resource "aws_cloudfront_distribution" "web_distribution" {
 
   # route request to backend API
   ordered_cache_behavior {
-    path_pattern           = "/api/*"
-    allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods         = ["HEAD", "GET"]
-    target_origin_id       = local.api_origin_id
-    compress               = true
-    viewer_protocol_policy = "allow-all"
-    cache_policy_id        = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled
+    path_pattern             = "/api/*"
+    allowed_methods          = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods           = ["HEAD", "GET"]
+    target_origin_id         = local.api_origin_id
+    compress                 = true
+    viewer_protocol_policy   = "https-only"
+    cache_policy_id          = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled
+    origin_request_policy_id = "b689b0a8-53d0-40ab-baf2-68738e2966ac" # AllViewerExceptHostHeader
 
     function_association {
       event_type   = "viewer-request"
@@ -108,9 +129,9 @@ function handler(event) {
   var uri = request.uri;
  
   // Check if the URI starts with 'api/'
-  if (uri.startsWith('/api/')) {
-    // Replace /api/ with /v1/
-    request.uri = uri.replace(/^\/api\//, '/v1/');
+  if (uri.startsWith('/api')) {
+    // Remove /api
+    request.uri = uri.replace(/^\/api/, '');
   }
  
   return request;
@@ -118,7 +139,7 @@ function handler(event) {
 EOF
 }
 
-output "web_domain" {
+output "cloudfront_domain" {
   value       = aws_cloudfront_distribution.web_distribution.domain_name
   description = "The domain name of the CloudFront distribution"
 }

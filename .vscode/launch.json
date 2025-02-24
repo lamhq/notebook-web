@@ -9,7 +9,7 @@
       "name": "Launch and debug with Chrome",
       "request": "launch",
       "url": "http://localhost:3030",
-      "preLaunchTask": "npm: dev"
+      "preLaunchTask": "start (dev)"
     }
   ]
 }
