@@ -57,16 +57,18 @@ resource "aws_iam_policy" "code_deploy_policy" {
           "${aws_s3_bucket.web_bucket.arn}/*",
         ]
       },
+      # update cloudfront
       {
         Effect = "Allow"
         Action = ["cloudfront:*"]
         Resource = [
           "${aws_cloudfront_distribution.web_distribution.arn}",
-          "arn:aws:cloudfront::${local.aws_acc_id}:origin-access-control/${aws_cloudfront_origin_access_control.s3_oac.id}",
           "${aws_cloudfront_function.spa_route_rewrite.arn}",
-          "${aws_cloudfront_function.remove_api_prefix.arn}"
+          "${aws_cloudfront_function.remove_api_prefix.arn}",
+          "arn:aws:cloudfront::${local.aws_acc_id}:origin-access-control/${aws_cloudfront_origin_access_control.s3_oac.id}",
         ]
       },
+      # getting role & policy
       {
         Effect = "Allow"
         Action = ["iam:*"]
