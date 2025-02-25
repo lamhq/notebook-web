@@ -1,0 +1,21 @@
+{
+  "name": "Notebook",
+  "short_name": "Notebook",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": ".",
+  "description": "My note application",
+  "background_color": "#eff1f2",
+  "theme_color": "#296BE3",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "96x96 128x128 256x256 512x512"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ]
+}
