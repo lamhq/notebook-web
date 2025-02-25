@@ -58,6 +58,13 @@ export const theme = createTheme({
         variant: 'standard',
       },
     },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          padding: '4px 0 5px',
+        },
+      },
+    },
     MuiAutocomplete: {
       styleOverrides: {
         tag: {
