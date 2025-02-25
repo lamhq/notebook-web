@@ -74,17 +74,6 @@ resource "aws_cloudfront_distribution" "web_distribution" {
     }
   }
 
-  # disable cache for default root object
-  ordered_cache_behavior {
-    path_pattern           = "/"
-    allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods         = ["HEAD", "GET"]
-    target_origin_id       = local.web_origin_id
-    compress               = true
-    viewer_protocol_policy = "allow-all"
-    cache_policy_id        = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled
-  }
-
   # route request to backend API
   ordered_cache_behavior {
     path_pattern             = "/api/*"
