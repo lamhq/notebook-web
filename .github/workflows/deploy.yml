@@ -17,6 +17,11 @@ jobs:
     environment: prod
     runs-on: ubuntu-latest
     steps:
+      - name: Debug env
+        run: |
+          echo "env var: " $PUBLIC_OIDC_CLIENT_ID
+          echo "github var: " ${{vars.PUBLIC_OIDC_CLIENT_ID}}
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -35,7 +40,6 @@ jobs:
       - name: Build the app
         run: |
           pnpm install --prod=false
-          echo $PUBLIC_OIDC_CLIENT_ID
           pnpm run build
 
       - name: Configure aws credentials
