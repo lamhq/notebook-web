@@ -4,7 +4,8 @@
 export const HOME_ROUTE = '/';
 
 /**
- * Where the application receive a response from OIDC/OAuth2 provider with an aithorization code
+ * URL to redirect the user back to after authentication
+ * This's where the application receive a response from OIDC/OAuth2 provider with an authorization code
  */
 export const AUTH_CALLBACK_ROUTE = '/auth/callback';
 

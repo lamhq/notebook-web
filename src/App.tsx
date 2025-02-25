@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router';
-import AuthCallbackPage from './auth/pages/AuthCallback';
+import AuthCallbackPage from './auth/pages/AuthCallbackPage';
+import SignedOutPage from './auth/pages/SignedOutPage';
 import NotFoundPage from './common/pages/NotFoundPage';
-import SignedOutPage from './common/pages/SignedOutPage';
 import MainLayout from './common/templates/MainLayout';
 import AddActivityPage from './diary/pages/AddActivityPage';
 import ListActivityPage from './diary/pages/ListActivityPage';

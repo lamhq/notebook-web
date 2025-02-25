@@ -7,13 +7,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Grid from '@mui/material/Grid2';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import { useAtom } from 'jotai';
 import { useCallback, useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
-
-import { useAtom } from 'jotai';
 import Actions from '../../../common/atoms/Actions';
-import DatePicker from '../../../common/atoms/DatePicker';
+import { DesktopDatePicker } from '../../../common/atoms/DatePicker';
 import { activityFilterAtom } from '../../atoms';
 import TimeRangeSelect from '../../atoms/TimeRangeSelect';
 import ActivityTagSelect from '../../molecules/ActivityTagSelect';
@@ -97,14 +96,18 @@ export function SearchDialogView({ values, onSubmit }: SearchDialogViewProps) {
                     <Controller
                       name="from"
                       control={control}
-                      render={({ field }) => <DatePicker label="From" {...field} />}
+                      render={({ field }) => (
+                        <DesktopDatePicker label="From" {...field} />
+                      )}
                     />
                   </Grid>
                   <Grid size={{ xs: 12, sm: 6 }}>
                     <Controller
                       name="to"
                       control={control}
-                      render={({ field }) => <DatePicker label="To" {...field} />}
+                      render={({ field }) => (
+                        <DesktopDatePicker label="To" {...field} />
+                      )}
                     />
                   </Grid>
                 </>
