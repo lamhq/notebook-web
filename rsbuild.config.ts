@@ -14,7 +14,14 @@ export default defineConfig({
   plugins: [pluginReact()],
   html: {
     title: 'Notebook',
-    favicon: 'src/favicon.svg',
+    favicon: 'public/favicon.svg',
+    tags: [
+      {
+        tag: 'link',
+        attrs: { rel: 'manifest', href: '/manifest.json' },
+        head: true,
+      },
+    ],
   },
   server: {
     proxy: {
