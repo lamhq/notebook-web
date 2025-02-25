@@ -122,6 +122,7 @@ export default function ActivityForm({
                 helperText={errors.income?.message}
                 onFocus={handleFocus}
                 {...field}
+                value={field.value ?? 0}
               />
             )}
           />
@@ -138,6 +139,7 @@ export default function ActivityForm({
                 helperText={errors.outcome?.message}
                 onFocus={handleFocus}
                 {...field}
+                value={field.value ?? 0}
               />
             )}
           />
