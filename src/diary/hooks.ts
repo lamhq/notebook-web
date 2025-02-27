@@ -1,10 +1,11 @@
 import type { AxiosRequest } from '../api';
 import { createMutation, createQuery } from '../api';
-import { removeEmptyFields } from '../common/utils';
 import type { Activity, ActivityFilter, ActivityFormData, Revenue } from './types';
 import { buildQueryFromFilter } from './utils';
 
 const ACTIVITY_LIST_TAG = 'ACTIVITY_LIST';
+
+const ACTIVITY_DETAIL_TAG = 'ACTIVITY_DETAIL';
 
 function transformActivityResponse(data: Activity): Activity {
   return {
@@ -57,6 +58,7 @@ export const useGetActivityQuery = createQuery(
     });
     return transformActivityResponse(resp.data);
   },
+  { tags: [ACTIVITY_DETAIL_TAG] },
 );
 
 export const useAddActivityMutation = createMutation(
@@ -64,7 +66,7 @@ export const useAddActivityMutation = createMutation(
     const resp = await sendRequest<Activity, ActivityFormData>({
       url: `/diary/activities`,
       method: 'POST',
-      data: removeEmptyFields(data),
+      data,
     });
     return resp.data;
   },
@@ -76,11 +78,11 @@ export const useUpdateActivityMutation = createMutation(
     const resp = await sendRequest<Activity, ActivityFormData>({
       url: `/diary/activities/${id}`,
       method: 'PUT',
-      data: removeEmptyFields(data),
+      data,
     });
     return resp.data;
   },
-  { invalidateTags: [ACTIVITY_LIST_TAG] },
+  { invalidateTags: [ACTIVITY_LIST_TAG, ACTIVITY_DETAIL_TAG] },
 );
 
 export const useDeleteActivityMutation = createMutation(

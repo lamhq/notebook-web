@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import TextField from '@mui/material/TextField';
-import type { FocusEventHandler } from 'react';
 import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router';
@@ -19,8 +18,8 @@ const activityFormSchema = yup.object().shape({
   time: yup.date().required(),
   content: yup.string().required('This field is required'),
   tags: yup.array(yup.string().required()).required(),
-  income: yup.number(),
-  outcome: yup.number(),
+  income: yup.string(),
+  outcome: yup.string(),
 });
 
 export type ActivityFormProps = {
@@ -44,16 +43,11 @@ export default function ActivityForm({
   });
   const noteContent = watch('content');
 
-  // auto select text on focus
-  const handleFocus: FocusEventHandler<HTMLInputElement> = (event) => {
-    event.target.select();
-  };
-
   // auto set income and outcome value base on activity's note
   useEffect(() => {
     const [income, outcome] = calcAmounts(noteContent);
-    setValue('income', income);
-    setValue('outcome', outcome);
+    if (income) setValue('income', income.toString());
+    if (outcome) setValue('outcome', outcome.toString());
   }, [noteContent, setValue]);
 
   return (
@@ -120,9 +114,8 @@ export default function ActivityForm({
                 type="number"
                 error={!!errors.income}
                 helperText={errors.income?.message}
-                onFocus={handleFocus}
                 {...field}
-                value={field.value ?? 0}
+                value={field.value ?? ''}
               />
             )}
           />
@@ -137,9 +130,8 @@ export default function ActivityForm({
                 type="number"
                 error={!!errors.outcome}
                 helperText={errors.outcome?.message}
-                onFocus={handleFocus}
                 {...field}
-                value={field.value ?? 0}
+                value={field.value ?? ''}
               />
             )}
           />
