@@ -17,7 +17,13 @@ function UpdateActivityPage() {
   const { executeMutation: updateActivity } = useUpdateActivityMutation();
   const navigate = useNavigate();
   const handleError = useErrorHandler();
-  const { id: _, ...defaultFormValues } = activity;
+  const defaultFormValues: ActivityFormData = {
+    content: activity.content,
+    tags: activity.tags,
+    time: activity.time,
+    income: activity.income?.toString(),
+    outcome: activity.outcome?.toString(),
+  };
   const handleSubmit: SubmitHandler<ActivityFormData> = useCallback(
     async (data) => {
       try {
