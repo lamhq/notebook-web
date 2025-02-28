@@ -3,18 +3,17 @@ variable "tf_backend_policy_arn" {
   description = "ARN of IAM policy for managing Terraform backend resources on AWS"
 }
 
-variable "github_oidc_provider_arn" {
-  type        = string
-  description = "ARN of Identity provider for Github"
-}
-
 variable "github_repo_id" {
   description = "GitHub repository identifier"
   type        = string
   default     = "github-username/repository-name"
 }
 
-# IAM role for CD server to deploy the app (in this case, Github Action)
+variable "github_oidc_provider_arn" {
+  type        = string
+  description = "ARN of Identity provider for Github"
+}
+
 resource "aws_iam_role" "web_cd_role" {
   name = "${local.name_prefix}-cd-role"
 
@@ -40,7 +39,6 @@ resource "aws_iam_role" "web_cd_role" {
   })
 }
 
-# permissions to manage project's resources
 resource "aws_iam_policy" "code_deploy_policy" {
   name        = "${local.name_prefix}-code-deploy-policy"
   description = "Permissions to deploy code for the web app"
@@ -92,5 +90,6 @@ resource "aws_iam_role_policy_attachment" "tf_backend_pol_attm" {
 }
 
 output "web_cd_role_arn" {
-  value = aws_iam_role.web_cd_role.arn
+  description = "IAM role for CD server to deploy the app (in this case, Github Action)"
+  value       = aws_iam_role.web_cd_role.arn
 }
