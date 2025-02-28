@@ -3,14 +3,14 @@ variable "api_domain" {
   description = "Domain name of the API service"
 }
 
-variable "cloudfront_domain" {
+variable "web_domain" {
   type        = string
-  description = "Domain name corresponding to the CloudFront distribution"
+  description = "Custom domain name for the website"
 }
 
 variable "acm_certificate_arn" {
   type        = string
-  description = "ARN of the AWS Certificate Manager certificate that is used with CloudFront custom domain"
+  description = "ARN of the SSL sertificate for the web domain (stored in AWS Certificate Manager)"
 }
 
 locals {
@@ -23,7 +23,7 @@ resource "aws_cloudfront_distribution" "web_distribution" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   price_class         = "PriceClass_200"
-  aliases             = [var.cloudfront_domain]
+  aliases             = [var.web_domain]
 
   viewer_certificate {
     acm_certificate_arn      = var.acm_certificate_arn
