@@ -139,7 +139,7 @@ function handler(event) {
 EOF
 }
 
-output "web_domain" {
+output "cloudfront_domain" {
   value       = aws_cloudfront_distribution.web_distribution.domain_name
   description = "The domain name of the CloudFront distribution"
 }
