@@ -9,13 +9,14 @@
   "theme_color": "#296BE3",
   "icons": [
     {
-      "src": "/favicon.svg",
-      "sizes": "96x96 128x128 256x256 512x512"
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "/favicon.svg",
+      "src": "/favicon-512x512.png",
       "sizes": "512x512",
-      "purpose": "maskable"
+      "type": "image/png"
     }
   ]
 }
